@@ -13,7 +13,7 @@
 >
 
     <testsuites>
-        <testsuite name="nyx/connect">
+        <testsuite name="nyx/core">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

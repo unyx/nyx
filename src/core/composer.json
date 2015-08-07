@@ -1,0 +1,30 @@
+{
+  "name":        "nyx/core",
+  "description": "The common classes of Nyx.",
+  "keywords":    ["nyx", "core", "types"],
+  "license":     "MIT",
+  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "authors": [
+    {"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
+  ],
+
+  "support": {
+    "source": "http://labs.muyo.io/nyx/nyx",
+    "issues": "http://labs.muyo.io/nyx/nyx/issues",
+    "email":  "labs@muyo.io"
+  },
+
+  "require": {
+    "php": ">=7.0.0b2"
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+
+  "autoload": {
+    "psr-0": {"nyx\\core\\": ""}
+  },
+
+  "minimum-stability": "dev"
+}
