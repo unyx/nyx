@@ -1,0 +1,30 @@
+{
+  "name":        "nyx/diagnostics",
+  "description": "Diagnostics, debugging and profiling tools.",
+  "keywords":    ["nyx", "debugging", "diagnostics", "exception", "error", "profiling", "benchmark", "dump", "analysis"],
+  "license":     "MIT",
+  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "authors": [
+	{"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
+  ],
+
+  "support": {
+	"source": "http://labs.muyo.io/nyx/nyx",
+	"issues": "http://labs.muyo.io/nyx/nyx/issues",
+	"email":  "labs@muyo.io"
+  },
+
+  "require": {
+	"php": ">=7.0.0b2"
+  },
+
+  "require-dev": {
+	"phpunit/phpunit": "*"
+  },
+
+  "autoload": {
+	"psr-4": {"nyx\\diagnostics\\": ""}
+  },
+
+  "minimum-stability": "dev"
+}
