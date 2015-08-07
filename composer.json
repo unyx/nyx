@@ -1,0 +1,43 @@
+{
+	"name":        "nyx/nyx",
+	"description": "Nyx. Put the background in the foreground.",
+	"keywords":    ["nyx", "framework"],
+	"license":     "MIT",
+	"homepage":    "https://labs.muyo.io/nyx/nyx",
+	"authors": [
+		{"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"},
+		{"name": "Andrzej Mazur",    "email": "andrzej.mazur@end3r.com", "homepage": "http://end3r.com", "role": "Developer"}
+	],
+
+	"support": {
+		"source": "http://labs.muyo.io/nyx/nyx",
+		"issues": "http://labs.muyo.io/nyx/nyx/issues",
+		"email":  "labs@muyo.io"
+	},
+
+	"require": {
+	  "php": ">=7.0.0b2",
+	  "ext-mbstring": "*",
+	  "ext-openssl": "*",
+	  "psr/log": "dev-master",
+      "psr/http-message": "dev-master"
+	},
+
+	"require-dev": {
+		"phpunit/phpunit": "*"
+	},
+
+	"replace": {
+		"nyx/connect":      "self.version",
+		"nyx/core":         "self.version",
+		"nyx/diagnostics":  "self.version",
+		"nyx/events":       "self.version",
+		"nyx/utils":        "self.version"
+	},
+
+	"autoload": {
+		"psr-4": {"nyx\\": "src/"}
+	},
+
+	"minimum-stability": "dev"
+}
