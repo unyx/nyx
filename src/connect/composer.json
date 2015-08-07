@@ -1,0 +1,32 @@
+{
+  "name":        "nyx/connect",
+  "description": "Nyx connectivity library.",
+  "keywords":    ["nyx", "connection", "socket", "stream", "http"],
+  "license":     "MIT",
+  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "authors": [
+    {"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
+  ],
+
+  "support": {
+    "source": "http://labs.muyo.io/nyx/nyx",
+    "issues": "http://labs.muyo.io/nyx/nyx/issues",
+    "email":  "labs@muyo.io"
+  },
+
+  "require": {
+    "php": ">=7.0.0b2",
+    "psr/log": "dev-master",
+    "psr/http-message": "dev-master"
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+
+  "autoload": {
+    "psr-4": {"nyx\\connect\\": ""}
+  },
+
+  "minimum-stability": "dev"
+}
