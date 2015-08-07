@@ -2,7 +2,7 @@
 [![Latest Stable Version](https://poser.pugx.org/nyx/core/v/stable.png)](https://packagist.org/packages/nyx/core)
 [![Total Downloads](https://poser.pugx.org/nyx/core/downloads.png)](https://packagist.org/packages/nyx/core)
 [![Build Status](https://travis-ci.org/unyx/core.png)](https://travis-ci.org/unyx/core)
-[![Dependency Status](https://www.versioneye.com/user/projects/52754dca632bac4259000a30/badge.png)](https://www.versioneye.com/user/projects/52754dca632bac4259000a30)
+[![Dependency Status](https://www.versioneye.com/user/projects/55c5432865376200170035f8/badge.png)](https://www.versioneye.com/user/projects/55c5432865376200170035f8)
 
 -----
 
