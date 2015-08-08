@@ -19,17 +19,17 @@ class Stream implements interfaces\Stream
      */
     private static $rwh = [
         'read' => [
-            'r'   => true, 'w+'  => true, 'r+'  => true, 'x+'  => true,
-            'c+'  => true, 'a+'  => true, 'rb'  => true, 'w+b' => true,
-            'r+b' => true, 'x+b' => true, 'c+b' => true, 'rt'  => true,
-            'w+t' => true, 'r+t' => true, 'x+t' => true, 'c+t' => true
+            'r'   => true, 'w+'  => true, 'r+'  => true, 'rw'  => true, 'x+'  => true,
+            'c+'  => true, 'a+'  => true, 'a+b' => true, 'rb'  => true, 'w+b' => true,
+            'r+b' => true, 'x+b' => true, 'c+b' => true, 'rt'  => true, 'w+t' => true,
+            'r+t' => true, 'x+t' => true, 'c+t' => true
         ],
         'write' => [
-            'w'   => true, 'w+'  => true, 'rw'  => true, 'r+'  => true,
-            'c+'  => true, 'x+'  => true, 'a'   => true, 'a+'  => true,
-            'wb'  => true, 'w+b' => true, 'r+b' => true, 'x+b' => true,
-            'c+b' => true, 'w+t' => true, 'r+t' => true, 'x+t' => true,
-            'c+t' => true
+            'w'   => true, 'w+'  => true, 'rw'  => true, 'r+'  => true, 'c'   => true,
+            'c+'  => true, 'cb'  => true, 'x'   => true, 'xb'  => true, 'x+'  => true,
+            'x+b' => true, 'a'   => true, 'a+'  => true, 'a+b' => true, 'ab'  => true,
+            'wb'  => true, 'w+b' => true, 'r+b' => true, 'c+b' => true, 'w+t' => true,
+            'r+t' => true, 'x+t' => true, 'c+t' => true
         ]
     ];
 
@@ -37,6 +37,11 @@ class Stream implements interfaces\Stream
      * @var resource    The underlying stream resource.
      */
     private $resource;
+
+    /**
+     * @var resource    The stream context resource in use.
+     */
+    private $context;
 
     /**
      * @var array       Cached data about the stream.
@@ -100,25 +105,44 @@ class Stream implements interfaces\Stream
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getContents() : string
+    {
+        if (!$this->resource) {
+            throw new \RuntimeException('No stream resource available - cannot get contents.');
+        }
+
+        if (!$this->is(interfaces\Stream::READABLE)) {
+            throw new \RuntimeException('Cannot get stream contents - the stream is not readable.');
+        }
+
+        // As long as we've got a resource, we can try reading. If it fails, we can diagnose afterwards.
+        if (!false === $data = stream_get_contents($this->resource)) {
+            throw new \RuntimeException('Failed to read stream contents.');
+        }
+
+        return $data;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function read($length) : string
     {
-        // As long as we've got a resource, we can try reading. If it fails, we can diagnose afterwards.
-        // This is not DRY, but slightly better performing..
-        if ($this->resource && false !== $data = fread($this->resource, $length)) {
-            return $data;
-        }
-
         if (!$this->resource) {
-            throw new \RuntimeException('No underlying stream resource available - cannot read.');
+            throw new \RuntimeException('No stream resource available - cannot read.');
         }
 
         if (!$this->is(interfaces\Stream::READABLE)) {
             throw new \RuntimeException('Cannot read from non-readable stream.');
         }
 
-        throw new \RuntimeException('Failed to read from the stream.');
+        if (false === $data = fread($this->resource, $length)) {
+            throw new \RuntimeException('Failed to read from the stream.');
+        }
+
+        return $data;
     }
 
     /**
@@ -126,21 +150,19 @@ class Stream implements interfaces\Stream
      */
     public function line(int $length = null) : string
     {
-        // As long as we've got a resource, we can try reading. If it fails, we can diagnose afterwards.
-        // This is not DRY, but slightly better performing..
-        if ($this->resource && false !== $data = fgets($this->resource, $length)) {
-            return $data;
-        }
-
         if (!$this->resource) {
-            throw new \RuntimeException('No underlying stream resource available - cannot read.');
+            throw new \RuntimeException('No stream resource available - cannot read.');
         }
 
         if (!$this->is(interfaces\Stream::READABLE)) {
             throw new \RuntimeException('Cannot read from non-readable stream.');
         }
 
-        throw new \RuntimeException('Failed to read from the stream.');
+        if (false === $data = fgets($this->resource, $length)) {
+            throw new \RuntimeException('Failed to read from the stream.');
+        }
+
+        return $data;
     }
 
 
@@ -149,25 +171,21 @@ class Stream implements interfaces\Stream
      */
     public function write($string) : int
     {
-        // As long as we've got a resource, we can try writing. If it fails, we can diagnose afterwards.
-        // This is not DRY, but slightly better performing..
-        if ($this->resource && false !== $result = fread($this->resource, $string)) {
-
-            // The size has changed so make sure we get a fresh value for the next getSize() call.
-            $this->size = null;
-
-            return $result;
-        }
-
         if (!$this->resource) {
-            throw new \RuntimeException('No underlying stream resource available - cannot write.');
+            throw new \RuntimeException('No stream resource available - cannot write.');
         }
 
         if (!$this->is(interfaces\Stream::WRITABLE)) {
-            throw new \RuntimeException('Cannot read from non-readable stream.');
+            throw new \RuntimeException('Cannot write to non-writable stream.');
+        }
+        if (false === $result = fwrite($this->resource, $string)) {
+            throw new \RuntimeException('Failed to write to the stream.');
         }
 
-        throw new \RuntimeException('Failed to write to the stream.');
+        // The size has changed so make sure we get a fresh value for the next getSize() call.
+        $this->size = null;
+
+        return $result;
     }
 
     /**
@@ -228,7 +246,7 @@ class Stream implements interfaces\Stream
     public function tell()
     {
         if (!$this->resource) {
-            throw new \RuntimeException('No underlying stream resource available - cannot tell position.');
+            throw new \RuntimeException('No stream resource available - cannot tell position.');
         }
 
         if (false === $result = ftell($this->resource)) {
@@ -251,13 +269,16 @@ class Stream implements interfaces\Stream
      */
     public function seek($offset, $whence = SEEK_SET)
     {
+        if (!$this->resource) {
+            throw new \RuntimeException('No stream resource available - cannot seek.');
+        }
+
+        if (!$this->is(interfaces\Stream::SEEKABLE)) {
+            throw new \RuntimeException('The stream is not seekable.');
+        }
+
         // As long as we've got a resource, we can try seeking. If it fails, we can diagnose afterwards.
-        if (!$this->resource || -1 === fseek($this->resource, $offset, $whence)) {
-
-            if (!$this->is(interfaces\Stream::SEEKABLE)) {
-                throw new \RuntimeException('The stream is not seekable.');
-            }
-
+        if (-1 === fseek($this->resource, $offset, $whence)) {
             throw new \RuntimeException("Failed to seek to stream position [$offset] with whence [".var_export($whence, true)."].");
         }
     }
@@ -268,24 +289,6 @@ class Stream implements interfaces\Stream
     public function rewind()
     {
         $this->seek(0);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getContents() : string
-    {
-        // As long as we've got a resource, we can try reading. If it fails, we can diagnose afterwards.
-        if (!$this->resource || false === $contents = stream_get_contents($this->resource)) {
-
-            if (!$this->is(interfaces\Stream::READABLE)) {
-                throw new \RuntimeException('Cannot get stream contents - the stream is not readable.');
-            }
-
-            throw new \RuntimeException('Failed to read stream contents.');
-        }
-
-        return $contents;
     }
 
     /**
@@ -378,6 +381,7 @@ class Stream implements interfaces\Stream
         $resource = $this->resource;
 
         $this->resource = null;
+        $this->context  = null;
         $this->metadata = null;
         $this->status   = null;
         $this->size     = null;
@@ -454,8 +458,8 @@ class Stream implements interfaces\Stream
         }
 
         // Those may change, so... besides - fancy syntax, eh chaps?
-        $this->status->{($this->metadata['seekable'] ? 'set' : 'remove')}(interfaces\Stream::SEEKABLE);
-        $this->status->{($this->metadata['blocked'] ? 'set' : 'remove')}(interfaces\Stream::BLOCKED);
+        $this->status->{((isset($this->metadata['seekable']) && $this->metadata['seekable']) ? 'set' : 'remove')}(interfaces\Stream::SEEKABLE);
+        $this->status->{((isset($this->metadata['blocked'])  && $this->metadata['blocked'])  ? 'set' : 'remove')}(interfaces\Stream::BLOCKED);
 
         return true;
     }
