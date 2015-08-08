@@ -16,7 +16,7 @@
   },
 
   "require": {
-	"php": ">=7.0.0b2",
+    "php": ">=7.0.0-dev",
 	"ext-mbstring": "*",
 	"ext-openssl": "*",
 	"psr/log": "dev-master",
