@@ -56,7 +56,7 @@ class Mask
      * @param   int     $mask
      * @return  $this
      */
-    public function set(int $mask) : static
+    public function set(int $mask) : self
     {
         $this->mask |= $mask;
 
@@ -69,7 +69,7 @@ class Mask
      * @param   int     $mask
      * @return  $this
      */
-    public function remove(int $mask) : static
+    public function remove(int $mask) : self
     {
         $this->mask &= ~$mask;
 
@@ -81,7 +81,7 @@ class Mask
      *
      * @return  $this
      */
-    public function reset() : static
+    public function reset() : self
     {
         $this->mask = 0;
 
