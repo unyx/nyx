@@ -15,7 +15,42 @@
 trait ArrayAccess
 {
     /**
-     * @see \ArrayAccess::offsetExists()
+     * Checks whether the given item identified by its key exists in the object.
+     *
+     * @param   string|int  $key    The key of the item to check for.
+     * @return  bool                True if the item exists in the object, false otherwise.
+     */
+    abstract function has($key) : bool;
+
+    /**
+     * Returns an item identified by its key.
+     *
+     * @param   string|int  $key        The key of the item to return.
+     * @param   mixed       $default    The default value to return when the given item does not exist in
+     *                                  the Collection.
+     * @return  mixed                   The item or the default value given if the item couldn't be found.
+     */
+    abstract function get($key, $default = null);
+
+    /**
+     * Sets the given value in the object.
+     *
+     * @param   string|int  $key    The key the item should be set as.
+     * @param   mixed       $item   The item to set.
+     * @return  $this
+     */
+    abstract function set($key, $value) : self;
+
+    /**
+     * Removes the item identified by $key from the object.
+     *
+     * @param   string|int  $key    The key of the item to remove.
+     * @return  $this
+     */
+    abstract function remove($key) : self;
+
+    /**
+     * @see self::has()
      */
     public function offsetExists($key)
     {
@@ -23,7 +58,7 @@ trait ArrayAccess
     }
 
     /**
-     * @see \ArrayAccess::offsetGet()
+     * @see self::get()
      */
     public function offsetGet($key)
     {
@@ -31,7 +66,7 @@ trait ArrayAccess
     }
 
     /**
-     * @see \ArrayAccess::offsetSet()
+     * @see self::set()
      */
     public function offsetSet($key, $value)
     {
@@ -39,7 +74,7 @@ trait ArrayAccess
     }
 
     /**
-     * @see \ArrayAccess::offsetUnset()
+     * @see self::remove()
      */
     public function offsetUnset($key)
     {
