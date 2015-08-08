@@ -16,6 +16,7 @@
 
   "require": {
     "php": ">=7.0.0-dev",
+    "nyx/core": "dev-master",
     "psr/log": "dev-master",
     "psr/http-message": "dev-master"
   },
