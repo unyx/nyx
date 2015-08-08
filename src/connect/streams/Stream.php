@@ -392,7 +392,7 @@ class Stream implements interfaces\Stream
     /**
      * {@inheritDoc}
      */
-    public function toString()
+    public function toString() : string
     {
         // Trying to get the position first - we'll seek back to it after we're done.
         // This will also take care of all necessary checks.

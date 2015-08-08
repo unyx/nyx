@@ -28,7 +28,7 @@ interface Stringable
      *
      * @return  string
      */
-    public function toString();
+    public function toString() : string;
 
     /**
      * {@see self::toString()}
