@@ -1,4 +1,4 @@
-<?php namespace nyx\connect\streams\traits;
+<?php namespace nyx\connect\http\traits;
 
 // Vendor dependencies
 use Psr;
