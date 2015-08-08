@@ -28,12 +28,12 @@ interface Stringable
      *
      * @return  string
      */
-    public function toString() : string;
+    public function toString();
 
     /**
      * {@see self::toString()}
      *
      *  Note: This method MUST NOT throw exceptions, opposite to the explicit self::toString() method.
      */
-    public function __toString() : string;
+    public function __toString();
 }

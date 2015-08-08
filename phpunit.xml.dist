@@ -7,29 +7,31 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
+         stopOnError="false"
          stopOnFailure="false"
-         syntaxCheck="false"
+         syntaxCheck="true"
          bootstrap="vendor/autoload.php"
+         verbose="true"
 >
 
     <testsuites>
         <testsuite name="nyx">
-            <directory>./tests/</directory>
+            <directory suffix="Test.php">./tests/*</directory>
         </testsuite>
         <testsuite name="nyx/connect">
-            <directory>./src/nyx/connect/tests/</directory>
+            <directory suffix="Test.php">./src/connect/tests/*</directory>
         </testsuite>
         <testsuite name="nyx/core">
-            <directory>./src/nyx/core/tests/</directory>
+            <directory suffix="Test.php">./src/core/tests/*</directory>
         </testsuite>
         <testsuite name="nyx/diagnostics">
-            <directory>./src/nyx/diagnostics/tests/</directory>
+            <directory suffix="Test.php">./src/diagnostics/tests/*</directory>
         </testsuite>
         <testsuite name="nyx/events">
-            <directory>./src/nyx/events/tests/</directory>
+            <directory suffix="Test.php">./src/events/tests/*</directory>
         </testsuite>
         <testsuite name="nyx/utils">
-            <directory>./src/nyx/utils/tests/</directory>
+            <directory suffix="Test.php">./src/utils/tests/*</directory>
         </testsuite>
     </testsuites>
 
