@@ -39,7 +39,7 @@ trait StaticallyExtendable
                 throw new \InvalidArgumentException("A callable must be given as second parameter if the first is not an array.");
             }
 
-            static::$extensions[$name] = $callable;
+            self::$extensions[$name] = $callable;
             return;
         }
 
@@ -48,7 +48,7 @@ trait StaticallyExtendable
                 throw new \InvalidArgumentException("The values of an array passed to the extend() method must be callables.");
             }
 
-            static::$extensions[$method] = $callable;
+            self::$extensions[$method] = $callable;
         }
     }
 
@@ -62,8 +62,8 @@ trait StaticallyExtendable
      */
     public static function __callStatic(string $method, array $parameters)
     {
-        if (isset(static::$extensions[$method])) {
-            return call_user_func_array(static::$extensions[$method], $parameters);
+        if (isset(self::$extensions[$method])) {
+            return call_user_func_array(self::$extensions[$method], $parameters);
         }
 
         throw new \BadMethodCallException("The method [$method] does not exist.");
