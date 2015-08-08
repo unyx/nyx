@@ -20,7 +20,7 @@ trait ArrayAccess
      * @param   string|int  $key    The key of the item to check for.
      * @return  bool                True if the item exists in the object, false otherwise.
      */
-    abstract function has($key) : bool;
+    abstract public function has($key) : bool;
 
     /**
      * Returns an item identified by its key.
@@ -30,7 +30,7 @@ trait ArrayAccess
      *                                  the Collection.
      * @return  mixed                   The item or the default value given if the item couldn't be found.
      */
-    abstract function get($key, $default = null);
+    abstract public function get($key, $default = null);
 
     /**
      * Sets the given value in the object.
@@ -39,7 +39,7 @@ trait ArrayAccess
      * @param   mixed       $item   The item to set.
      * @return  $this
      */
-    abstract function set($key, $value) : self;
+    abstract public function set($key, $value) : self;
 
     /**
      * Removes the item identified by $key from the object.
@@ -47,7 +47,7 @@ trait ArrayAccess
      * @param   string|int  $key    The key of the item to remove.
      * @return  $this
      */
-    abstract function remove($key) : self;
+    abstract public function remove($key) : self;
 
     /**
      * @see self::has()
