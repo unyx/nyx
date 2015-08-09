@@ -283,6 +283,14 @@ interface Collection extends \Countable, \Traversable, core\interfaces\Serializa
     public function merge(...$with) : Collection;
 
     /**
+     * Diff the collection with the given items.
+     *
+     * @param   Collection[]|array[]    ...$against The items to diff against.
+     * @return  Collection                          A new Collection instance.
+     */
+    public function diff(...$against) : Collection;
+
+    /**
      * Checks whether the Collection is empty.
      *
      * @return  bool    True if the Collection is empty, false otherwise.

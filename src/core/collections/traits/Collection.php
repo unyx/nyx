@@ -328,9 +328,21 @@ trait Collection
     {
         $result = $this->items;
 
-        // Since we're variadic, let's loop through all the values given. Collections and Arrayable values
-        // will be handled appropriately while all other values will be cast to arrays by self::extractItems().
         foreach ($with as $items) {
+            $result = array_merge($result, $this->extractItems($items));
+        }
+
+        return new static($result);
+    }
+
+    /**
+     * @see interfaces\Collection::diff()
+     */
+    public function diff(...$against)
+    {
+        $result = $this->items;
+
+        foreach ($against as $items) {
             $result = array_merge($result, $this->extractItems($items));
         }
 
