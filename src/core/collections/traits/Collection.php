@@ -15,18 +15,17 @@ use nyx\core;
  * Usage of this trait allows you to implement the interfaces\Collection interface and \IteratorAggregate.
  *
  * Important notes:
- * 1) Some of the methods, like self::map() or self::filter() for instance, make assumptions as to the constructor
+ * 1) null is *not* an acceptable value for an item within a Collection. Null is used internally by many methods
+ *    to denote an item that is *not set*. Likewise the methods will bombard you with exceptions if you attempt
+ *    to set an item with null as its value. This is done to ensure the return values of the API are consistent
+ *    and also provides a slight performance gain for some methods.
+ * 2) Some of the methods, like self::map() or self::filter() for instance, make assumptions as to the constructor
  *    of the exhibitor of this trait, assuming that it accepts a Collection, Arrayable object or array as
  *    its first argument.
- * 2) For simplicity and performance reasons, some of the methods do not rely on each other to reduce some
+ * 3) For simplicity and performance reasons, some of the methods do not rely on each other to reduce some
  *    overhead of additional function calls. This is the case, for instance, for self::get(), which does not make
  *    use of self::has() to check for the existence of an item or self::replace() which will not call self::set()
  *    for each item passed to it. Keep this in mind when overriding them.
- * 3) Collection::set() does *not* check whether the value is not null in order not to introduce
- *    additional overhead on an operation that is very common. However, several methods *do rely* on the fact that
- *    values are not null (first() and last() for instance will return "null" if the Collection is empty - they can
- *    not return false since false is a valid value for an item in the Collection. Therefore, passing null values
- *    to the Collection may yield unexpected results.
  *
  * @package     Nyx\Core\Collections
  * @version     0.0.8
@@ -54,7 +53,7 @@ trait Collection
      */
     public function get($key, $default = null)
     {
-        if (array_key_exists($key, $this->items)) {
+        if (isset($key, $this->items)) {
             return $this->items[$key];
         }
 
@@ -66,7 +65,7 @@ trait Collection
      */
     public function has($key) : bool
     {
-        return array_key_exists($key, $this->items);
+        return isset($key, $this->items);
     }
 
     /**
