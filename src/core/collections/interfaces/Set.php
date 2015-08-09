@@ -17,5 +17,5 @@ interface Set extends Collection
      * @param   mixed   $item   The item to set.
      * @return  $this
      */
-    public function set($item);
+    public function set($item) : self;
 }
