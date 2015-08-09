@@ -42,7 +42,7 @@ interface Collection extends \Countable, \Traversable, core\interfaces\Serializa
      * @param   mixed   $item       The value of the item to check for.
      * @return  bool                True if the item exists in the Collection, false otherwise.
      */
-    public function contains($item);
+    public function contains($item) : bool;
 
     /**
      * Returns the key of the item identified by its value.
