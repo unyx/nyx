@@ -295,14 +295,7 @@ trait Collection
      */
     public function collapse() : interfaces\Collection
     {
-        $results = [];
-
-        // Merge all values down to a single array.
-        foreach ($this->items as $values) {
-            $results = array_merge($results, $values);
-        }
-
-        return new static($results);
+        return new static(utils\Arr::collapse($this->items));
     }
 
     /**
