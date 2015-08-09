@@ -6,9 +6,7 @@
 
 -----
 
-<p align="center">
-  <img src="http://s7.postimg.org/6cruwesi3/Nyx.png" />
-</p>
+![Dev warning](http://s7.postimg.org/6cruwesi3/Nyx.png)
 
 A set of tools aimed at providing easy to use, coherent connectivity over various protocols.
 

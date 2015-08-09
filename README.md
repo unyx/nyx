@@ -7,9 +7,7 @@
 
 -----
 
-<p align="center">
-  <img src="http://s7.postimg.org/6cruwesi3/Nyx.png" />
-</p>
+![Dev warning](http://s7.postimg.org/6cruwesi3/Nyx.png)
 
 Description coming soon (tm).
 

@@ -7,9 +7,7 @@
 
 -----
 
-<p align="center">
-  <img src="http://s7.postimg.org/6cruwesi3/Nyx.png" />
-</p>
+![Dev warning](http://s7.postimg.org/6cruwesi3/Nyx.png)
 
 A set set of tools intended to make debugging and profiling your code as simple as possible. It is loosely coupled and
 highly flexible, giving you granular control over when and how errors or exceptions get thrown, how to handle the
