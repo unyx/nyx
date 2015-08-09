@@ -7,6 +7,10 @@
 
 -----
 
+<p align="center">
+  <img src="http://s7.postimg.org/6cruwesi3/Nyx.png" />
+</p>
+
 A set set of tools intended to make debugging and profiling your code as simple as possible. It is loosely coupled and
 highly flexible, giving you granular control over when and how errors or exceptions get thrown, how to handle the
 aftermath and how to stay in the know with what's happening with your application during production.
@@ -14,10 +18,6 @@ aftermath and how to stay in the know with what's happening with your applicatio
 It is comprised of submodules which can work standalone or in tandem when you glue them together. You can start out
 with the most basic setup and make use of more advanced functionality as you go. Things won't happen unless you want
 them to.
-
-> #### Note: In development (read: unusable)
-> It is currently in its **design** phase and therefore considered **unusable**. The API will fluctuate, solar flares will
-> appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
 
 -----
 

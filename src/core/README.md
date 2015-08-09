@@ -6,11 +6,11 @@
 
 -----
 
-Interfaces, traits and classes used throughout Nyx.
+<p align="center">
+  <img src="http://s7.postimg.org/6cruwesi3/Nyx.png" />
+</p>
 
-> #### Note: In development (read: unusable)
-> It is currently in its **design** phase and therefore considered **unusable**. The API will fluctuate, solar flares will
-> appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
+Interfaces, traits and classes used throughout Nyx.
 
 -----
 
