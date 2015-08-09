@@ -102,8 +102,9 @@ interface Collection extends \Countable, \Traversable, core\interfaces\Serializa
     public function find(callable $callback, $default = null);
 
     /**
-     * Returns the first item of the Collection, the first $callback items of the Collection when $callback is a
-     * number, or the first item which passes the given truth test when $callback is a callable.
+     * Returns the first item of the Collection,
+     *   OR the first $callback items of the Collection when $callback is a number,
+     *   OR the first item which passes the given truth test when $callback is a callable.
      *
      * @param   callable|int|bool   $callback   The truth test the item should pass or an integer denoting how many
      *                                          of the initial item of the Collection should be returned.
@@ -116,8 +117,9 @@ interface Collection extends \Countable, \Traversable, core\interfaces\Serializa
     public function first($callback = false, $default = null);
 
     /**
-     * Returns the last item of the Collection, the final $callback items of the Collection when $callback is a
-     * number, or the last item which passes the given truth test when $callback is a callable.
+     * Returns the last item of the Collection,
+     *   OR the final $callback items of the Collection when $callback is a number,
+     *   OR the last item which passes the given truth test when $callback is a callable.
      *
      * @param   callable|int|bool   $callback   The truth test the item should pass or an integer denoting how many
      *                                          of the final elements of the Collection should be returned.
@@ -130,8 +132,9 @@ interface Collection extends \Countable, \Traversable, core\interfaces\Serializa
     public function last($callback = false, $default = null);
 
     /**
-     * Returns all but the last item of the Collection, all but the last items for which the $callback returns
-     * true if $callback is a callable, or all but the last $callback items if $callback is a number.
+     * Returns all but the last item of the Collection,
+     *   OR all but the last $callback items if $callback is a number,
+     *   OR all but the last items for which the $callback returns true if $callback is a callable,
      *
      * @param   callable|int|bool   $callback   The truth test the items should pass or an integer denoting how many
      *                                          of the final items of the Collection should be excluded.
@@ -144,8 +147,9 @@ interface Collection extends \Countable, \Traversable, core\interfaces\Serializa
     public function initial($callback = false, $default = null);
 
     /**
-     * Returns all but the first item of the Collection, all but the first items for which the $callback returns
-     * true if $callback is a callable, or all but the first $callback items if $callback is a number.
+     * Returns all but the first item of the Collection,
+     *   OR all but the first $callback items if $callback is a number,
+     *   OR all but the first items for which the $callback returns true if $callback is a callable,
      *
      * @param   callable|int|bool   $callback   The truth test the items should pass or an integer denoting how many
      *                                          of the initial items of the Collection should be excluded.
