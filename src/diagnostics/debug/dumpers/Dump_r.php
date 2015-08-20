@@ -4,7 +4,7 @@
 use dump_r\Core;
 
 // Internal dependencies
-use nyx\diagnostics\debug;
+use nyx\diagnostics\debug\interfaces;
 
 /**
  * Dump_r Dumper
@@ -23,7 +23,7 @@ use nyx\diagnostics\debug;
  * @todo        Readable breaks between each variable dump.
  * @todo        Adjust the settings locally and apply them on each call to dump_r().
  */
-class Dump_r implements debug\interfaces\Dumper
+class Dump_r implements interfaces\Dumper
 {
     /**
      * {@inheritDoc}

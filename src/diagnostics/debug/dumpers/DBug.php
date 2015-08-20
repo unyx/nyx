@@ -1,7 +1,7 @@
 <?php namespace nyx\diagnostics\debug\dumpers;
 
 // Internal dependencies
-use nyx\diagnostics\debug;
+use nyx\diagnostics\debug\interfaces;
 
 /**
  * DBug Dumper
@@ -19,7 +19,7 @@ use nyx\diagnostics\debug;
  * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
  * @todo        Readable breaks between each variable dump.
  */
-class DBug implements debug\interfaces\Dumper
+class DBug implements interfaces\Dumper
 {
     /**
      * {@inheritDoc}

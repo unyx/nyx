@@ -24,6 +24,16 @@
 	"phpunit/phpunit": "*"
   },
 
+  "suggest": {
+    "symfony/var-dumper": "In order to use Symfony's VarDumper as variable dumper.",
+    "ospinto/dbug": "In order to use dBug as variable dumper.",
+    "ccampbell/chromephp": "In order to use Chrome Logger as variable dumper.",
+    "leeoniya/dump-r": "In order to use Dump_r as variable dumper.",
+    "raveren/kint": "In order to use Kint as variable dumper.",
+    "raulfraile/ladybug": "In order to use Ladybug as variable dumper.",
+    "mnapoli/number-two": "In order to use NumberTwo as variable dumper."
+  },
+
   "autoload": {
 	"psr-4": {"nyx\\diagnostics\\": ""}
   },

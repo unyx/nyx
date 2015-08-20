@@ -4,7 +4,7 @@
 use NumberTwo\NumberTwo as Base;
 
 // Internal dependencies
-use nyx\diagnostics\debug;
+use nyx\diagnostics\debug\interfaces;
 
 /**
  * NumberTwo Dumper
@@ -23,7 +23,7 @@ use nyx\diagnostics\debug;
  * @todo        Readable breaks between each variable dump.
  * @todo        Adjust the settings locally and apply them on each call to the base dump().
  */
-class NumberTwo implements debug\interfaces\Dumper
+class NumberTwo implements interfaces\Dumper
 {
     /**
      * {@inheritDoc}

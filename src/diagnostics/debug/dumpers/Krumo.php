@@ -1,7 +1,7 @@
 <?php namespace nyx\diagnostics\debug\dumpers;
 
 // Internal dependencies
-use nyx\diagnostics\debug;
+use nyx\diagnostics\debug\interfaces;
 
 /**
  * Krumo Dumper
@@ -17,7 +17,7 @@ use nyx\diagnostics\debug;
  * @copyright   2012-2016 Nyx Dev Team
  * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
  */
-class Krumo implements debug\interfaces\Dumper
+class Krumo implements interfaces\Dumper
 {
     /**
      * {@inheritDoc}
