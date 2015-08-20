@@ -23,5 +23,5 @@ interface Error
      *                              triggered in.
      * @return  bool                True when the error got handled, false otherwise.
      */
-    public function handle(int $type, string $message, string $file = null, int $line = null, array $context = null) : bool;
+    public function handle(int $type, string $message, string $file = null, int $line = null, array $context = []) : bool;
 }
