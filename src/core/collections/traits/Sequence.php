@@ -26,11 +26,7 @@ trait Sequence
      */
     public function get(int $index, $default = null)
     {
-        if (isset($this->items[$index])) {
-            return $this->items[$index];
-        }
-
-        return $default;
+        return $this->items[$index] ?? $default;
     }
 
     /**

@@ -28,12 +28,11 @@ use nyx\core;
  *    for each item passed to it. Keep this in mind when overriding them.
  *
  * @package     Nyx\Core\Collections
- * @version     0.0.8
+ * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2016 Nyx Dev Team
  * @link        http://docs.muyo.io/nyx/core/collections.html
  * @todo        Lo-dash-style find() / findWhere() (pluck and where).
- * @todo        Decide: Regarding important note #2 - make use of the respective methods internally?
  */
 trait Collection
 {

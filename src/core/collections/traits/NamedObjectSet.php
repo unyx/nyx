@@ -35,11 +35,7 @@ trait NamedObjectSet
      */
     public function get(string $name, $default = null) : core\interfaces\Named
     {
-        if (isset($this->items[$name])) {
-            return $this->items[$name];
-        }
-
-        return $default;
+        return $this->items[$name] ?? $default;
     }
 
     /**

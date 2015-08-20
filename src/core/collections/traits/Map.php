@@ -26,11 +26,7 @@ trait Map
      */
     public function get($key, $default = null)
     {
-        if (isset($this->items[$key])) {
-            return $this->items[$key];
-        }
-
-        return $default;
+        return $this->items[$key] ?? $default;
     }
 
     /**
