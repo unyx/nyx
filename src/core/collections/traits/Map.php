@@ -34,6 +34,10 @@ trait Map
      */
     public function set($key, $item) : self
     {
+        if (null === $item) {
+            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+        }
+
         $this->items[$key] = $item;
 
         return $this;
@@ -52,7 +56,7 @@ trait Map
      */
     public function contains($item) : bool
     {
-        return null !== $this->key($item);
+        return empty($this->items) ? false : (null !== $this->key($item));
     }
 
     /**

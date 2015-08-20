@@ -34,6 +34,10 @@ trait Sequence
      */
     public function push($item) : self
     {
+        if (null === $item) {
+            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+        }
+
         $this->items[] = $item;
 
         return $this;
@@ -42,8 +46,12 @@ trait Sequence
     /**
      * @see interfaces\Sequence::prepend()
      */
-    public function prepend($value) : self
+    public function prepend($item) : self
     {
+        if (null === $item) {
+            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+        }
+
         array_unshift($this->items, $value);
 
         return $this;
@@ -54,8 +62,12 @@ trait Sequence
      */
     public function update(int $index, $item) : self
     {
+        if (null === $item) {
+            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+        }
+
         if (!isset($this->items[$index])) {
-            throw new \OutOfBoundsException("Cannot update - no item at index [$index].");
+            throw new \OutOfBoundsException("Cannot update - no item at given index [$index].");
         }
 
         $this->items[$index] = $item;
@@ -76,7 +88,7 @@ trait Sequence
      */
     public function contains($item) : bool
     {
-        return -1 !== $this->indexOf($item);
+        return empty($this->items) ? false : (-1 !== $this->indexOf($item));
     }
 
     /**

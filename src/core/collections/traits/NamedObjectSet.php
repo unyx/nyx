@@ -26,9 +26,17 @@ trait NamedObjectSet
     use Collection;
 
     /**
-     * @see string  The expected type of the objects in the Set.
+     * @var bool    Whether the expected type should be automatically determined from the first item
+     *              being added to the Set. Setting this to false when $collectedType is not set either
+     *              effectively means that type invariance stops being guaranteed. Changing this value has
+     *              no effect after the first item gets added to the Set.
      */
-    protected $collectedType;
+    protected $determineCollectedType = true;
+
+    /**
+     * @var string  The expected type of the objects in the Set. Only mutable when the Set is empty.
+     */
+    private $collectedType = '';
 
     /**
      * @see interfaces\Sequence::get()
@@ -40,8 +48,6 @@ trait NamedObjectSet
 
     /**
      * @see interfaces\NamedObjectSet::add()
-     *
-     * @throws  \InvalidArgumentException   When expecting a specific type and the Object given is not an instance of it.
      */
     public function add(core\interfaces\Named $object) : self
     {
@@ -50,6 +56,11 @@ trait NamedObjectSet
         // Ensure the name is unique in the Set.
         if (isset($this->items[$name])) {
             throw new \OverflowException("An object with the name [$name] is already set in the Collection.");
+        }
+
+        // Should we use the class of this object as base type?
+        if (null === $this->collectedType && $this->determineCollectedType) {
+            $this->collectedType = get_class($object);
         }
 
         // If we are to check for a specific type, ensure the object is an instance of that.
@@ -114,6 +125,42 @@ trait NamedObjectSet
     public function names() : array
     {
         return array_keys($this->items);
+    }
+
+    /**
+     * Returns the type being collected, as a fully qualified class name.
+     *
+     * @return  string  The base class of the objects being collected in this Set or an empty string if not set.
+     */
+    public function getCollectedType() : string
+    {
+        return $this->collectedType;
+    }
+
+    /**
+     * Sets the type to be collected, as a fully qualified class name or an instance of the type (its class name
+     * will be used in this case). When providing an object, the object must be an instance of core\interfaces\Named.
+     *
+     * @param   string|core\interfaces\Named    $type   The type to set.
+     * @return  $this
+     * @throws  \LogicException                         When trying to set the type for an already populated Set.
+     * @throws  \InvalidArgumentException               When trying to set an unsupported type.
+     */
+    public function setCollectedType($type) : self
+    {
+        if (!empty($this->items)) {
+            throw new \LogicException('The type being collected cannot be changed when the Set is populated.');
+        }
+
+        if (is_string($type)) {
+            $this->collectedType = $type;
+        } else if ($type instanceof core\interfaces\Named) {
+            $this->collectedType = get_class($type);
+        } else {
+            throw new \InvalidArgumentException('Unsupported type given - expected class name or instance of \nyx\core\interfaces\Named, got ['.diagnostics\Debug::getTypeName($type).'] instead.');
+        }
+
+        return $this;
     }
 
     /**

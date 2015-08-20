@@ -27,16 +27,18 @@ interface Sequence extends Collection
     /**
      * Pushes the given item to the end of the Sequence.
      *
-     * @param   mixed   $item   The item to set.
+     * @param   mixed   $item               The item to set.
      * @return  $this
+     * @throws  \InvalidArgumentException   When trying to push a null value.
      */
     public function push($item) : self;
 
     /**
      * Prepends the given item to the beginning of the Sequence.
      *
-     * @param   mixed   $item   The item to set.
+     * @param   mixed   $item               The item to set.
      * @return  $this
+     * @throws  \InvalidArgumentException   When trying to prepend a null value.
      */
     public function prepend($item) : self;
 
@@ -50,6 +52,7 @@ interface Sequence extends Collection
      * @param   mixed   $value              The value of the item to set.
      * @return  $this
      * @throws  \OutOfBoundsException       When there is no item to update at the given index.
+     * @throws  \InvalidArgumentException   When trying to set a value of null.
      */
     public function update(int $index, $item) : self;
 

@@ -6,6 +6,11 @@ use nyx\core;
 /**
  * Named Object Set Interface
  *
+ * Type invariance of Objects in the Set may be optionally guaranteed by implementations but is not enforced
+ * by the interface. Neither is their uniqueness other than by their name (key).
+ *
+ * The default implementation in Nyx (\nyx\core\collections\NamedObjectSet) guarantees both by default, however.
+ *
  * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
@@ -30,6 +35,8 @@ interface NamedObjectSet extends Collection
      * @param   core\interfaces\Named   $item   The Named Object to add.
      * @return  $this
      * @throws  \OverflowException              When an Object with the same name is already set.
+     * @throws  \InvalidArgumentException       When expecting a specific type and the Object given is not an
+     *                                          instance of it.
      */
     public function add(core\interfaces\Named $object) : self;
 

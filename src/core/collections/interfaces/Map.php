@@ -24,9 +24,10 @@ interface Map extends Collection
     /**
      * Sets the given item in the Collection.
      *
-     * @param   string|int  $key    The key the item should be set as.
-     * @param   mixed       $item   The item to set.
+     * @param   string|int  $key            The key the item should be set as.
+     * @param   mixed       $item           The item to set.
      * @return  $this
+     * @throws  \InvalidArgumentException   When trying to set a value of null.
      */
     public function set($key, $item) : self;
 
