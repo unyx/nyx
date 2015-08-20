@@ -85,9 +85,9 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      * them until one of them returns a STOP or QUIT signal as defined in definitions\Signals or no more Delegates
      * are left.
      *
-     * @param   \Exception  $exception
+     * @param   \Throwable  $exception
      */
-    public function handle(\Exception $exception)
+    public function handle(\Throwable $exception)
     {
         // Being Emitter Aware we are bound to comply to the Events Definition.
         // self::emitDebugEvent() will return null when no Emitter is present. Otherwise we'll get the Exception

@@ -14,7 +14,7 @@ interface Exception
     /**
      * Handles an Exception.
      *
-     * @param   \Exception  $exception
+     * @param   \Throwable  $exception
      */
-    public function handle(\Exception $exception);
+    public function handle(\Throwable $exception);
 }
