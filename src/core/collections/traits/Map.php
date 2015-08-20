@@ -19,7 +19,19 @@ trait Map
     /**
      * The traits of a Map trait.
      */
-    use Collection, ArrayAccess;
+    use Collection;
+
+    /**
+     * @see interfaces\Map::get()
+     */
+    public function get($key, $default = null)
+    {
+        if (isset($this->items[$key])) {
+            return $this->items[$key];
+        }
+
+        return $default;
+    }
 
     /**
      * @see interfaces\Map::set()
@@ -27,6 +39,32 @@ trait Map
     public function set($key, $item) : self
     {
         $this->items[$key] = $item;
+
+        return $this;
+    }
+
+    /**
+     * @see interfaces\Map::has()
+     */
+    public function has($key) : bool
+    {
+        return isset($this->items[$key]);
+    }
+
+    /**
+     * @see interfaces\Collection::contains()
+     */
+    public function contains($item) : bool
+    {
+        return null !== $this->key($item);
+    }
+
+    /**
+     * @see interfaces\Map::remove()
+     */
+    public function remove($key) : self
+    {
+        unset($this->items[$key]);
 
         return $this;
     }
@@ -46,10 +84,96 @@ trait Map
     }
 
     /**
+     * @see interfaces\Map::key()
+     */
+    public function key($item)
+    {
+        foreach ($this->items as $key => $value) {
+            if ($value === $item) {
+                return $key;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @see interfaces\Map::keys()
+     */
+    public function keys($of = null) : array
+    {
+        return array_keys($this->items, $of, true);
+    }
+
+    /**
+     * @see interfaces\Map::values()
+     */
+    public function values() : array
+    {
+        return array_values($this->items);
+    }
+
+    /**
+     * Magic alias for {@see self::get()}.
+     */
+    public function __get($key)
+    {
+        return $this->get($key);
+    }
+
+    /**
+     * Magic alias for {@see self::set()}.
+     */
+    public function __set($key, $item)
+    {
+        $this->set($key, $item);
+    }
+
+    /**
+     * Magic alias for {@see self::has()}.
+     */
+    public function __isset($key) : bool
+    {
+        return $this->has($key);
+    }
+
+    /**
+     * Magic alias for {@see self::has()}.
+     */
+    public function __unset($key)
+    {
+        return $this->remove($key);
+    }
+
+    /**
+     * @see self::get()
+     */
+    public function offsetGet($key)
+    {
+        return $this->get($key);
+    }
+
+    /**
      * @see self::set()
      */
-    public function __set($key, $value)
+    public function offsetSet($key, $item)
     {
-        $this->set($key, $value);
+        return $this->set($key, $item);
+    }
+
+    /**
+     * @see self::has()
+     */
+    public function offsetExists($key)
+    {
+        return $this->has($key);
+    }
+
+    /**
+     * @see self::remove()
+     */
+    public function offsetUnset($key)
+    {
+        return $this->remove($key);
     }
 }

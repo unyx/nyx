@@ -49,119 +49,11 @@ trait Collection
     protected $items = [];
 
     /**
-     * @see interfaces\Collection::get()
-     */
-    public function get($key, $default = null)
-    {
-        if (isset($key, $this->items)) {
-            return $this->items[$key];
-        }
-
-        return $default;
-    }
-
-    /**
-     * @see interfaces\Collection::has()
-     */
-    public function has($key) : bool
-    {
-        return isset($key, $this->items);
-    }
-
-    /**
-     * @see interfaces\Collection::contains()
-     */
-    public function contains($item) : bool
-    {
-        return null !== $this->key($item);
-    }
-
-    /**
-     * @see interfaces\Collection::key()
-     */
-    public function key($item)
-    {
-        foreach ($this->items as $key => $value) {
-            if ($value === $item) {
-                return $key;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @see interfaces\Collection::remove()
-     */
-    public function remove($key) : self
-    {
-        unset($this->items[$key]);
-
-        return $this;
-    }
-
-    /**
      * @see interfaces\Collection::all()
      */
     public function all() : array
     {
         return $this->items;
-    }
-
-    /**
-     * @see interfaces\Collection::values()
-     */
-    public function values() : array
-    {
-        return array_values($this->items);
-    }
-
-    /**
-     * @see interfaces\Collection::keys()
-     */
-    public function keys($of = null) : array
-    {
-        return array_keys($this->items, $of, true);
-    }
-
-    /**
-     * Pushes an item onto the beginning of the Collection.
-     *
-     * @param   mixed  $value   The item to push into the Collection.
-     */
-    public function prepend($value)
-    {
-        array_unshift($this->items, $value);
-    }
-
-    /**
-     * Returns and then removes the first item from the Collection.
-     *
-     * @return  mixed|null
-     */
-    public function shift()
-    {
-        return array_shift($this->items);
-    }
-
-    /**
-     * Pushes an item onto the the end of the Collection.
-     *
-     * @param   mixed  $value   The item to push into the Collection.
-     */
-    public function push($value)
-    {
-        $this->items[] = $value;
-    }
-
-    /**
-     * Returns and then removes the last item from the Collection.
-     *
-     * @return  mixed|null
-     */
-    public function pop()
-    {
-        return array_pop($this->items);
     }
 
     /**
@@ -342,19 +234,6 @@ trait Collection
     }
 
     /**
-     * Sorts this Collection using the given callable.
-     *
-     * @param   callable    $callback
-     * @return  $this
-     */
-    public function sort(callable $callback) : self
-    {
-        uasort($this->items, $callback);
-
-        return $this;
-    }
-
-    /**
      * @see interfaces\Collection::isEmpty()
      */
     public function isEmpty() : bool
@@ -395,24 +274,7 @@ trait Collection
     {
         return array_map(function ($value) {
             return $value instanceof core\interfaces\Arrayable ? $value->toArray() : $value;
-
         }, $this->items);
-    }
-
-    /**
-     * Magic alias for {@see self::get()}.
-     */
-    public function __get($key)
-    {
-        return $this->get($key);
-    }
-
-    /**
-     * Magic alias for {@see self::has()}.
-     */
-    public function __isset($key) : bool
-    {
-        return $this->has($key);
     }
 
     /**
