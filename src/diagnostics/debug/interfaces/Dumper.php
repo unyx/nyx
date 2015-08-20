@@ -17,7 +17,6 @@ interface Dumper
      * multiple variables as parameters.
      *
      * @param   mixed[]     ...$vars    The variable(s) to dump info about.
-     * @return  string                  The dumped information.
      */
     public function dump(...$vars);
 }
