@@ -26,6 +26,7 @@
 
   "suggest": {
     "symfony/var-dumper": "In order to use Symfony's VarDumper as variable dumper.",
+    "tracy/tracy": "In order to use Tracy's dumper as variable dumper.",
     "ospinto/dbug": "In order to use dBug as variable dumper.",
     "ccampbell/chromephp": "In order to use Chrome Logger as variable dumper.",
     "firephp/firephp-core": "In order to use FirePHP as variable dumper.",
