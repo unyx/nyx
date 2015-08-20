@@ -50,7 +50,7 @@ class Error extends \ErrorException
         $this->context = $context;
 
         // Rewrite the message to make it more usable.
-        $message = sprintf('%s: %s in %s line %d', isset(static::$labels[$type]) ? static::$labels[$type] : 'Unknown Error', $message, $file, $line);
+        $message = sprintf('%s: %s in %s on line %d', static::$labels[$type] ?? 'Unknown Error', $message, $file, $line);
 
         parent::__construct($message, $code, $type, $file, $line, $previous);
     }
