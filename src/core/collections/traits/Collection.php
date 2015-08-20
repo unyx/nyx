@@ -168,7 +168,7 @@ trait Collection
     /**
      * @see interfaces\Collection::implode()
      */
-    public function implode($value, $glue = '') : string
+    public function implode($value, string $glue = '') : string
     {
         return implode($glue, $this->pluck($value));
     }
@@ -200,9 +200,9 @@ trait Collection
     /**
      * @see interfaces\Collection::fetch()
      */
-    public function fetch($name) : interfaces\Collection
+    public function fetch($key) : interfaces\Collection
     {
-        return new static(utils\Arr::fetch($this->items, $name));
+        return new static(utils\Arr::fetch($this->items, $key));
     }
 
     /**
