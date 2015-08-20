@@ -38,7 +38,7 @@ class Inspector
      * started the inspection.
      *
      * @param   \Exception          $exception  The Exception that is to be inspected.
-     * @param   handlers\Exception  $handler
+     * @param   handlers\Exception  $handler    The Handler which started the inspection, if available.
      */
     public function __construct(\Exception $exception, handlers\Exception $handler = null)
     {
@@ -51,15 +51,15 @@ class Inspector
      *
      * @return  \Exception  The Exception being inspected.
      */
-    public function getException()
+    public function getException() : \Exception
     {
         return $this->exception;
     }
 
     /**
-     * Returns the Exception Handler currently handling the inspected Exception.
+     * Returns the Exception Handler currently handling the inspected Exception, if available.
      *
-     * @return  handlers\Exception
+     * @return  handlers\Exception|null
      */
     public function getHandler()
     {
@@ -75,7 +75,7 @@ class Inspector
      *
      * @return  Trace
      */
-    public function getTrace()
+    public function getTrace() : Trace
     {
         // No need for further magic if we've already instantiated a Trace Sequence.
         if ($this->trace !== null) {
