@@ -28,6 +28,7 @@
     "symfony/var-dumper": "In order to use Symfony's VarDumper as variable dumper.",
     "ospinto/dbug": "In order to use dBug as variable dumper.",
     "ccampbell/chromephp": "In order to use Chrome Logger as variable dumper.",
+    "firephp/firephp-core": "In order to use FirePHP as variable dumper.",
     "leeoniya/dump-r": "In order to use Dump_r as variable dumper.",
     "raveren/kint": "In order to use Kint as variable dumper.",
     "raulfraile/ladybug": "In order to use Ladybug as variable dumper.",
