@@ -15,7 +15,8 @@
   },
 
   "require": {
-    "php": ">=7.0.0-dev"
+    "php": ">=7.0.0-dev",
+    "nyx/diagnostics": "dev-master"
   },
 
   "require-dev": {
@@ -23,7 +24,7 @@
   },
 
   "autoload": {
-    "psr-0": {"nyx\\core\\": ""}
+    "psr-4": {"nyx\\core\\": ""}
   },
 
   "minimum-stability": "dev"
