@@ -17,14 +17,14 @@
 trait Serializable
 {
     /**
-     * @see core\interfaces\Arrayble::toArray()
-     */
-    abstract public function toArray() : array;
-
-    /**
      * @see \Serializable::unserialize()
      */
     abstract public function unserialize($data);
+
+    /**
+     * @see core\interfaces\Arrayble::toArray()
+     */
+    abstract public function toArray() : array;
 
     /**
      * @see \Serializable::serialize()
