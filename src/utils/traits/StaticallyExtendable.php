@@ -1,4 +1,4 @@
-<?php namespace nyx\core\traits;
+<?php namespace nyx\utils\traits;
 
 /**
  * StaticallyExtendable
@@ -10,11 +10,11 @@
  * for each call, especially for very simple code. If possible, extend the exhibitors of this trait casually
  * to avoid the performance hit.
  *
- * @package     Nyx\Core
+ * @package     Nyx\Utils
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/index.html
+ * @link        http://docs.muyo.io/nyx/utils/index.html
  */
 trait StaticallyExtendable
 {
