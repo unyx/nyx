@@ -25,6 +25,6 @@ class Kint implements interfaces\Dumper
      */
     public function dump(...$vars)
     {
-        call_user_func_array('Kint::dump', $vars);
+        call_user_func('Kint::dump', ...$vars);
     }
 }

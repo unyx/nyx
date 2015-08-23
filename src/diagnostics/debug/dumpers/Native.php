@@ -21,6 +21,6 @@ class Native implements interfaces\Dumper
      */
     public function dump(...$vars)
     {
-        call_user_func_array('var_dump', $vars);
+        call_user_func('var_dump', ...$vars);
     }
 }

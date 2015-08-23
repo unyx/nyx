@@ -26,6 +26,6 @@ class ChromeLogger implements interfaces\Dumper
      */
     public function dump(...$vars)
     {
-        call_user_func_array('ChromePhp::log', $vars);
+        call_user_func('ChromePhp::log', ...$vars);
     }
 }

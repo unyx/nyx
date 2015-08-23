@@ -25,6 +25,6 @@ class Krumo implements interfaces\Dumper
     public function dump(...$vars)
     {
         // @todo Actual output handling.
-        echo call_user_func_array('krumo::dump', $vars);
+        echo call_user_func('krumo::dump', ...$vars);
     }
 }

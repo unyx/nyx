@@ -45,7 +45,7 @@ class Ladybug implements interfaces\Dumper
     public function dump(...$vars)
     {
         // @todo Actual output handling.
-        echo call_user_func_array([$this->dumper, "dump"], $vars);
+        echo call_user_func([$this->dumper, "dump"], ...$vars);
     }
 
     /**

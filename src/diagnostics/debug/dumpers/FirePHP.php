@@ -50,7 +50,7 @@ class FirePHP implements interfaces\Dumper
             $this->dumper = Base::getInstance(false);
         }
 
-        return call_user_func_array([$this->dumper, "fb"], $vars);
+        return call_user_func([$this->dumper, "fb"], ...$vars);
     }
 
     /**
