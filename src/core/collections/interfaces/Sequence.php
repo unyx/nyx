@@ -108,7 +108,7 @@ interface Sequence extends Collection
      * @param   mixed   $item   The value of the item to check for.
      * @return  int             The 0-based index of the item if found, -1 otherwise.
      */
-    public function lastIndexOf($item) : int;
+    public function indexOfLast($item) : int;
 
     /**
      * Returns the indices of the items in this Sequence. Acts similar to array_keys() except

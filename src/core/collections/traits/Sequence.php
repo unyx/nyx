@@ -143,9 +143,9 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::lastIndexOf()
+     * @see interfaces\Sequence::indexOfLast()
      */
-    public function lastIndexOf($item) : int
+    public function indexOfLast($item) : int
     {
         // Return early if there's nothing in the array. We need the count anyways
         // so might as well use it without adding notable overhead.
