@@ -19,19 +19,19 @@
             <directory suffix="Test.php">./tests/*</directory>
         </testsuite>
         <testsuite name="nyx/connect">
-            <directory suffix="Test.php">./src/connect/tests/*</directory>
+            <directory suffix="Test.php">./src/connect/*</directory>
         </testsuite>
         <testsuite name="nyx/core">
-            <directory suffix="Test.php">./src/core/tests/*</directory>
+            <directory suffix="Test.php">./src/core/*</directory>
         </testsuite>
         <testsuite name="nyx/diagnostics">
-            <directory suffix="Test.php">./src/diagnostics/tests/*</directory>
+            <directory suffix="Test.php">./src/diagnostics/*</directory>
         </testsuite>
         <testsuite name="nyx/events">
-            <directory suffix="Test.php">./src/events/tests/*</directory>
+            <directory suffix="Test.php">./src/events/*</directory>
         </testsuite>
         <testsuite name="nyx/utils">
-            <directory suffix="Test.php">./src/utils/tests/*</directory>
+            <directory suffix="Test.php">./src/utils/*</directory>
         </testsuite>
     </testsuites>
 
