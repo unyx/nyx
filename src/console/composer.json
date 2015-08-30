@@ -1,0 +1,30 @@
+{
+  "name":        "nyx/console",
+  "description": "A complete set of tools to help you create complex and extensible command-line applications easily.",
+  "keywords":    ["nyx", "framework", "cli", "console", "commands"],
+  "license":     "MIT",
+  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "authors": [
+    {"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
+  ],
+
+  "support": {
+    "source": "http://labs.muyo.io/nyx/nyx",
+    "issues": "http://labs.muyo.io/nyx/nyx/issues",
+    "email":  "labs@muyo.io"
+  },
+
+  "require": {
+    "php": ">=7.0.0-dev"
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+
+  "autoload": {
+    "psr-4": {"nyx\\console\\": ""}
+  },
+
+  "minimum-stability": "dev"
+}
