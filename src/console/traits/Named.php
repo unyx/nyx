@@ -31,7 +31,7 @@ trait Named
     /**
      * {@inheritDoc}
      */
-    protected function validateName($name)
+    protected function validateName(string $name)
     {
         $delimiter = '\:';
 
