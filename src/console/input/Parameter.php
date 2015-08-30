@@ -7,7 +7,8 @@ use nyx\console\traits;
  * Input Parameter Definition
  *
  * Base building block for concrete Argument and Option Definitions. Each input parameter has a name
- * which is used
+ * which is used to access the parameter's value at runtime. Names are unique across parameter collections,
+ * ie. are unique at runtime for a given invoked Command, but not necessarily across the whole Application.
  *
  * @package     Nyx\Console\Input
  * @version     0.1.0
