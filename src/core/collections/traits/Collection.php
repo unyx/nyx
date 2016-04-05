@@ -271,7 +271,7 @@ trait Collection
      */
     public function toArray() : array
     {
-        return array_map(function ($value) {
+        return array_map(function($value) {
             return $value instanceof core\interfaces\Arrayable ? $value->toArray() : $value;
         }, $this->items);
     }

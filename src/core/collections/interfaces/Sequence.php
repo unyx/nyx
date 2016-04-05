@@ -17,7 +17,7 @@ interface Sequence extends Collection
     /**
      * Returns the item set at the given index.
      *
-     * @param   string|int  $key        The index of the item to return.
+     * @param   string|int  $index      The index of the item to return.
      * @param   mixed       $default    The default value to return when the given item does not exist in
      *                                  the Collection.
      * @return  mixed                   The item or the default value given if the item couldn't be found.
@@ -46,10 +46,10 @@ interface Sequence extends Collection
      * Updates the item at the given index.
      *
      * Note: This differs from Map::set() in that an item must already exist at the given index,
-     * otherwise an Exception will be thrown. Use self::add() to add an item.
+     * otherwise an Exception will be thrown. Use self::push() to add an item.
      *
      * @param   int     $index              The index of the item to update.
-     * @param   mixed   $value              The value of the item to set.
+     * @param   mixed   $item               The item to set.
      * @return  $this
      * @throws  \OutOfBoundsException       When there is no item to update at the given index.
      * @throws  \InvalidArgumentException   When trying to set a value of null.
@@ -75,7 +75,7 @@ interface Sequence extends Collection
     /**
      * Removes an item from the Sequence by its index.
      *
-     * @param   int     $key                The index of the item to remove.
+     * @param   int     $index      The index of the item to remove.
      * @return  $this
      */
     public function remove(int $index) : self;

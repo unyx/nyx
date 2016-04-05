@@ -37,7 +37,7 @@ class VarDumper implements interfaces\Dumper
             $cloner = new base\Cloner\VarCloner();
             $dumper = 'cli' === PHP_SAPI ? new base\Dumper\CliDumper : new base\Dumper\HtmlDumper;
 
-            $this->handler = function ($var) use ($cloner, $dumper) {
+            $this->handler = function($var) use ($cloner, $dumper) {
                 $dumper->dump($cloner->cloneVar($var));
             };
         }

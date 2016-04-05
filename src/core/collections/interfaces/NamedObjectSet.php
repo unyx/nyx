@@ -32,7 +32,7 @@ interface NamedObjectSet extends Collection
     /**
      * Adds the given Named Object to the Set.
      *
-     * @param   core\interfaces\Named   $item   The Named Object to add.
+     * @param   core\interfaces\Named   $object The Named Object to add.
      * @return  $this
      * @throws  \OverflowException              When an Object with the same name is already set.
      * @throws  \InvalidArgumentException       When expecting a specific type and the Object given is not an
@@ -51,8 +51,8 @@ interface NamedObjectSet extends Collection
     /**
      * Checks whether the given object exists in the Set.
      *
-     * @param   mixed   $object     The object to check for.
-     * @return  bool                True if the item exists in the Set, false otherwise.
+     * @param   core\interfaces\Named   $object     The object to check for.
+     * @return  bool                                True if the item exists in the Set, false otherwise.
      */
     public function contains(core\interfaces\Named $object) : bool;
 

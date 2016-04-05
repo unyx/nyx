@@ -54,7 +54,7 @@ class Trace extends collections\Sequence
     public function contains($item) : bool
     {
         // Avoid some overhead on simple type mismatches.
-        if(!$item instanceof Frame) {
+        if (!$item instanceof Frame) {
             return false;
         }
 

@@ -413,7 +413,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      */
     protected function sort(array &$delegates) : self
     {
-        uasort($delegates, function ($a, $b) {
+        uasort($delegates, function($a, $b) {
             return $b['priority'] - $a['priority'];
         });
 
