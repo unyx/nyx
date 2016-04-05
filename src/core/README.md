@@ -16,7 +16,7 @@ Interfaces, traits and classes used throughout Nyx.
 
 ### Requirements
 
-- PHP 7.0+
+- PHP 7.0.5+
 
 ### Installation
 

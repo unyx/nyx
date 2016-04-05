@@ -8,7 +8,7 @@ use nyx\core\collections\interfaces;
  *
  * Allows for the implementation of the collections\interfaces\Sequence interface.
  *
- * @package     Nyx\Console\Application
+ * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2016 Nyx Dev Team

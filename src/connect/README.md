@@ -16,7 +16,7 @@ A set of tools aimed at providing easy to use, coherent connectivity over variou
 
 ### Requirements
 
-- PHP 7.0+
+- PHP 7.0.5+
 
 ### Installation
 
