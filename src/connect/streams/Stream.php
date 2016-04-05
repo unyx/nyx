@@ -15,7 +15,7 @@ use nyx\core;
 class Stream implements interfaces\Stream
 {
     /**
-     * @var array       Hash table of readable and writable stream modes for faster lookups.
+     * @var array       Hash table of readable and writable stream modes for faster look-ups.
      */
     private static $rwh = [
         'read' => [

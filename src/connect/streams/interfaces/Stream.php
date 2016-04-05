@@ -27,7 +27,7 @@ interface Stream extends Psr\Http\Message\StreamInterface, core\interfaces\Strin
     const BLOCKED  = 16;
 
     /**
-     * Reads a line of data from the underlying stream up to the given length of bytes.
+     * Reads a line of data from the underlying stream up to the given $length of bytes, if specified.
      *
      * @param   int             $length     The amount of bytes that should be read.
      * @return  string                      The data read from the stream,
