@@ -233,7 +233,7 @@ class Stream implements interfaces\Stream
             return false;
         }
 
-        if (!$this->metadata || $this->status) {
+        if (empty($this->metadata) || $this->status) {
             $this->refresh();
         }
 
@@ -333,7 +333,7 @@ class Stream implements interfaces\Stream
 
         // Certain data doesn't change in a given stream, so we might just as well return cached values
         // if we've got them.
-        if ($key && $this->metadata) {
+        if (null !== $key && !empty($this->metadata)) {
             switch ($key) {
                 case 'mode':
                 case 'stream_type':
@@ -382,7 +382,7 @@ class Stream implements interfaces\Stream
 
         $this->resource = null;
         $this->context  = null;
-        $this->metadata = null;
+        $this->metadata = [];
         $this->status   = null;
         $this->size     = null;
 
@@ -449,11 +449,11 @@ class Stream implements interfaces\Stream
         // The call results of metadata() are cached so we can just use the class property.
         $this->getMetadata();
 
-        if (isset(static::$rwh['read'][$this->metadata['mode']])) {
+        if (isset(self::$rwh['read'][$this->metadata['mode']])) {
             $this->status->set(interfaces\Stream::READABLE);
         }
 
-        if (isset(static::$rwh['write'][$this->metadata['mode']])) {
+        if (isset(self::$rwh['write'][$this->metadata['mode']])) {
             $this->status->set(interfaces\Stream::WRITABLE);
         }
 
