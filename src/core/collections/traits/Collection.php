@@ -151,7 +151,7 @@ trait Collection
      */
     public function each(callable $callback) : self
     {
-        array_map($callback, $this->items);
+        array_walk($this->items, $callback);
 
         return $this;
     }

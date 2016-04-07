@@ -163,6 +163,7 @@ interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interf
 
     /**
      * Executes a callback over each of the items in the Collection but ignores the return values of the callback.
+     * The callback will receive 2 arguments - the item and its key, in that order.
      *
      * @param   callable    $callback   The callable to execute over each item.
      * @return  $this
