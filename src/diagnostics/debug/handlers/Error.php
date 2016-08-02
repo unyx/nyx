@@ -195,7 +195,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
             // Being Emitter Aware we are bound to comply to the Events Definition.
             // self::emitDebugEvent() will return false when no Emitter is present. Otherwise we'll get the
             // Exception after it's been processed by Event Listeners so we need to overwrite it here.
-            if (false !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_FATAL_ERROR_BEFORE, $exception)) {
+            if (null !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_FATAL_ERROR_BEFORE, $exception)) {
                 // Now, as per Events Definition, also emit a casual DEBUG_ERROR_BEFORE event. No need to check
                 // for an Emitter now anymore, obviously.
                 $exception = $this->emitDebugEvent(definitions\Events::DEBUG_ERROR_BEFORE, $response);
