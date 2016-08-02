@@ -86,23 +86,6 @@ class Frame implements core\interfaces\Serializable
     }
 
     /**
-     * Returns the Frame's data as an array.
-     *
-     * @return  array   $data   The Frame's data, in the same format as returned by \Exception::getTrace().
-     */
-    public function getData() : array
-    {
-        return [
-            'file'     => $this->file,
-            'line'     => $this->line,
-            'function' => $this->function,
-            'class'    => $this->class,
-            'type'     => $this->type,
-            'args'     => $this->args
-        ];
-    }
-
-    /**
      * Sets the Frame's data.
      *
      * @param   array   $data   The Frame's data, in the same format as returned by \Exception::getTrace().
@@ -296,7 +279,14 @@ class Frame implements core\interfaces\Serializable
      */
     public function toArray() : array
     {
-        return $this->getData();
+        return [
+            'file'     => $this->file,
+            'line'     => $this->line,
+            'function' => $this->function,
+            'class'    => $this->class,
+            'type'     => $this->type,
+            'args'     => $this->args
+        ];
     }
 
     /**
