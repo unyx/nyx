@@ -86,29 +86,6 @@ class Frame implements core\interfaces\Serializable
     }
 
     /**
-     * Sets the Frame's data.
-     *
-     * @param   array   $data   The Frame's data, in the same format as returned by \Exception::getTrace().
-     */
-    public function setData(array $data)
-    {
-        $this->line     = isset($data['line']) ? $data['line'] : null;
-        $this->class    = isset($data['class']) ? $data['class'] : null;
-        $this->function = isset($data['function']) ? $data['function'] : null;
-        $this->type     = isset($data['type']) ? $data['type'] : null;
-        $this->args     = isset($data['args']) ? (array) $data['args'] : [];
-        $this->file     = isset($data['file']) ? $data['file'] : null;
-
-        // If we're dealing with a class, try to get its namespace and short name.
-        if (null !== $this->class) {
-            $parts = explode('\\', $this->class);
-
-            $this->shortClass = array_pop($parts);
-            $this->namespace  = implode('\\', $parts);
-        }
-    }
-
-    /**
      * Returns the line which got executed resulting in the inspected trace.
      *
      * @return  int|null
@@ -287,6 +264,29 @@ class Frame implements core\interfaces\Serializable
             'type'     => $this->type,
             'args'     => $this->args
         ];
+    }
+
+    /**
+     * Sets the Frame's data.
+     *
+     * @param   array   $data   The Frame's data, in the same format as returned by \Exception::getTrace().
+     */
+    protected function setData(array $data)
+    {
+        $this->line     = isset($data['line']) ? $data['line'] : null;
+        $this->class    = isset($data['class']) ? $data['class'] : null;
+        $this->function = isset($data['function']) ? $data['function'] : null;
+        $this->type     = isset($data['type']) ? $data['type'] : null;
+        $this->args     = isset($data['args']) ? (array) $data['args'] : [];
+        $this->file     = isset($data['file']) ? $data['file'] : null;
+
+        // If we're dealing with a class, try to get its namespace and short name.
+        if (null !== $this->class) {
+            $parts = explode('\\', $this->class);
+
+            $this->shortClass = array_pop($parts);
+            $this->namespace  = implode('\\', $parts);
+        }
     }
 
     /**
