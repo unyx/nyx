@@ -127,36 +127,33 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
     public function handle(int $type, string $message, string $file = null, int $line = null, array $context = []) : bool
     {
         // A threshold of 0 means the handler should ignore all errors.
-        if (0 === $this->threshold) {
+        // When it's not 0, make sure that the severity is included in the error_reporting level
+        // (the handler will get called for nearly every error regardless of the error_reporting setting)
+        // and that it fits our threshold as well.
+        // Otherwise just revert back to PHP's native handler by returning false.
+        if (0 === $this->threshold || !(error_reporting() & $this->threshold & $type)) {
             return false;
         }
 
-        // Make sure that the severity is included in the error_reporting level (the handler will get called for
-        // nearly every error regardless of the error_reporting setting) and that it fits our threshold as well.
-        if (error_reporting() & $type and $this->threshold & $type) {
+        // We will construct an Exception but won't throw it yet. Conditions might prevent us from doing it.
+        $exception = new exceptions\Error($message, 0, $type, $file, $line, $context);
 
-            // We will construct an Exception but won't throw it yet. Conditions might prevent us from doing it.
-            $exception = new exceptions\Error($message, 0, $type, $file, $line, $context);
-
-            // Being Emitter Aware we are bound to comply to the Events Definition.
-            // self::emitDebugEvent() will return false when no Emitter is present. Otherwise we'll get the
-            // Exception after it's been processed by Event Listeners so we need to overwrite it here.
-            if (null !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_ERROR_BEFORE, $exception)) {
-                $exception = $response;
-            }
-
-            // First of all run all Conditions. The method will return true if we are to prevent throwing
-            // the Exception and since technically this Handler *somehow* handled the situation, we will return
-            // true so PHP knows about it.
-            if ($this->runConditions($exception)) {
-                return true;
-            }
-
-            // Seems we weren't prevented, so let's do eet.
-            throw $exception;
+        // Being Emitter Aware we are bound to comply to the Events Definition.
+        // self::emitDebugEvent() will return null when no Emitter is present. Otherwise we'll get the
+        // Exception after it's been processed by Event Listeners so we need to overwrite it here.
+        if (null !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_ERROR_BEFORE, $exception)) {
+            $exception = $response;
         }
 
-        return false;
+        // First of all run all Conditions. The method will return true if we are to prevent throwing
+        // the Exception and since technically this Handler *somehow* handled the situation, we will return
+        // true so PHP knows about it.
+        if ($this->runConditions($exception)) {
+            return true;
+        }
+
+        // Seems we weren't prevented, so let's do eet.
+        throw $exception;
     }
 
     /**
@@ -193,7 +190,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
             $exception = new exceptions\FatalError($error['message'], 0, $error['type'], $error['file'], $error['line']);
 
             // Being Emitter Aware we are bound to comply to the Events Definition.
-            // self::emitDebugEvent() will return false when no Emitter is present. Otherwise we'll get the
+            // self::emitDebugEvent() will return null when no Emitter is present. Otherwise we'll get the
             // Exception after it's been processed by Event Listeners so we need to overwrite it here.
             if (null !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_FATAL_ERROR_BEFORE, $exception)) {
                 // Now, as per Events Definition, also emit a casual DEBUG_ERROR_BEFORE event. No need to check
