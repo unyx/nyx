@@ -22,7 +22,7 @@ them to.
 
 ### Requirements
 
-- PHP 7.0.5+
+- PHP 7.1.0+
 
 ### Installation
 
