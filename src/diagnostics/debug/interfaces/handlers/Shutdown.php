@@ -10,7 +10,7 @@
  * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
  * @todo        Move into core as OnShutdown interface?
  */
-interface FatalError
+interface Shutdown
 {
     /**
      * Handles error-related cleanups. Intended to be registered as shutdown function with PHP. Implementations

@@ -26,7 +26,7 @@ use nyx\diagnostics\definitions;
  * @copyright   2012-2016 Nyx Dev Team
  * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
  */
-class Error extends debug\Handler implements interfaces\handlers\Error, interfaces\handlers\FatalError
+class Error extends debug\Handler implements interfaces\handlers\Error, interfaces\handlers\Shutdown
 {
     /**
      * Used by various components (mostly logging facilities) to denote a userland deprecation notice without
@@ -63,10 +63,10 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
         // Note: Utilizing the error_types parameter of set_error_handler would probably simplify this handler
         // a little bit (and make it perform better due to a cutdown on error_reporting() calls in cases with
         // lots of errors reported but ignored here due to being below threshold) but setting the threshold
-        // on the fly would become unusable/less robust.
+        // on the fly would become unpredictable.
         set_error_handler([$handler, 'handle']);
 
-        if ($handler instanceof interfaces\handlers\FatalError) {
+        if ($handler instanceof interfaces\handlers\Shutdown) {
             register_shutdown_function([$handler, 'onShutdown']);
         }
 
