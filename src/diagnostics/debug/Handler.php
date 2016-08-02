@@ -59,18 +59,14 @@ abstract class Handler implements events\interfaces\EmitterAware
      */
     public function apply($condition, callable $onMatch = null) : self
     {
-        $callable = is_callable($condition);
+         if (!is_callable($condition)) {
+            if (!$condition instanceof Condition) {
+                throw new \InvalidArgumentException('Expected a \nyx\diagnostics\Condition or a callable as first argument, got ['.diagnostics\Debug::getTypeName($condition).'] instead.');
+            }
 
-        if (!$callable && !$condition instanceof Condition) {
-            throw new \InvalidArgumentException('Expected a \nyx\diagnostics\Condition or a callable as first argument, got ['.diagnostics\Debug::getTypeName($condition).'] instead.');
-        }
-
-        // Condition instances.
-        if (!$callable) {
             $this->conditions[] = $condition;
-        }
-        // Both parameters are callables.
-        else {
+        } else {
+            // Both parameters are/should be callables.
             if (null === $onMatch) {
                 throw new \InvalidArgumentException('A callable must be given as second parameter when the first is also a callable.');
             }
@@ -134,7 +130,7 @@ abstract class Handler implements events\interfaces\EmitterAware
             }
 
             // Now let's check what onMatch() returned and see if it's a QUIT and we may exit.
-            if (($response & definitions\Signals::QUIT) === definitions\Signals::QUIT and $this->allowQuit) {
+            if (($response & definitions\Signals::QUIT) === definitions\Signals::QUIT && $this->allowQuit) {
                 exit;
             }
 
