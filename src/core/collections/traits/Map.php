@@ -1,8 +1,5 @@
 <?php namespace nyx\core\collections\traits;
 
-// Internal dependencies
-use nyx\core\collections\interfaces;
-
 /**
  * Map
  *
@@ -22,7 +19,7 @@ trait Map
     use Collection;
 
     /**
-     * @see interfaces\Map::get()
+     * @see \nyx\core\collections\interfaces\Map::get()
      */
     public function get($key, $default = null)
     {
@@ -30,12 +27,12 @@ trait Map
     }
 
     /**
-     * @see interfaces\Map::set()
+     * @see \nyx\core\collections\interfaces\Map::set()
      */
     public function set($key, $item) : self
     {
         if (null === $item) {
-            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+            throw new \InvalidArgumentException('Items in a Map cannot have a value of null.');
         }
 
         $this->items[$key] = $item;
@@ -44,7 +41,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Map::has()
+     * @see \nyx\core\collections\interfaces\Map::has()
      */
     public function has($key) : bool
     {
@@ -52,7 +49,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Collection::contains()
+     * @see \nyx\core\collections\interfaces\Collection::contains()
      */
     public function contains($item) : bool
     {
@@ -60,7 +57,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Map::remove()
+     * @see \nyx\core\collections\interfaces\Map::remove()
      */
     public function remove($key) : self
     {
@@ -70,7 +67,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Collection::replace()
+     * @see \nyx\core\collections\interfaces\Collection::replace()
      */
     public function replace($items) : self
     {
@@ -84,7 +81,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Map::key()
+     * @see \nyx\core\collections\interfaces\Map::key()
      */
     public function key($item)
     {
@@ -98,7 +95,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Map::keys()
+     * @see \nyx\core\collections\interfaces\Map::keys()
      */
     public function keys($of = null) : array
     {
@@ -106,7 +103,7 @@ trait Map
     }
 
     /**
-     * @see interfaces\Map::values()
+     * @see \nyx\core\collections\interfaces\Map::values()
      */
     public function values() : array
     {

@@ -8,7 +8,7 @@ use nyx\core;
  *
  * A Collection is an object that contains other items which can be set, get and removed from the Collection. This
  * is the base interface which does not propose any means of setting data in the Collection other than the
- * self::replace() method. You should implement one of the more concrete interfaces, like Map or Set.
+ * self::replace() method. You should implement one of the more concrete interfaces, like Map or Sequence.
  *
  * @package     Nyx\Core\Collections
  * @version     0.1.0

@@ -14,9 +14,9 @@ abstract class Collection implements \IteratorAggregate, interfaces\Collection
     /**
      * Constructs a new Collection.
      *
-     * @param   mixed   $items   An object implementing either the interfaces\Collection interface or the
-     *                           core\interfaces\Arrayable interface, or any other type which will be cast
-     *                           to an array.
+     * @param   mixed   $items  An object implementing either the interfaces\Collection interface or the
+     *                          core\interfaces\Arrayable interface, or any other type which will be cast
+     *                          to an array.
      */
     public function __construct($items = null)
     {

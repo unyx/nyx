@@ -9,7 +9,7 @@
  * @copyright   2012-2016 Nyx Dev Team
  * @link        http://docs.muyo.io/nyx/core/collections.html
  */
-class Map extends Collection implements \IteratorAggregate, interfaces\Map
+class Map extends Collection implements interfaces\Map
 {
     use traits\Map;
 }

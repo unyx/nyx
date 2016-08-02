@@ -22,7 +22,7 @@ trait Sequence
     use Collection;
 
     /**
-     * @see interfaces\Sequence::get()
+     * @see \nyx\core\collections\interfaces\Sequence::get()
      */
     public function get(int $index, $default = null)
     {
@@ -30,12 +30,12 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::push()
+     * @see \nyx\core\collections\interfaces\Sequence::push()
      */
     public function push($item) : self
     {
         if (null === $item) {
-            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+            throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
         $this->items[] = $item;
@@ -44,12 +44,12 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::prepend()
+     * @see \nyx\core\collections\interfaces\Sequence::prepend()
      */
     public function prepend($item) : self
     {
         if (null === $item) {
-            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+            throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
         array_unshift($this->items, $value);
@@ -58,12 +58,12 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::update()
+     * @see \nyx\core\collections\interfaces\Sequence::update()
      */
     public function update(int $index, $item) : self
     {
         if (null === $item) {
-            throw new \InvalidArgumentException("Items in a Sequence cannot have a value of null.");
+            throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
         if (!isset($this->items[$index])) {
@@ -76,7 +76,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::has()
+     * @see \nyx\core\collections\interfaces\Sequence::has()
      */
     public function has(int $index) : bool
     {
@@ -84,7 +84,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::contains()
+     * @see \nyx\core\collections\interfaces\Sequence::contains()
      */
     public function contains($item) : bool
     {
@@ -92,7 +92,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::remove()
+     * @see \nyx\core\collections\interfaces\Sequence::remove()
      */
     public function remove(int $index) : self
     {
@@ -111,7 +111,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::shift()
+     * @see \nyx\core\collections\interfaces\Sequence::shift()
      */
     public function shift()
     {
@@ -119,7 +119,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::pop()
+     * @see \nyx\core\collections\interfaces\Sequence::pop()
      */
     public function pop()
     {
@@ -127,9 +127,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::indexOf()
-     *
-     * Note:
+     * @see \nyx\core\collections\interfaces\Sequence::indexOf()
      */
     public function indexOf($item) : int
     {
@@ -143,7 +141,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::indexOfLast()
+     * @see \nyx\core\collections\interfaces\Sequence::indexOfLast()
      */
     public function indexOfLast($item) : int
     {
@@ -164,7 +162,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Collection::replace()
+     * @see \nyx\core\collections\interfaces\Collection::replace()
      */
     public function replace($items) : self
     {
@@ -178,7 +176,7 @@ trait Sequence
     }
 
     /**
-     * @see interfaces\Sequence::indices()
+     * @see \nyx\core\collections\interfaces\Sequence::indices()
      */
     public function indices($of = null) : array
     {

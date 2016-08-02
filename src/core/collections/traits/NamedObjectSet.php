@@ -4,7 +4,6 @@
 use nyx\diagnostics;
 
 // Internal dependencies
-use nyx\core\collections\interfaces;
 use nyx\core;
 
 /**
@@ -39,7 +38,7 @@ trait NamedObjectSet
     private $collectedType = '';
 
     /**
-     * @see interfaces\Sequence::get()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::get()
      */
     public function get(string $name, $default = null) : core\interfaces\Named
     {
@@ -47,7 +46,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see interfaces\NamedObjectSet::add()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::add()
      */
     public function add(core\interfaces\Named $object) : self
     {
@@ -74,7 +73,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see interfaces\NamedObjectSet::has()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::has()
      */
     public function has(string $name) : bool
     {
@@ -82,7 +81,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see interfaces\NamedObjectSet::contains()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::contains()
      */
     public function contains(core\interfaces\Named $object) : bool
     {
@@ -96,7 +95,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see interfaces\NamedObjectSet::remove()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::remove()
      */
     public function remove(string $name) : self
     {
@@ -106,7 +105,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see interfaces\Collection::replace()
+     * @see \nyx\core\collections\interfaces\Collection::replace()
      */
     public function replace($items) : self
     {
@@ -120,7 +119,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see interfaces\NamedObjectSet::names()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::names()
      */
     public function names() : array
     {
@@ -188,7 +187,7 @@ trait NamedObjectSet
     }
 
     /**
-     * Magic alias for {@see self::has()}.
+     * Magic alias for {@see self::remove()}.
      */
     public function __unset($name)
     {

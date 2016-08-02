@@ -12,20 +12,17 @@ use nyx\core;
  *
  * A Collection is an object that contains other items which can be set, get and removed from the Collection.
  *
- * Usage of this trait allows you to implement the interfaces\Collection interface and \IteratorAggregate.
+ * Usage of this trait allows you to implement \IteratorAggregate and the interfaces\Collection interface, including
+ * all of its inherited interfaces.
  *
  * Important notes:
  * 1) null is *not* an acceptable value for an item within a Collection. Null is used internally by many methods
  *    to denote an item that is *not set*. Likewise the methods will bombard you with exceptions if you attempt
  *    to set an item with null as its value. This is done to ensure the return values of the API are consistent
- *    and also provides a slight performance gain for some methods.
+ *    and also provides a slight performance gain for some methods;
  * 2) Some of the methods, like self::map() or self::filter() for instance, make assumptions as to the constructor
  *    of the exhibitor of this trait, assuming that it accepts a Collection, Arrayable object or array as
- *    its first argument.
- * 3) For simplicity and performance reasons, some of the methods do not rely on each other to reduce some
- *    overhead of additional function calls. This is the case, for instance, for self::get(), which does not make
- *    use of self::has() to check for the existence of an item or self::replace() which will not call self::set()
- *    for each item passed to it. Keep this in mind when overriding them.
+ *    its first argument;
  *
  * @package     Nyx\Core\Collections
  * @version     0.1.0
@@ -48,7 +45,7 @@ trait Collection
     protected $items = [];
 
     /**
-     * @see interfaces\Collection::all()
+     * @see \nyx\core\collections\interfaces\Collection::all()
      */
     public function all() : array
     {
@@ -56,7 +53,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::find()
+     * @see \nyx\core\collections\interfaces\Collection::find()
      */
     public function find(callable $callback, $default = null)
     {
@@ -64,7 +61,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::first()
+     * @see \nyx\core\collections\interfaces\Collection::first()
      */
     public function first($callback = false, $default = null)
     {
@@ -72,7 +69,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::last()
+     * @see \nyx\core\collections\interfaces\Collection::last()
      */
     public function last($callback = false, $default = null)
     {
@@ -80,7 +77,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::initial()
+     * @see \nyx\core\collections\interfaces\Collection::initial()
      */
     public function initial($callback = false, $default = null)
     {
@@ -88,7 +85,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::rest()
+     * @see \nyx\core\collections\interfaces\Collection::rest()
      */
     public function rest($callback = false, $default = null)
     {
@@ -96,7 +93,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::slice()
+     * @see \nyx\core\collections\interfaces\Collection::slice()
      */
     public function slice(int $offset, int $length = null, bool $preserveKeys = false) : interfaces\Collection
     {
@@ -104,7 +101,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::pluck()
+     * @see \nyx\core\collections\interfaces\Collection::pluck()
      */
     public function pluck($key, $index = null) : array
     {
@@ -112,7 +109,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::select()
+     * @see \nyx\core\collections\interfaces\Collection::select()
      */
     public function select(callable $callback) : interfaces\Collection
     {
@@ -120,10 +117,10 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::reject()
+     * @see \nyx\core\collections\interfaces\Collection::reject()
      *
-     * Usage of self::select() with the comparison in your callback inverted is preferred as this method is
-     * somewhat slower than simply running array_filter.
+     * Note: Usage of self::select() with the comparison in your callback inverted is preferred as this method is
+     * much slower than simply running array_filter.
      */
     public function reject(callable $callback) : interfaces\Collection
     {
@@ -139,7 +136,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::map()
+     * @see \nyx\core\collections\interfaces\Collection::map()
      */
     public function map(callable $callback) : interfaces\Collection
     {
@@ -147,7 +144,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::each()
+     * @see \nyx\core\collections\interfaces\Collection::each()
      */
     public function each(callable $callback) : self
     {
@@ -157,7 +154,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::reduce()
+     * @see \nyx\core\collections\interfaces\Collection::reduce()
      */
     public function reduce(callable $callback, $initial = null)
     {
@@ -165,7 +162,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::implode()
+     * @see \nyx\core\collections\interfaces\Collection::implode()
      */
     public function implode($value, string $glue = '') : string
     {
@@ -173,7 +170,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::reverse()
+     * @see \nyx\core\collections\interfaces\Collection::reverse()
      */
     public function reverse() : interfaces\Collection
     {
@@ -181,7 +178,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::collapse()
+     * @see \nyx\core\collections\interfaces\Collection::collapse()
      */
     public function collapse() : interfaces\Collection
     {
@@ -189,7 +186,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::flatten()
+     * @see \nyx\core\collections\interfaces\Collection::flatten()
      */
     public function flatten() : interfaces\Collection
     {
@@ -197,7 +194,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::fetch()
+     * @see \nyx\core\collections\interfaces\Collection::fetch()
      */
     public function fetch($key) : interfaces\Collection
     {
@@ -205,7 +202,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::merge()
+     * @see \nyx\core\collections\interfaces\Collection::merge()
      */
     public function merge(...$with) : interfaces\Collection
     {
@@ -219,7 +216,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::diff()
+     * @see \nyx\core\collections\interfaces\Collection::diff()
      */
     public function diff(...$against)
     {
@@ -233,7 +230,7 @@ trait Collection
     }
 
     /**
-     * @see interfaces\Collection::isEmpty()
+     * @see \nyx\core\collections\interfaces\Collection::isEmpty()
      */
     public function isEmpty() : bool
     {
@@ -267,7 +264,7 @@ trait Collection
     }
 
     /**
-     * @see core\interfaces\Arrayble::toArray()
+     * @see \nyx\core\interfaces\Arrayable::toArray()
      */
     public function toArray() : array
     {

@@ -9,7 +9,7 @@
  * @copyright   2012-2016 Nyx Dev Team
  * @link        http://docs.muyo.io/nyx/core/collections.html
  */
-class NamedObjectSet extends Collection implements \IteratorAggregate, interfaces\NamedObjectSet
+class NamedObjectSet extends Collection implements interfaces\NamedObjectSet
 {
     use traits\NamedObjectSet;
 }
