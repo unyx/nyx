@@ -5,6 +5,7 @@ use nyx\events;
 
 // Internal dependencies
 use nyx\diagnostics\definitions;
+use nyx\diagnostics;
 
 /**
  * Abstract Handler
@@ -61,7 +62,7 @@ abstract class Handler implements events\interfaces\EmitterAware
         $callable = is_callable($condition);
 
         if (!$callable && !$condition instanceof Condition) {
-            throw new \InvalidArgumentException('The first parameter given must be a \nyx\diagnostics\Condition instance or a callable. ['.gettype($condition).'] given.');
+            throw new \InvalidArgumentException('Expected a \nyx\diagnostics\Condition or a callable as first argument, got ['.diagnostics\Debug::getTypeName($condition).'] instead.');
         }
 
         // Condition instances.

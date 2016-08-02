@@ -13,10 +13,10 @@
 interface Dumper
 {
     /**
-     * Dumps the given variable, providing information about its type, contents and others. Variadic, ie. accepts
-     * multiple variables as parameters.
+     * Dumps the given variable, providing information about its type, contents and others. Accepts multiple
+     * values as parameters.
      *
-     * @param   mixed[]     ...$vars    The variable(s) to dump info about.
+     * @param   mixed   ...$vars    The variable(s) to dump info about.
      */
     public function dump(...$vars);
 }

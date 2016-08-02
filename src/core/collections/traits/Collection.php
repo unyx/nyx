@@ -295,6 +295,7 @@ trait Collection
      * to simply cast the variable to an array to make use of it.
      *
      * @param   mixed   $items
+     * @return  array
      */
     protected function extractItems($items) : array
     {

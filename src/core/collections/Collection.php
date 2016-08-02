@@ -23,6 +23,6 @@ abstract class Collection implements \IteratorAggregate, interfaces\Collection
         // The "items" property inherited from the Collection trait is an array by default, so we only need
         // to set its value if it's actually given and if it is, the replace method will handle casting it to
         // a useful type or extracting data out of an already existing Collection.
-        null !== $items and $this->replace($items);
+        null !== $items && $this->replace($items);
     }
 }

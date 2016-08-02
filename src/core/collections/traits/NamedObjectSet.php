@@ -65,7 +65,7 @@ trait NamedObjectSet
 
         // If we are to check for a specific type, ensure the object is an instance of that.
         if (null !== $this->collectedType && !($object instanceof $this->collectedType)) {
-            throw new \InvalidArgumentException("Expected an instance of [$this->collectedType], got [".diagnostics\Debug::getTypeName($object)."] instead.");
+            throw new \InvalidArgumentException('Expected an instance of ['.$this->collectedType.'], got ['.diagnostics\Debug::getTypeName($object).'] instead.');
         }
 
         $this->items[$name] = $object;
@@ -176,7 +176,7 @@ trait NamedObjectSet
      */
     public function __set($name, $object)
     {
-        throw new \LogicException("Objects in a NamedObjectSet cannot have keys defined by the user. Use add() instead of the magic __set().");
+        throw new \LogicException('Objects in a NamedObjectSet cannot have keys defined by the user. Use add() instead of the magic __set().');
     }
 
     /**
@@ -209,7 +209,7 @@ trait NamedObjectSet
     public function offsetSet($name, $object)
     {
         if (null !== $name) {
-            throw new \InvalidArgumentException("Objects in a NamedObjectSet cannot have keys defined by the user.");
+            throw new \InvalidArgumentException('Objects in a NamedObjectSet cannot have keys defined by the user.');
         }
 
         return $this->add($object);
