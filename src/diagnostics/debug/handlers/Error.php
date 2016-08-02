@@ -29,12 +29,6 @@ use nyx\diagnostics\definitions;
 class Error extends debug\Handler implements interfaces\handlers\Error, interfaces\handlers\Shutdown
 {
     /**
-     * Used by various components (mostly logging facilities) to denote a userland deprecation notice without
-     * actually throwing errors/exceptions (in a logging context etc.).
-     */
-    const DEPRECATION = -100;
-
-    /**
      * @var int     The error severity required to convert an error into an Exception.
      */
     private $threshold;
@@ -55,7 +49,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      *                                                  Either the same as the given one or if none was given,
      *                                                  a new instance.
      */
-    public static function register(interfaces\handlers\Error $handler = null, $threshold = null)
+    public static function register(interfaces\handlers\Error $handler = null, int $threshold = null)
     {
         // Use the given handler or instantiate a new one?
         $handler = $handler ?: new static($threshold);
@@ -78,7 +72,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      *
      * @param   int $threshold      {@see self::setThreshold()}.
      */
-    public function __construct($threshold = null)
+    public function __construct(int $threshold = null)
     {
         $this->setThreshold($threshold);
 
@@ -91,7 +85,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      *
      * @return  int
      */
-    public function getThreshold()
+    public function getThreshold() : int
     {
         return $this->threshold;
     }
@@ -100,13 +94,12 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      * Sets the error severity required to convert an error into an Exception.
      *
      * @param   int $threshold      The threshold. Passing null will make the handler use the current
-     *                              error_reporting() level as reported by PHP. All non-null values will be
-     *                              converted to integers.
+     *                              error_reporting() level as reported by PHP.
      * @return  $this
      */
-    public function setThreshold($threshold = null)
+    public function setThreshold(int $threshold = null) : self
     {
-        $this->threshold = null === $threshold ? error_reporting() : (int) $threshold;
+        $this->threshold = null === $threshold ? error_reporting() : $threshold;
 
         return $this;
     }
@@ -116,7 +109,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      *
      * @return  $this
      */
-    public function restoreThreshold()
+    public function restoreThreshold() : self
     {
         return $this->setThreshold($this->initialThreshold);
     }
@@ -125,7 +118,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      * {@inheritDoc}
      *
      * Converts errors of a severity equal to or above the given threshold into Exceptions for easier inspections
-     * and more robust and cohesive handling. Ignores errors which do not meed the thresholds and returns false
+     * and more robust and cohesive handling. Ignores errors which do not meet the thresholds and returns false
      * for those instead, letting PHP's internal error handling handle such a case.
      *
      * @throws  exceptions\Error    When the given error severity meets both the error_reporting() and internal
@@ -184,7 +177,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
 
         // Even if the handler is set to ignore all errors, we are still going to kick in for the most fundamental
         // errors reported by PHP.
-        if (0 === $this->threshold and !$this->isFatal($error['type'])) {
+        if (0 === $this->threshold && !$this->isFatal($error['type'])) {
             return;
         }
 
@@ -230,7 +223,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
      * @param   int     $type   The error type to check.
      * @return  bool
      */
-    protected function isFatal($type)
+    protected function isFatal(int $type)
     {
         return in_array($type, [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR, E_PARSE]);
     }
