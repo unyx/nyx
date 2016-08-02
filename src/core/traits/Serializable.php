@@ -61,7 +61,7 @@ trait Serializable
     /**
      * Magic alias for {@see self::toString()}.
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->toString();
     }
