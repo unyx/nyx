@@ -4,6 +4,7 @@
 use nyx\diagnostics;
 
 // Internal dependencies
+use nyx\core\collections\interfaces;
 use nyx\core;
 
 /**
@@ -48,7 +49,7 @@ trait NamedObjectSet
     /**
      * @see \nyx\core\collections\interfaces\NamedObjectSet::add()
      */
-    public function add(core\interfaces\Named $object) : self
+    public function add(core\interfaces\Named $object) : interfaces\NamedObjectSet
     {
         $name = $object->getName();
 
@@ -97,7 +98,7 @@ trait NamedObjectSet
     /**
      * @see \nyx\core\collections\interfaces\NamedObjectSet::remove()
      */
-    public function remove(string $name) : self
+    public function remove(string $name) : interfaces\NamedObjectSet
     {
         unset($this->items[$name]);
 
@@ -107,7 +108,7 @@ trait NamedObjectSet
     /**
      * @see \nyx\core\collections\interfaces\Collection::replace()
      */
-    public function replace($items) : self
+    public function replace($items) : interfaces\Collection
     {
         $this->items = [];
 

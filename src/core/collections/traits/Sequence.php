@@ -32,7 +32,7 @@ trait Sequence
     /**
      * @see \nyx\core\collections\interfaces\Sequence::push()
      */
-    public function push($item) : self
+    public function push($item) : interfaces\Sequence
     {
         if (null === $item) {
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
@@ -46,7 +46,7 @@ trait Sequence
     /**
      * @see \nyx\core\collections\interfaces\Sequence::prepend()
      */
-    public function prepend($item) : self
+    public function prepend($item) : interfaces\Sequence
     {
         if (null === $item) {
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
@@ -60,7 +60,7 @@ trait Sequence
     /**
      * @see \nyx\core\collections\interfaces\Sequence::update()
      */
-    public function update(int $index, $item) : self
+    public function update(int $index, $item) : interfaces\Sequence
     {
         if (null === $item) {
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
@@ -94,7 +94,7 @@ trait Sequence
     /**
      * @see \nyx\core\collections\interfaces\Sequence::remove()
      */
-    public function remove(int $index) : self
+    public function remove(int $index) : interfaces\Sequence
     {
         // Note: We need to maintain order so we do actually need to check whether we remove
         // an item or whether it's already gone.
@@ -164,7 +164,7 @@ trait Sequence
     /**
      * @see \nyx\core\collections\interfaces\Collection::replace()
      */
-    public function replace($items) : self
+    public function replace($items) : interfaces\Collection
     {
         $this->items = [];
 

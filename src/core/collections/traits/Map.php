@@ -1,5 +1,8 @@
 <?php namespace nyx\core\collections\traits;
 
+// Internal dependencies
+use nyx\core\collections\interfaces;
+
 /**
  * Map
  *
@@ -29,7 +32,7 @@ trait Map
     /**
      * @see \nyx\core\collections\interfaces\Map::set()
      */
-    public function set($key, $item) : self
+    public function set($key, $item) : interfaces\Map
     {
         if (null === $item) {
             throw new \InvalidArgumentException('Items in a Map cannot have a value of null.');
@@ -59,7 +62,7 @@ trait Map
     /**
      * @see \nyx\core\collections\interfaces\Map::remove()
      */
-    public function remove($key) : self
+    public function remove($key) : interfaces\Map
     {
         unset($this->items[$key]);
 
@@ -69,7 +72,7 @@ trait Map
     /**
      * @see \nyx\core\collections\interfaces\Collection::replace()
      */
-    public function replace($items) : self
+    public function replace($items) : interfaces\Collection
     {
         $this->items = [];
 

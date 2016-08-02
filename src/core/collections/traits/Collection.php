@@ -13,7 +13,7 @@ use nyx\core;
  * A Collection is an object that contains other items which can be set, get and removed from the Collection.
  *
  * Usage of this trait allows you to implement \IteratorAggregate and the interfaces\Collection interface, including
- * all of its inherited interfaces.
+ * all of its in
  *
  * Important notes:
  * 1) null is *not* an acceptable value for an item within a Collection. Null is used internally by many methods
@@ -146,7 +146,7 @@ trait Collection
     /**
      * @see \nyx\core\collections\interfaces\Collection::each()
      */
-    public function each(callable $callback) : self
+    public function each(callable $callback) : interfaces\Collection
     {
         array_walk($this->items, $callback);
 
@@ -218,7 +218,7 @@ trait Collection
     /**
      * @see \nyx\core\collections\interfaces\Collection::diff()
      */
-    public function diff(...$against)
+    public function diff(...$against) : interfaces\Collection
     {
         $result = $this->items;
 
