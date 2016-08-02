@@ -158,17 +158,17 @@ class Debug
     /**
      * Converts an Exception to an array in the format as returned by \Exception::getTrace().
      *
-     * @param   \Exception  $exception  The Exception to convert.
+     * @param   \Throwable  $throwable  The Exception to convert.
      * @return  array
      */
-    public static function exceptionToArray(\Exception $exception) : array
+    public static function throwableToArray(\Throwable $throwable) : array
     {
         return [
-            'type'  => $exception->getCode(),
-            'file'  => $exception->getFile(),
-            'line'  => $exception->getLine(),
-            'class' => get_class($exception),
-            'args'  => [$exception->getMessage()]
+            'type'  => $throwable->getCode(),
+            'file'  => $throwable->getFile(),
+            'line'  => $throwable->getLine(),
+            'class' => get_class($throwable),
+            'args'  => [$throwable->getMessage()]
         ];
     }
 

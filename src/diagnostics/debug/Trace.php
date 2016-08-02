@@ -27,7 +27,7 @@ class Trace extends collections\Sequence
     /**
      * {@inheritDoc}
      */
-    public function push($frame) : self
+    public function push($frame) : collections\interfaces\Sequence
     {
         return parent::push($this->assertValueIsFrame($frame));
     }
@@ -35,7 +35,7 @@ class Trace extends collections\Sequence
     /**
      * {@inheritDoc}
      */
-    public function prepend($frame) : self
+    public function prepend($frame) : collections\interfaces\Sequence
     {
         return parent::prepend($this->assertValueIsFrame($frame));
     }
@@ -43,7 +43,7 @@ class Trace extends collections\Sequence
     /**
      * {@inheritDoc}
      */
-    public function update(int $index, $frame) : self
+    public function update(int $index, $frame) : collections\interfaces\Sequence
     {
         return parent::update($index, $this->assertValueIsFrame($frame));
     }

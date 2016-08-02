@@ -1,7 +1,6 @@
 <?php namespace nyx\diagnostics\debug\handlers;
 
 // Internal dependencies
-use nyx\diagnostics\debug\exceptions;
 use nyx\diagnostics\debug\interfaces;
 use nyx\diagnostics\debug;
 use nyx\diagnostics\definitions;
@@ -84,20 +83,18 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      * Walks through all stacked Delegates in the order of their priority and passes the inspected Exception to
      * them until one of them returns a STOP or QUIT signal as defined in definitions\Signals or no more Delegates
      * are left.
-     *
-     * @param   \Throwable  $exception
      */
-    public function handle(\Throwable $exception)
+    public function handle(\Throwable $throwable)
     {
         // Being Emitter Aware we are bound to comply to the Events Definition.
         // self::emitDebugEvent() will return null when no Emitter is present. Otherwise we'll get the Exception
         // after it's been processed by Event Listeners so we need to overwrite it here.
-        if (null !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_EXCEPTION_BEFORE, $exception)) {
-            $exception = $response;
+        if (null !== $response = $this->emitDebugEvent(definitions\Events::DEBUG_THROWABLE_BEFORE, $throwable)) {
+            $throwable = $response;
         }
 
         // First of all run all Conditions. The method will return true if we are to prevent further execution.
-        if ($this->runConditions($exception)) {
+        if ($this->runConditions($throwable)) {
             return;
         }
 
@@ -113,7 +110,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
             $this->sort($delegates);
 
             // Inspect the Exception we got, which will give us an Inspector instance we can pass along.
-            $inspector = $this->inspect($exception);
+            $inspector = $this->inspect($throwable);
 
             // Walk through all applicable Delegates and let them handle the Exception until done or one of them
             // returns a STOP/QUIT signal.
@@ -141,7 +138,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
         }
 
         // Now that we are done looping, time to attempt to emit the appropriate Event.
-        $this->emitDebugEvent(definitions\Events::DEBUG_EXCEPTION_AFTER, $exception);
+        $this->emitDebugEvent(definitions\Events::DEBUG_THROWABLE_AFTER, $throwable);
 
         // If we were told to quit and the Handler allows this, do eet.
         if ($quit and $this->doesAllowQuit()) {
@@ -173,7 +170,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
     public function set(string $name, $delegate, int $priority = 0) : self
     {
         // Make sure we've got a type we can work with.
-        if (!$delegate instanceof interfaces\Delegate and !is_callable($delegate)) {
+        if (!$delegate instanceof interfaces\Delegate && !is_callable($delegate)) {
             throw new \InvalidArgumentException("Exception handling delegates must be callables or instances of nyx\\diagnostics\\interfaces\\Delegate.");
         }
 
@@ -319,7 +316,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
         $delegates = array_keys($this->delegates);
 
         // No need for any fancy magic if we've got no black/whitelist.
-        if (empty($this->whitelist) and empty($this->blacklist)) {
+        if (empty($this->whitelist) && empty($this->blacklist)) {
             return $this->applicable = $delegates;
         }
 
@@ -333,7 +330,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
         }
 
         // No need to proceed further if we didn't actually black/whitelist any currently added Delegates.
-        if (empty($whitelist) and empty($blacklist)) {
+        if (empty($whitelist) && empty($blacklist)) {
             return $this->applicable = $delegates;
         }
 
@@ -357,7 +354,6 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      *
      * @return  $this
      */
-
     public function flush()
     {
         $this->delegates = [];
@@ -372,7 +368,6 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      *
      * @param   bool    $bool   True to have the blacklist override the whitelist, false otherwise.
      */
-
     public function setPrioritizeBlacklist($bool)
     {
         $this->prioritizeBlacklist = (bool) $bool;
@@ -384,7 +379,6 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      *
      * @return  bool    True when the blacklist overrides the whitelist, false otherwise.
      */
-
     public function doesPrioritizeBlacklist()
     {
         return $this->prioritizeBlacklist;
@@ -399,7 +393,6 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      *
      * @return  int
      */
-
     public function getHighestPriority()
     {
         return $this->highestPriority;
@@ -468,12 +461,12 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      * Returns an Inspector instance for the given exception. Kept separately from self::handle() in case you
      * intend to use a custom Inspector.
      *
-     * @param   \Exception          $exception  The exception which is to be inspected.
-     * @return  debug\Inspector                 An exception Inspector instance.
+     * @param   \Throwable      $throwable  The Throwable which is to be inspected.
+     * @return  debug\Inspector             A Inspector instance.
      */
-    protected function inspect(\Exception $exception) : debug\Inspector
+    protected function inspect(\Throwable $throwable) : debug\Inspector
     {
-        return new debug\Inspector($exception, $this);
+        return new debug\Inspector($throwable, $this);
     }
 
     /**
@@ -484,7 +477,7 @@ class Exception extends debug\Handler implements interfaces\handlers\Exception
      * them and stop further delegation by returning a STOP signal yourself.
      *
      * @param   mixed               $response   The response of the last Delegate.
-     * @param   debug\Inspector     $inspector  The Inspector handling the Exception.
+     * @param   debug\Inspector     $inspector  The Inspector handling the Throwable.
      * @return  mixed
      */
     protected function handleDelegateResponse($response, debug\Inspector $inspector)

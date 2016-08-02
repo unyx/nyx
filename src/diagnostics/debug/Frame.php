@@ -274,7 +274,7 @@ class Frame implements core\interfaces\Serializable
     /**
      * {@inheritDoc}
      */
-    public function serialize()
+    public function serialize() : string
     {
         $data = $this->toArray();
 
@@ -306,7 +306,7 @@ class Frame implements core\interfaces\Serializable
      * @param   int     $level  The current nesting depth.
      * @return  array           The flattened args.
      */
-    protected function flattenArgs(array $args, $level = 0)
+    protected function flattenArgs(array $args, int $level = 0) : array
     {
         $result = [];
 
@@ -325,9 +325,8 @@ class Frame implements core\interfaces\Serializable
                 $result[$key] = ['boolean', $value];
             } elseif (is_resource($value)) {
                 $result[$key] = ['resource', get_resource_type($value)];
-            }
-            // Special case of object, is_object will return false.
-            elseif ($value instanceof \__PHP_Incomplete_Class) {
+            } elseif ($value instanceof \__PHP_Incomplete_Class) {
+                // Special case of object, is_object will return false.
                 $array = new \ArrayObject($value);
                 $result[$key] = ['incomplete-object', $array['__PHP_Incomplete_Class_Name']];
             } else {

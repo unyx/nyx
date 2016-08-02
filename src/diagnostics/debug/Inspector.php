@@ -4,13 +4,13 @@
 use nyx\diagnostics;
 
 /**
- * Exception Inspector
+ * Throwable Inspector
  *
- * The Exception being inspected and the (optional) Handler are immutable. It you do not set the Handler during
- * construction of the Inspector it will not be set for the whole lifecycle of the Inspector.
+ * The Throwable being inspected and the (optional) Handler are immutable. If you do not set the Handler during
+ * construction of the Inspector, it will not be set for the whole lifecycle of the Inspector.
  *
  * @package     Nyx\Diagnostics\Debug
- * @version     0.0.7
+ * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2016 Nyx Dev Team
  * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
@@ -19,45 +19,45 @@ use nyx\diagnostics;
 class Inspector
 {
     /**
-     * @var \Exception  The Exception that is to be inspected.
+     * @var \Throwable  The Throwable that is being inspected.
      */
-    private $exception;
+    private $throwable;
 
     /**
-     * @var Trace   A Trace instance.
+     * @var Trace       A Trace instance.
      */
     private $trace;
 
     /**
-     * @var handlers\Exception  The Exception Handler currently handling the inspected Exception.
+     * @var handlers\Exception  The Exception Handler currently handling the inspected Throwable.
      */
     private $handler;
 
     /**
-     * Prepares a new Inspector by feeding him with an Exception that shall be inspected and the Handler which
+     * Prepares a new Inspector by feeding him a Throwable that shall be inspected and the Handler which
      * started the inspection.
      *
-     * @param   \Exception          $exception  The Exception that is to be inspected.
-     * @param   handlers\Exception  $handler    The Handler which started the inspection, if available.
+     * @param   \Throwable         $throwable The Throwable that is to be inspected.
+     * @param   handlers\Exception $handler   The Handler which started the inspection, if available.
      */
-    public function __construct(\Exception $exception, handlers\Exception $handler = null)
+    public function __construct(\Throwable $throwable, handlers\Exception $handler = null)
     {
-        $this->exception = $exception;
+        $this->throwable = $throwable;
         $this->handler   = $handler;
     }
 
     /**
-     * Returns the Exception currently being inspected.
+     * Returns the Throwable currently being inspected.
      *
-     * @return  \Exception  The Exception being inspected.
+     * @return  \Throwable  The Throwable being inspected.
      */
-    public function getException() : \Exception
+    public function getThrowable() : \Throwable
     {
-        return $this->exception;
+        return $this->throwable;
     }
 
     /**
-     * Returns the Exception Handler currently handling the inspected Exception, if available.
+     * Returns the Exception Handler currently handling the inspected Throwable, if available.
      *
      * @return  handlers\Exception|null
      */
@@ -67,11 +67,11 @@ class Inspector
     }
 
     /**
-     * Returns a Trace instance representing the stack trace of the inspected Exception.
+     * Returns a Trace instance representing the stack trace of the inspected Throwable.
      *
-     * If the trace contains a handlers\Error entry (indicating the Exception is the result of an internal
-     * error -> exception conversion), that frame will be removed. If it does not, a frame for the actual Exception
-     * will be prepended to the frame stack instead to make it easier to iterate over the causality chain.
+     * If the trace contains a handlers\Error entry (indicating the Throwable is the result of an internal
+     * error -> exception conversion), that frame will be removed. If it does not, a frame for the actual Throwable
+     * will be prepended to the frame stack instead, to make it easier to iterate over the causality chain.
      *
      * @return  Trace
      */
@@ -82,30 +82,24 @@ class Inspector
             return $this->trace;
         }
 
-        // The frames might differ from the actual trace after we are done. See below.
-        $frames = $this->getFrames();
-
-        // Make sure the first frame in the trace actually points to the Exception we're inspecting.
-        if (empty($frames[0]['line'])) {
-            $frames[0] = array_merge(diagnostics\Debug::exceptionToArray($this->exception), $frames[0]);
-        } else {
-            array_unshift($frames, diagnostics\Debug::exceptionToArray($this->exception));
-        }
-
         // Instantiate a new Trace Sequence and cache it locally.
-        return $this->trace = new Trace($frames);
+        return $this->trace = new Trace($this->getFrames());
     }
 
     /**
-     * Returns the traced frames from the inspected Exception.
+     * Returns the traced frames from the inspected Throwable..
      *
      * @return  array
      */
     protected function getFrames() : array
     {
-        $frames = $this->exception->getTrace();
+        $frames = $this->throwable->getTrace();
 
-        if (!$this->exception instanceof \ErrorException) {
+        if (!$this->throwable instanceof \ErrorException) {
+
+            // Make sure the first frame in the trace actually points to the Throwable we're inspecting.
+            array_unshift($frames, diagnostics\Debug::throwableToArray($this->throwable));
+
             return $frames;
         }
 
@@ -116,7 +110,7 @@ class Inspector
         // so they should be caught by an Exception Handler directly instead of first going through an Error Handler
         // and being converted to an Error Exception, let alone a FatalError Exception. We still keep
         // them here for edge cases, however.
-        switch ($this->exception->getSeverity()) {
+        switch ($this->throwable->getSeverity()) {
             case E_ERROR:
             case E_CORE_ERROR:
             case E_COMPILE_ERROR:
@@ -129,9 +123,11 @@ class Inspector
 
         // Without XDebug we don't actually have any means to determine the stacktrace of a fatal error.
         if (!$fatal || !extension_loaded('xdebug') || !xdebug_is_enabled()) {
-
+            // Our error handler will be the first frame in the trace since it's the one which converted
+            // the error to an exception. We're gonna copy over the context and remove
             // Remove our (error) handler from the stack trace (it's otherwise always going to occlude
             // the actual exception).
+            // $frames[1]['args'] = $frames[0]['args'];
             array_shift($frames);
 
             return $frames;
@@ -140,7 +136,7 @@ class Inspector
         // Remove our internal handling logic from the stack trace so it doesn't occlude the actual trace.
         $frames = array_diff_key(array_reverse(xdebug_get_function_stack()), debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
 
-        // Handle some potential inconsistencies between XDebug and the way we want handle things.
+        // Handle some potential inconsistencies between XDebug and the way we want to handle things.
         foreach ($frames as &$frame) {
 
             if ('dynamic' === $frame['type']) {

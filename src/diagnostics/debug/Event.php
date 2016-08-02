@@ -9,7 +9,7 @@ use nyx\diagnostics\definitions;
 /**
  * Debug Event
  *
- * Note: Setting the Exception within a diagnostics\definitions\Events::DEBUG_EXCEPTION_AFTER Event has no effect
+ * Note: Setting the Throwable within a diagnostics\definitions\Events::DEBUG_EXCEPTION_AFTER Event has no effect
  * whatsoever.
  *
  * @package     Nyx\Diagnostics\Debug
@@ -21,9 +21,9 @@ use nyx\diagnostics\definitions;
 class Event extends events\Event
 {
     /**
-     * @var \Exception  The Exception which is being handled.
+     * @var \Throwable  The Throwable which is being handled.
      */
-    private $exception;
+    private $throwable;
 
     /**
      * @var Handler     The Handler which emitted this Event.
@@ -33,40 +33,40 @@ class Event extends events\Event
     /**
      * {@inheritDoc}
      *
-     * @param   \Exception      $exception  The Exception which is being handled.
-     * @param   Handler         $handler    The Handler which emitted this Event.
+     * @param   \Exception  $throwable  The Throwable which is being handled.
+     * @param   Handler     $handler    The Handler which emitted this Event.
      */
-    public function __construct(\Exception $exception, Handler $handler, $name = null)
+    public function __construct(\Throwable $throwable, Handler $handler, $name = null)
     {
-        $this->exception = $exception;
+        $this->throwable = $throwable;
         $this->handler   = $handler;
 
         parent::__construct($name);
     }
 
     /**
-     * Returns the Exception which is being handled.
+     * Returns the Throwable which is being handled.
      *
      * @return  \Exception
      */
-    public function getException()
+    public function getThrowable() : \Throwable
     {
-        return $this->exception;
+        return $this->throwable;
     }
 
     /**
-     * Sets the Exception to be handled.
+     * Sets the Throwable to be handled.
      *
-     * @param   \Exception  $exception
+     * @param   \Throwable  $throwable
      * @return  $this
      */
-    public function setException(\Exception $exception)
+    public function setThrowable(\Throwable $throwable) : Event
     {
         // Setting the Exception after it's already been handled makes no sense. This might potentially lead to
         // confusion in the future as we are not throwing an Exception on our own for this in order not to mess
         // up things while already within an Exception Handler context.
-        if ($this->getName() !== definitions\Events::DEBUG_EXCEPTION_AFTER) {
-            $this->exception = $exception;
+        if ($this->getName() !== definitions\Events::DEBUG_THROWABLE_AFTER) {
+            $this->throwable = $throwable;
         }
 
         return $this;

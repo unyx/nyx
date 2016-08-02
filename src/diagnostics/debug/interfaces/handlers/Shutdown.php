@@ -1,7 +1,7 @@
 <?php namespace nyx\diagnostics\debug\interfaces\handlers;
 
 /**
- * Fatal Error Handler Interface
+ * Shutdown Handler Interface
  *
  * @package     Nyx\Diagnostics\Debug
  * @version     0.1.0

@@ -3,6 +3,9 @@
 /**
  * Exception Handler Interface
  *
+ * Note: Technically this should be a Throwable Handler Interface, but is left as is for consistency with
+ *       set_exception_handler() which did not get renamed with the introduction of Throwables in PHP7.
+ *
  * @package     Nyx\Diagnostics\Debug
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
@@ -12,9 +15,9 @@
 interface Exception
 {
     /**
-     * Handles an Exception.
+     * Handles a Throwable.
      *
-     * @param   \Throwable  $exception
+     * @param   \Throwable  $throwable
      */
-    public function handle(\Throwable $exception);
+    public function handle(\Throwable $throwable);
 }

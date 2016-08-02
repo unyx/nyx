@@ -184,7 +184,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
 
         // ... and then check if it's an instance of our own exception handler so that we can make use of it.
         // BTW Why isn't such a basic Exception Handler Interface a PSR yet?
-        if (is_array($handler) && $handler[0] instanceof interfaces\handlers\Exception) {
+        if (isset($handler[0]) && $handler[0] instanceof interfaces\handlers\Exception) {
 
             // We will construct an Exception as we need to pass it to our Conditions.
             $exception = new exceptions\FatalError($error['message'], 0, $error['type'], $error['file'], $error['line']);

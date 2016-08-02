@@ -13,16 +13,16 @@
 final class Events
 {
     /**
-     * The DEBUG_EXCEPTION_BEFORE event is triggered *before* an Exception Handler handles an Exception and
+     * The DEBUG_THROWABLE_BEFORE event is triggered *before* an Exception Handler handles an Exception and
      * *before* Conditions get checked.
      *
      * Listeners registered for this event will receive a {@see \nyx\diagnostics\debug\Event} event
      * instance as their first parameter.
      */
-    const DEBUG_EXCEPTION_BEFORE = 'diagnostics.debug.exception.before';
+    const DEBUG_THROWABLE_BEFORE = 'diagnostics.debug.throwable.before';
 
     /**
-     * The DEBUG_EXECUTION_AFTER event is triggered *after* an Exception Handler handles an Exception but before
+     * The DEBUG_THROWABLE_AFTER event is triggered *after* an Exception Handler handles an Exception but before
      * the code execution stops (regardless of whether a Delegate returns a QUIT signal, meaning a listener may
      * indeed override said signal by using setAllowQuit(false) on the handler attached to the event instance they
      * will be given).
@@ -30,7 +30,7 @@ final class Events
      * Listeners registered for this event will receive a {@see \nyx\diagnostics\debug\Event} event
      * instance as their first parameter.
      */
-    const DEBUG_EXCEPTION_AFTER = 'diagnostics.debug.exception.after';
+    const DEBUG_THROWABLE_AFTER = 'diagnostics.debug.throwable.after';
 
     /**
      * The DEBUG_ERROR_BEFORE event is triggered *after* an Error Handler catches an error it is responsible for

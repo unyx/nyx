@@ -155,11 +155,11 @@ abstract class Handler implements events\interfaces\EmitterAware
      * is set for the Handler. False will be returned if that is not the case.
      *
      * @param   string          $name       The name of the Event to emit {@see definitions/Events}.
-     * @param   \Exception      $exception  The initial Exception to be passed to listeners.
+     * @param   \Throwable      $exception  The initial Exception to be passed to listeners.
      * @return  \Exception|null             Either an Exception when event emission occurred or null if no Emitter
      *                                      is set and therefore no events were emitted.
      */
-    protected function emitDebugEvent($name, \Exception $exception)
+    protected function emitDebugEvent($name, \Throwable $exception)
     {
         // Don't proceed when we've got no Emitter.
         if (null === $this->emitter) {
@@ -169,6 +169,6 @@ abstract class Handler implements events\interfaces\EmitterAware
         $this->emitter->emit($name, $event = new Event($exception, $this));
 
         // Event Listeners may override the Exception. Need to account for that.
-        return $event->getException();
+        return $event->getThrowable();
     }
 }
