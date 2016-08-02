@@ -183,7 +183,7 @@ class Error extends debug\Handler implements interfaces\handlers\Error, interfac
 
         // Instead of directly coupling this with our own exception handler, we'll try to see if an exception handler
         // is already registered...
-        $handler = set_exception_handler(null);
+        set_exception_handler($handler = set_exception_handler('var_dump'));
 
         // ... and then check if it's an instance of our own exception handler so that we can make use of it.
         // BTW Why isn't such a basic Exception Handler Interface a PSR yet?
