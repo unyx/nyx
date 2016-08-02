@@ -88,7 +88,7 @@ class Debug
             static::setDumper(static::createDefaultDumper());
         }
 
-        echo call_user_func([static::$dumper, 'dump'], ...$vars);
+        static::$dumper->dump(...$vars);
     }
 
     /**
