@@ -174,25 +174,25 @@ class Frame implements core\interfaces\Serializable
     /**
      * Returns the contents of the file assigned to this frame as a string.
      *
-     * @return  string|bool     Returns either the contents of the assigned file or false if no file is assigned
-     *                          or its contents could not be fetched.
+     * @return  string  Returns either the contents of the assigned file or an empty string if no file is assigned
+     *                  or its contents could not be fetched.
      */
-    public function getFileContents()
+    public function getFileContents() : string
     {
         // No point in continuing if there is no file assigned to this frame.
-        if (empty($this->file) || $this->file === 'Unknown') {
-            return false;
+        if (!$this->file || $this->file === 'Unknown') {
+            return '';
         }
 
-        // If the assigned file's contents are already cached, return them right away.
-        // Note: "False" might also be cached instead of the actual file contents if retrieval
-        // of the contents failed once already.
-        if (isset(static::$files[$this->file])) {
-            return static::$files[$this->file];
+        // If the contents aren't cached yet, grab them into our rudimentary in-memory cache.
+        // Note: This may cache a boolean false if the retrieval fails for whatever reason. We're gonna handle
+        // that afterwards and return an empty string instead.
+        if (!isset(static::$files[$this->file])) {
+            static::$files[$this->file] = file_get_contents($this->file);
         }
 
-        // Otherwise grab the contents, cache them and return them.
-        return static::$files[$this->file] = file_get_contents($this->file);
+        // Return the cached contents of the file or an empty string if no contents could be fetched.
+        return static::$files[$this->file] ?: '';
     }
 
     /**
