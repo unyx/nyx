@@ -220,23 +220,6 @@ class Frame implements core\interfaces\Serializable
     }
 
     /**
-     * Returns the file path (if present) with the part common for all frames replaced by an ellipsis and slashes
-     * replaced by soft slashes for presentation purposes (word wrapping).
-     *
-     * @return  string
-     * @todo    Replace the dirname() calls with a required string parameter for the path which shall get cut out.
-     */
-    public function getPrettyPath()
-    {
-        if ($path = $this->file) {
-            $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-            $path = str_replace($dirname, "…", $path);
-        }
-
-        return $path;
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function serialize() : string
