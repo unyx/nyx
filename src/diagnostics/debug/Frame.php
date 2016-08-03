@@ -272,7 +272,7 @@ class Frame implements core\interfaces\Serializable
         $this->args     = $data['args']     ?? [];
 
         // If we're dealing with a class, try to get its namespace and short name.
-        if (!empty($this->class)) {
+        if ($this->class) {
             $parts = explode('\\', $this->class);
 
             $this->shortClass = array_pop($parts);
