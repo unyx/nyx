@@ -86,52 +86,56 @@ class Frame implements core\interfaces\Serializable
     }
 
     /**
-     * Returns the line which got executed resulting in the inspected trace.
+     * Returns the number of the line which got executed resulting in the inspected trace.
      *
-     * @return  int|null
+     * @return  int The number of the line, or 0 if the line is unknown.
      */
-    public function getLine()
+    public function getLine() : int
     {
         return $this->line;
     }
 
     /**
-     * Returns the name of the class which got executed resulting in the inspected trace.
+     * Returns the fully qualified name of the class which contained the code that resulted in the inspected trace.
      *
-     * @return  string|null
+     * @return  string  The fully qualified name of the class, or an empty string if the class is unknown or the
+     *                  code was not contained in a class.
      */
-    public function getClass()
+    public function getClass() : string
     {
         return $this->class;
     }
 
     /**
-     * Returns the namespace of the class which got executed resulting in the inspected trace.
+     * Returns the namespace of the class which contained the code that resulted in the inspected trace.
      *
-     * @return  string|null
+     * @return  string  The namespace, or an empty string if: the namespace is unknown; the class is unknown
+     *                  or was contained in the global namespace; the code was not contained in a class.
      */
-    public function getNamespace()
+    public function getNamespace() : string
     {
         return $this->namespace;
     }
 
     /**
-     * Returns the shortened name (without the namespace) of the class which got executed resulting in the
-     * inspected trace.
+     * Returns the shortened name (without the namespace) of the class which contained the code that
+     * resulted in the inspected trace.
      *
-     * @return  string|null
+     * @return  string  The shortened name of the class, or an empty string if the class is unknown or the
+     *                  code was not contained in a class.
      */
-    public function getShortClass()
+    public function getShortClass() : string
     {
         return $this->shortClass;
     }
 
     /**
-     * Returns the function/method which got executed resulting in the inspected trace.
+     * Returns the name of the function/method which got executed resulting in the inspected trace.
      *
-     * @return  string|null
+     * @return  string  The name of the function/method, or an empty string if the name is unknown or the
+     *                  code was not executed inside a function/method.
      */
-    public function getFunction()
+    public function getFunction() : string
     {
         return $this->function;
     }
@@ -139,9 +143,9 @@ class Frame implements core\interfaces\Serializable
     /**
      * Returns the type of the function/method call (static or dynamic).
      *
-     * @return  string|null
+     * @return  string  The type of the call, or an empty string if the type is unknown.
      */
-    public function getType()
+    public function getType() : string
     {
         return $this->type;
     }
@@ -149,7 +153,8 @@ class Frame implements core\interfaces\Serializable
     /**
      * Returns the arguments which were passed to the function resulting in the inspected trace.
      *
-     * @return  array
+     * @return  array   The arguments (context) of the call, or an empty array if there were none or
+     *                  they are unknown.
      */
     public function getArgs() : array
     {
@@ -159,9 +164,9 @@ class Frame implements core\interfaces\Serializable
     /**
      * Returns the path to the file assigned to the current frame.
      *
-     * @return  string
+     * @return  string  The path, or an empty string if the path is unknown.
      */
-    public function getFile()
+    public function getFile() : string
     {
         return $this->file;
     }
@@ -175,7 +180,7 @@ class Frame implements core\interfaces\Serializable
     public function getFileContents()
     {
         // No point in continuing if there is no file assigned to this frame.
-        if (!$this->file || $this->file === 'Unknown') {
+        if (empty($this->file) || $this->file === 'Unknown') {
             return false;
         }
 
@@ -238,7 +243,9 @@ class Frame implements core\interfaces\Serializable
     {
         $data = $this->toArray();
 
-        !empty($data['args']) && $data['args'] = $this->flattenArgs($data['args']);
+        if (!empty($data['args'])) {
+            $data['args'] = $this->flattenArgs($data['args']);
+        }
 
         return serialize($data);
     }
@@ -270,33 +277,40 @@ class Frame implements core\interfaces\Serializable
      * Sets the Frame's data.
      *
      * @param   array   $data   The Frame's data, in the same format as returned by \Exception::getTrace().
+     * @return  $this
      */
-    protected function setData(array $data)
+    protected function setData(array $data) : Frame
     {
-        $this->line     = isset($data['line']) ? $data['line'] : null;
-        $this->class    = isset($data['class']) ? $data['class'] : null;
-        $this->function = isset($data['function']) ? $data['function'] : null;
-        $this->type     = isset($data['type']) ? $data['type'] : null;
-        $this->args     = isset($data['args']) ? (array) $data['args'] : [];
-        $this->file     = isset($data['file']) ? $data['file'] : null;
+        $this->file     = $data['file']     ?? '';
+        $this->line     = $data['line']     ?? 0;
+        $this->class    = $data['class']    ?? '';
+        $this->function = $data['function'] ?? '';
+        $this->type     = $data['type']     ?? '';
+        $this->args     = $data['args']     ?? [];
 
         // If we're dealing with a class, try to get its namespace and short name.
-        if (null !== $this->class) {
+        if (!empty($this->class)) {
             $parts = explode('\\', $this->class);
 
             $this->shortClass = array_pop($parts);
             $this->namespace  = implode('\\', $parts);
+        } else {
+            // Otherwise initialize with zero-values.
+            $this->shortClass = '';
+            $this->namespace  = '';
         }
+
+        return $this;
     }
 
     /**
      * Flattens the args to make them easier to serialize.
      *
      * @param   array   $args   The args to flatten.
-     * @param   int     $level  The current nesting depth.
+     * @param   int     $depth  The current nesting depth.
      * @return  array           The flattened args.
      */
-    protected function flattenArgs(array $args, int $level = 0) : array
+    protected function flattenArgs(array $args, int $depth = 0) : array
     {
         $result = [];
 
@@ -304,10 +318,10 @@ class Frame implements core\interfaces\Serializable
             if (is_object($value)) {
                 $result[$key] = ['object', get_class($value)];
             } elseif (is_array($value)) {
-                if ($level > $this->nestingLimit) {
+                if ($depth > $this->nestingLimit) {
                     $result[$key] = ['array', '*DEEP NESTED ARRAY*'];
                 } else {
-                    $result[$key] = ['array', $this->flattenArgs($value, ++$level)];
+                    $result[$key] = ['array', $this->flattenArgs($value, ++$depth)];
                 }
             } elseif (null === $value) {
                 $result[$key] = ['null', null];
@@ -316,7 +330,7 @@ class Frame implements core\interfaces\Serializable
             } elseif (is_resource($value)) {
                 $result[$key] = ['resource', get_resource_type($value)];
             } elseif ($value instanceof \__PHP_Incomplete_Class) {
-                // Special case of object, is_object will return false.
+                // Special case of object - is_object() will return false.
                 $array = new \ArrayObject($value);
                 $result[$key] = ['incomplete-object', $array['__PHP_Incomplete_Class_Name']];
             } else {
