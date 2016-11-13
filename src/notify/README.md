@@ -1,8 +1,8 @@
 # nyx/notify
 [![Latest Stable Version](https://poser.pugx.org/nyx/notify/v/stable.png)](https://packagist.org/packages/nyx/notify)
-[![Total Downloads](https://poser.pugx.org/nyx/notify/downloads.png)](https://packagist.org/packages/nyx/events)
+[![Total Downloads](https://poser.pugx.org/nyx/notify/downloads.png)](https://packagist.org/packages/nyx/notify)
 [![Build Status](https://travis-ci.org/unyx/notify.png)](https://travis-ci.org/unyx/notify)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/unyx/events/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/unyx/notify)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/unyx/notify/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/unyx/notify)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://alcore.mit-license.org)
 
 -----
