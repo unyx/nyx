@@ -18,5 +18,5 @@ interface Driver
      * @param   array               $failedRecipients   A reference to an array which will hold data about all requested
      *                                                  recipients sending to whom failed.
      */
-    public function send(\Swift_Mime_Message $message, array &$failedRecipients = null);
+    public function send(\Swift_Mime_Message $message, &$failedRecipients = null);
 }
