@@ -20,7 +20,8 @@
 	"ext-mbstring": "*",
 	"ext-openssl": "*",
 	"psr/log": "dev-master",
-	"psr/http-message": "dev-master"
+	"psr/http-message": "dev-master",
+    "guzzlehttp/guzzle": "*"
   },
 
   "require-dev": {
