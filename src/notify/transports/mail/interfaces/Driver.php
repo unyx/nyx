@@ -17,6 +17,7 @@ interface Driver
      * @param   \Swift_Mime_Message $message            The Message to send.
      * @param   array               $failedRecipients   A reference to an array which will hold data about all requested
      *                                                  recipients sending to whom failed.
+     * @return  int                                     The number of recipients the Message has been sent to.
      */
     public function send(\Swift_Mime_Message $message, &$failedRecipients = null);
 }
