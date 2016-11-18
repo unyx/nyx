@@ -77,8 +77,6 @@ class Mandrill implements mail\interfaces\Driver
      */
     protected function getRecipients(\Swift_Mime_Message $message) : array
     {
-        // Note: We are using the in-memory copy of BCC recipients here since send() temporarily removed
-        // them from the MIME message to hide them.
-        return array_keys((array) $message->getTo() + (array) $message->getCc() + (array) (array) $this->bcc);
+        return array_keys((array) $message->getTo() + (array) $message->getCc() + (array) $message->getBcc());
     }
 }

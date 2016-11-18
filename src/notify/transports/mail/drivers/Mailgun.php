@@ -94,9 +94,7 @@ class Mailgun implements mail\interfaces\Driver
      */
     protected function getRecipients(\Swift_Mime_Message $message) : array
     {
-        // Note: We are using the in-memory copy of BCC recipients here since send() temporarily removed
-        // them from the MIME message to hide them.
-        $recipients = (array) $message->getTo() + (array) $message->getCc() + (array) $this->bcc;
+        $recipients = (array) $message->getTo() + (array) $message->getCc() + (array) $message->getBcc();
         $result     = [];
 
         foreach ($recipients as $address => $name) {
