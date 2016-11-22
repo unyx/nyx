@@ -46,7 +46,7 @@ class Sendgrid implements mail\interfaces\Driver
     /**
      * {@inheritDoc}
      */
-    public function send(\Swift_Mime_Message $message, &$failedRecipients = null)
+    public function send(\Swift_Mime_Message $message, &$failures = null)
     {
         $this->client->request('POST', 'https://api.sendgrid.com/v3/mail/send', [
             'headers' => [

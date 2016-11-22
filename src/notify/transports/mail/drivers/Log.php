@@ -37,7 +37,7 @@ class Log implements mail\interfaces\Driver
     /**
      * {@inheritdoc}
      */
-    public function send(\Swift_Mime_Message $message, &$failedRecipients = null)
+    public function send(\Swift_Mime_Message $message, &$failures = null)
     {
         $this->logger->debug($this->getMimeEntityString($message));
 
