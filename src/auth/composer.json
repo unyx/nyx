@@ -1,0 +1,30 @@
+{
+  "name":        "nyx/auth",
+  "description": "Authentication library.",
+  "keywords":    ["nyx", "auth", "authentication", "identity", "session"],
+  "license":     "MIT",
+  "homepage":    "https://github.com/unyx/nyx",
+  "authors": [
+	{"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
+  ],
+
+  "support": {
+    "source": "http://github.com/unyx/nyx",
+    "issues": "http://github.com/unyx/nyx/issues",
+    "email":  "m.chojnacki@muyo.io"
+  },
+
+  "require": {
+    "php": ">=7.1.0-dev"
+  },
+
+  "require-dev": {
+	"phpunit/phpunit": "*"
+  },
+
+  "autoload": {
+	"psr-4": {"nyx\\auth\\": ""}
+  },
+
+  "minimum-stability": "dev"
+}
