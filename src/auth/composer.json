@@ -17,7 +17,8 @@
   "require": {
     "php": ">=7.1.0-dev",
     "nyx/core": "*",
-    "nyx/diagnostics": "*"
+    "nyx/diagnostics": "*",
+    "guzzlehttp/guzzle": "*"
   },
 
   "require-dev": {
