@@ -3,16 +3,16 @@
   "description": "Nyx. Put the background in the foreground.",
   "keywords":    ["nyx", "framework"],
   "license":     "MIT",
-  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "homepage":    "https://github.com/unyx/nyx",
   "authors": [
 	{"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"},
 	{"name": "Andrzej Mazur",    "email": "andrzej.mazur@end3r.com", "homepage": "http://end3r.com", "role": "Developer"}
   ],
 
   "support": {
-	"source": "http://labs.muyo.io/nyx/nyx",
-	"issues": "http://labs.muyo.io/nyx/nyx/issues",
-	"email":  "labs@muyo.io"
+	"source": "http://github.com/unyx/nyx",
+	"issues": "http://github.com/unyx/nyx/issues",
+	"email":  "m.chojnacki@muyo.io"
   },
 
   "require": {
@@ -23,8 +23,10 @@
 	"psr/http-message": "dev-master",
     "guzzlehttp/guzzle": "*",
     "swiftmailer/swiftmailer": "*",
-    "illuminate/support": "*",
-    "illuminate/contracts": "*"
+    "illuminate/contracts": "*",
+    "illuminate/bus": "*",
+    "illuminate/queue": "*",
+    "illuminate/support": "*"
   },
 
   "require-dev": {

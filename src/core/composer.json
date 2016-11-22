@@ -3,15 +3,15 @@
   "description": "The common classes of Nyx.",
   "keywords":    ["nyx", "core", "types"],
   "license":     "MIT",
-  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "homepage":    "https://github.com/unyx/nyx",
   "authors": [
     {"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
   ],
 
   "support": {
-    "source": "http://labs.muyo.io/nyx/nyx",
-    "issues": "http://labs.muyo.io/nyx/nyx/issues",
-    "email":  "labs@muyo.io"
+    "source": "http://github.com/unyx/nyx",
+    "issues": "http://github.com/unyx/nyx/issues",
+    "email":  "m.chojnacki@muyo.io"
   },
 
   "require": {

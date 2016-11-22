@@ -3,25 +3,28 @@
   "description": "Notification and cross-platform communication library.",
   "keywords":    ["nyx", "notify", "notifications", "email", "slack"],
   "license":     "MIT",
-  "homepage":    "https://labs.muyo.io/nyx/nyx",
+  "homepage":    "https://github.com/unyx/nyx",
   "authors": [
 	{"name": "Michał Chojnacki", "email": "m.chojnacki@muyo.io",     "homepage": "http://muyo.io",   "role": "Developer"}
   ],
 
   "support": {
-	"source": "http://labs.muyo.io/nyx/nyx",
-	"issues": "http://labs.muyo.io/nyx/nyx/issues",
-	"email":  "labs@muyo.io"
+    "source": "http://github.com/unyx/nyx",
+    "issues": "http://github.com/unyx/nyx/issues",
+    "email":  "m.chojnacki@muyo.io"
   },
 
   "require": {
     "php": ">=7.1.0-dev",
+    "psr/log": "dev-master",
     "nyx/core": "*",
     "nyx/diagnostics": "*",
     "guzzlehttp/guzzle": "*",
     "swiftmailer/swiftmailer": "*",
-    "illuminate/support": "*",
-    "illuminate/contracts": "*"
+    "illuminate/contracts": "*",
+    "illuminate/bus": "*",
+    "illuminate/queue": "*",
+    "illuminate/support": "*"
   },
 
   "require-dev": {
