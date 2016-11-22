@@ -2,6 +2,7 @@
 
 // External dependencies
 use nyx\core;
+use nyx\diagnostics;
 
 /**
  * Credentials
@@ -20,18 +21,23 @@ class Credentials extends Token implements interfaces\Credentials
     use core\traits\Serializable;
 
     /**
-     * @var string  The secret associated with the underlying identifier.
+     * @var string|interfaces\Credentials                   The secret associated with the underlying identifier.
      */
     protected $secret;
 
     /**
      * {@inheritDoc}
      *
-     * @param   string  $secret     The secret associated with the underlying identifier.
+     * @param   string|interfaces\Credentials   $secret     The secret associated with the underlying identifier.
+     * @throws  \InvalidArgumentException                   When a secret of an invalid type is given.
      */
-    public function __construct(string $id, string $secret)
+    public function __construct(string $id, $secret)
     {
         parent::__construct($id);
+
+        if (!is_string($secret) && !$secret instanceof interfaces\Credentials) {
+            throw new \InvalidArgumentException("The [secret] must be either a string or an instance of ".interfaces\Credentials::class.", got [".diagnostics\Debug::getTypeName($secret)."] instead.");
+        }
 
         $this->secret = $secret;
     }
@@ -39,7 +45,7 @@ class Credentials extends Token implements interfaces\Credentials
     /**
      * {@inheritDoc}
      */
-    public function getSecret() : ?string
+    public function getSecret()
     {
         return $this->secret;
     }
@@ -49,11 +55,23 @@ class Credentials extends Token implements interfaces\Credentials
      */
     public function matches(interfaces\Token $that) : bool
     {
-        if (!$that instanceof static) {
+        // The interface assumes Token comparisons but we need data from our own, stricter interface.
+        // @todo Loosen the Token interface to allow mixed types for the matches() method?
+        if (!$that instanceof interfaces\Credentials) {
             return false;
         }
 
-        if ($this->secret !== $that->secret) {
+        // $that's secret will be required more than once so let's reduce calls.
+        $otherSecret = $that->getSecret();
+
+        // In the case of nested Credentials we are going to need to check for equality of the underlying data.
+        // If only one of the secrets is a Credentials instance, then the control structure will proceed to the
+        // next block and catch that with the identity comparison (returning false there).
+        if ($this->secret instanceof interfaces\Credentials && $otherSecret instanceof interfaces\Credentials) {
+            if (!$this->secret->matches($otherSecret)) {
+                return false;
+            }
+        } elseif ($this->secret !== $otherSecret) {
             return false;
         }
 

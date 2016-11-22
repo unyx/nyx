@@ -5,10 +5,9 @@
  *
  * An extension of the Token interface, Credentials in the "auth" context should be thought of
  * as pairs of identifiers and secrets. In the probably most common use case, a user's login would
- * be the identifier in said pair, while his password would represent the secret.
+ * be the identifier in said pair, while the secret would be represented by his password.
  *
- * Although the existence of a "secret" is not enforced on the interface level, implementations
- * may enforce it.
+ * The secret itself can be a nested Credentials instance. Implementations need to account for that.
  *
  * @package     Nyx\Auth
  * @version     0.1.0
@@ -21,7 +20,7 @@ interface Credentials extends Token
     /**
      * Returns the associated "secret" value of the Credentials pair, if available.
      *
-     * @return  string|null
+     * @return  string|Credentials
      */
-    public function getSecret() : ?string;
+    public function getSecret();
 }
