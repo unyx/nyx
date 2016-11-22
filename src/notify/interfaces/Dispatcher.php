@@ -14,16 +14,18 @@ interface Dispatcher
     /**
      * Sends the given Notification to the given entities.
      *
-     * @param   mixed           $notifiables
-     * @param   Notification    $notification
+     * @param   array|Notifiable    $notifiables    The entities which shall receive the Notification (single Notifiable
+     *                                              or an iterable collection thereof).
+     * @param   Notification        $notification   The Notification that shall be sent.
      */
     public function send($notifiables, Notification $notification);
 
     /**
      * Sends the given Notification synchronously to the given entities.
      *
-     * @param   mixed           $notifiables
-     * @param   Notification    $notification
+     * @param   array|Notifiable    $notifiables    The entities which shall receive the Notification (single Notifiable
+     *                                              or an iterable collection thereof).
+     * @param   Notification        $notification   The Notification that shall be sent.
      */
     public function sendNow($notifiables, Notification $notification);
 }
