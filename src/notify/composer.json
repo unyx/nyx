@@ -19,7 +19,9 @@
     "nyx/core": "*",
     "nyx/diagnostics": "*",
     "guzzlehttp/guzzle": "*",
-    "swiftmailer/swiftmailer": "*"
+    "swiftmailer/swiftmailer": "*",
+    "illuminate/support": "*",
+    "illuminate/contracts": "*"
   },
 
   "require-dev": {

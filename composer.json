@@ -22,7 +22,9 @@
 	"psr/log": "dev-master",
 	"psr/http-message": "dev-master",
     "guzzlehttp/guzzle": "*",
-    "swiftmailer/swiftmailer": "*"
+    "swiftmailer/swiftmailer": "*",
+    "illuminate/support": "*",
+    "illuminate/contracts": "*"
   },
 
   "require-dev": {
