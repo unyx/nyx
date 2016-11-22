@@ -15,7 +15,7 @@ use nyx\notify\transports\mail;
 interface Mailer
 {
     /**
-     * Creates and/or sends a Mail Message.
+     * Sends a Mail Message, constructing it first if necessary.
      *
      * @param   array|string|mail\Message   $view       An array specifying the views to use (html, text, raw),
      *                                                  a string specifying a single view (html) or a cooked Message instance.
