@@ -1,6 +1,7 @@
 <?php namespace nyx\auth\id\protocols\oauth1\interfaces;
 
 // Internal dependencies
+use nyx\auth\id\protocols\oauth1;
 use nyx\auth;
 
 /**
@@ -49,8 +50,8 @@ interface Provider extends auth\id\interfaces\Provider
      * Performs an identify Request to the Provider, returning information about the entity (the Identity) whose
      * OAuth 1.0a Credentials are used to perform the Request.
      *
-     * @param   auth\Credentials    $token          A set of valid OAuth 1.0a Credentials.
-     * @return  auth\id\protocols\oauth1\Identity   The Identity of the Credentials' owning entity.
+     * @param   auth\Credentials    $token  A set of valid OAuth 1.0a Credentials.
+     * @return  oauth1\Identity             The Identity of the Credentials' owning entity.
      */
-    public function identify(auth\Credentials $token) : auth\id\protocols\oauth1\Identity;
+    public function identify(auth\Credentials $token) : oauth1\Identity;
 }
