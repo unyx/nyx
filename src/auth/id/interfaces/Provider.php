@@ -1,5 +1,8 @@
 <?php namespace nyx\auth\id\interfaces;
 
+// External dependencies
+use GuzzleHttp\Promise\PromiseInterface as Promise;
+
 // Internal dependencies
 use nyx\auth;
 
@@ -83,7 +86,7 @@ interface Provider
      * @param   string                  $url            The URL to query.
      * @param   auth\interfaces\Token   $token          The Token to use to authenticate the request.
      * @param   array                   $options        Additional request options (see Guzzle's documentation).
-     * @return  \GuzzleHttp\Promise\PromiseInterface    A Promise for a result.
+     * @return  Promise                                 A Promise for the Request's result.
      */
-    public function request(string $method, string $url, auth\interfaces\Token $token = null, array $options = []) : \GuzzleHttp\Promise\PromiseInterface;
+    public function request(string $method, string $url, auth\interfaces\Token $token = null, array $options = []) : Promise;
 }
