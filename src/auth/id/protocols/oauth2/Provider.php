@@ -1,7 +1,6 @@
 <?php namespace nyx\auth\id\protocols\oauth2;
 
 // External dependencies
-use Psr\Http\Message\ResponseInterface as Response;
 use GuzzleHttp\Promise\PromiseInterface as Promise;
 use nyx\utils;
 
@@ -88,63 +87,10 @@ abstract class Provider extends auth\id\Provider implements interfaces\Provider
 
     /**
      * {@inheritDoc}
-     *
-     * @param   oauth2\Token    $token
-     */
-    public function request(string $method, string $url, auth\interfaces\Token $token = null, array $options = []) : Promise
-    {
-        return $this->getHttpClient()->requestAsync($method, $url, array_merge_recursive($this->getDefaultRequestOptions($token), $options))->then(
-            function (Response $response) use($token) {
-                return $this->onRequestSuccess($response, $token);
-            },
-            function(\Exception $exception) use($token) {
-                return $this->onRequestError($exception, $token);
-            });
-    }
-
-    /**
-     * Success callback for self::request().
-     *
-     * Note: Some Providers may return valid HTTP response codes for requests that were actually unsuccessful
-     * and instead provide arbitrary responses like "ok => false" or "errors => []". Those misbehaving cases should
-     * be caught within specific Providers.
-     *
-     * @param   Response                $response   The Response received to the Request made.
-     * @param   auth\interfaces\Token   $token      The Access Token that was used to authorize the Request, if applicable.
-     * @return  mixed
-     */
-    protected function onRequestSuccess(Response $response, auth\interfaces\Token $token = null)
-    {
-        return json_decode($response->getBody(), true);
-    }
-
-    /**
-     * Failure callback for self::request().
-     *
-     * @param   \Exception              $exception  The Exception that occurred during the Request.
-     * @param   auth\interfaces\Token   $token      The Access Token that was used to authorize the Request, if applicable.
-     * @throws  \Exception                          Always re-throws the Exception. Child classes may, however, provide
-     *                                              recovery paths.
-     * @return  mixed
-     */
-    protected function onRequestError(\Exception $exception, auth\interfaces\Token $token = null)
-    {
-        throw $exception;
-    }
-
-    /**
-     * Returns the default options (in a format recognized by Guzzle) for requests made by this Provider.
-     *
-     * @param   auth\interfaces\Token   $token      The Access Token that should be used to authorize the Request.
-     * @return  array
      */
     protected function getDefaultRequestOptions(auth\interfaces\Token $token = null) : array
     {
-        $options = [
-            'headers' => [
-                'Accept' => 'application/json'
-            ]
-        ];
+        $options = parent::getDefaultRequestOptions($token);
 
         // If the $token is explicitly given, it will override the respective authorization header.
         if (isset($token)) {
