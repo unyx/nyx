@@ -117,7 +117,7 @@ abstract class Signer implements interfaces\Signer
      */
     protected function buildQueryStringFromParams(array $params, array $queryParams = null, string $prevKey = '') : string
     {
-        if ($initial = (!isset($queryParams))) {
+        if ($initial = !isset($queryParams)) {
             $queryParams = [];
         }
 
