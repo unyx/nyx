@@ -71,7 +71,7 @@ abstract class Provider implements interfaces\Provider
 
     /**
      * Checks whether the Provider should attempt to retrieve the email address of an entity when performing
-     * identify calls.
+     * identify requests.
      *
      * @see     $shouldProvideEmailAddress
      * @return  bool
@@ -83,7 +83,7 @@ abstract class Provider implements interfaces\Provider
 
     /**
      * Sets whether the Provider should attempt to retrieve the email address of an entity when performing
-     * identify calls.
+     * identify requests.
      *
      * @param   bool    $bool
      * @return  $this
@@ -98,8 +98,8 @@ abstract class Provider implements interfaces\Provider
     /**
      * Builds an URL string from the given base URL and optional additional query parameters.
      *
-     * @param   string              $base       The base URL.
-     * @param   array               $query      Additional query parameters.
+     * @param   string  $base   The base URL.
+     * @param   array   $query  Additional query parameters.
      * @return  string
      */
     protected function buildUrl(string $base, array $query = []) : string
@@ -108,7 +108,8 @@ abstract class Provider implements interfaces\Provider
     }
 
     /**
-     * Returns the underlying HTTP Client used for communicating with the provider.
+     * Returns the underlying HTTP Client used for communicating with the provider. Lazily instantiates
+     * a HTTP Client if none is set yet.
      *
      * @return  \GuzzleHttp\ClientInterface
      */
