@@ -134,19 +134,4 @@ abstract class Provider extends auth\id\Provider implements interfaces\Provider
 
         return $token;
     }
-
-    /**
-     * Creates an Identity instance of a type specific to the Provider, using an Access Token and raw data also
-     * specific to the Provider.
-     *
-     * @param   oauth2\Token    $token  The Access Token that had been used to retrieve information about the entity.
-     * @param   array           $data   The raw data about the entity given by the Provider.
-     * @return  oauth2\Identity         The resulting OAuth 2.0 Identity instance.
-     */
-    protected function createIdentity(oauth2\Token $token, array $data) : oauth2\Identity
-    {
-        $class = static::IDENTITY;
-
-        return new $class($token, $data);
-    }
 }

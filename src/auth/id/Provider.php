@@ -196,4 +196,19 @@ abstract class Provider implements interfaces\Provider
 
         return $this;
     }
+
+    /**
+     * Creates an Identity instance of a type specific to the Provider, using a Token and raw data also
+     * specific to the Provider.
+     *
+     * @param   auth\interfaces\Token   $token  The Token that had been used to retrieve the data about the entity.
+     * @param   array                   $data   The raw data about the entity given by the Provider.
+     * @return  interfaces\Identity             The resulting Identity instance.
+     */
+    protected function createIdentity(auth\interfaces\Token $token, array $data) : interfaces\Identity
+    {
+        $class = static::IDENTITY;
+
+        return new $class($token, $data);
+    }
 }
