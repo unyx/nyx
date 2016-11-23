@@ -76,7 +76,7 @@ interface Provider
      * user. Implementations are, however, required to use authentication when a Token is given.
      *
      * In general this method will allow easy querying of APIs that rely on common authentication specs implemented
-     * in this component, where concrete Provides can also be used as base API clients and easily extended with
+     * in this component, where concrete Providers can also be used as the base for API clients and easily extended with
      * custom service consumption logic.
      *
      * @param   string                  $method         The HTTP method (verb) of the request.
