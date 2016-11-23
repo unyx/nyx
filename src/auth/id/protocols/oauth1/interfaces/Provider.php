@@ -19,7 +19,7 @@ use nyx\auth;
 interface Provider extends auth\id\interfaces\Provider
 {
     /**
-     * The URL at which temporary authorization credentials (tokens) can be requested from the Provider.
+     * The URL at which temporary authorization credentials (tokens) can be acquired from the Provider.
      */
     const URL_REQUEST = null;
 
@@ -43,12 +43,12 @@ interface Provider extends auth\id\interfaces\Provider
      * Performs an exchange Request to the Provider, exchanging the temporary Credentials received during the
      * handshake along with a verifying string for a proper set of OAuth 1.0a Credentials.
      *
-     * @param   auth\Credentials    $credentials    The temporary Credentials received during the handshake.
-     * @param   string              $verifier       The verifying string received during the handshake.
+     * @param   auth\Credentials $temporary         The temporary Credentials received during the handshake.
+     * @param   string           $verifier          The verifying string received during the handshake.
      * @return  Promise                             A Promise for a set of valid OAuth 1.0a Credentials
      *                                              (an auth\Credentials instance).
      */
-    public function exchange(auth\Credentials $credentials, string $verifier) : Promise;
+    public function exchange(auth\Credentials $temporary, string $verifier) : Promise;
 
     /**
      * Performs an identify Request to the Provider, returning information about the entity (the Identity) whose
