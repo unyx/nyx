@@ -16,6 +16,11 @@ use nyx\auth;
 abstract class Identity implements interfaces\Identity
 {
     /**
+     * @var string  The fully qualified class name of this Identity's Provider.
+     */
+    protected static $provider;
+
+    /**
      * @var string  The unique identifier of the Identity specific to its Provider.
      */
     protected $id;
@@ -49,6 +54,27 @@ abstract class Identity implements interfaces\Identity
      * @var array   The access tokens associated with the Identity.
      */
     protected $tokens = [];
+
+    /**
+     * Instantiates a Provider of the appropriate type specific to this Identity.
+     *
+     * Utility factory method for requesting consumer data when a specific Provider is needed, without having to
+     * worry about the underlying implementation and protocols used to access that data.
+     *
+     * @param   string  $clientId       The consumer's (application/client) identifier.
+     * @param   string  $clientSecret   The consumer's (application/client) secret.
+     * @param   string  $redirectUrl    The consumer's (application/client) callback URL.
+     * @return  interfaces\Provider     The created Provider instance.
+     * @throws  \LogicException         When the Identity implementation did not define its static $provider property.
+     */
+    public static function provider(string $clientId, string $clientSecret, string $redirectUrl) : interfaces\Provider
+    {
+        if (!isset(static::$provider)) {
+            throw new \LogicException('This identity does not appear to have a defined Provider class.');
+        }
+
+        return new static::$provider(new credentials\Client($clientId, $clientSecret, $redirectUrl));
+    }
 
     /**
      * Creates a new Identity instance.
