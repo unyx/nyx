@@ -1,5 +1,8 @@
 <?php namespace nyx\auth\id\protocols\oauth1\interfaces;
 
+// External dependencies
+use GuzzleHttp\Promise\PromiseInterface as Promise;
+
 // Internal dependencies
 use nyx\auth\id\protocols\oauth1;
 use nyx\auth;
@@ -32,26 +35,28 @@ interface Provider extends auth\id\interfaces\Provider
      * which can subsequently be used to ask an entity to authorize said temporary Credentials, and which
      * then in turn can be exchanged for a proper set of OAuth 1.0a Credentials.
      *
-     * @return  auth\Credentials    A set of temporary OAuth 1.0a Credentials.
+     * @return  Promise     A Promise for a set of temporary OAuth 1.0a Credentials (an auth\Credentials instance).
      */
-    public function handshake() : auth\Credentials;
+    public function handshake() : Promise;
 
     /**
      * Performs an exchange Request to the Provider, exchanging the temporary Credentials received during the
      * handshake along with a verifying string for a proper set of OAuth 1.0a Credentials.
      *
-     * @param   auth\Credentials    $token      The temporary Credentials received during the handshake.
-     * @param   string              $verifier   The verifying string received during the handshake.
-     * @return  auth\Credentials                A set of valid OAuth 1.0a Credentials.
+     * @param   auth\Credentials    $credentials    The temporary Credentials received during the handshake.
+     * @param   string              $verifier       The verifying string received during the handshake.
+     * @return  Promise                             A Promise for a set of valid OAuth 1.0a Credentials
+     *                                              (an auth\Credentials instance).
      */
-    public function exchange(auth\Credentials $token, string $verifier) : auth\Credentials;
+    public function exchange(auth\Credentials $credentials, string $verifier) : Promise;
 
     /**
      * Performs an identify Request to the Provider, returning information about the entity (the Identity) whose
      * OAuth 1.0a Credentials are used to perform the Request.
      *
-     * @param   auth\Credentials    $token  A set of valid OAuth 1.0a Credentials.
-     * @return  oauth1\Identity             The Identity of the Credentials' owning entity.
+     * @param   auth\Credentials    $credentials    A set of valid OAuth 1.0a Credentials.
+     * @return  Promise                             A Promise for the Identity (an oauth1\Identity instance) of the
+     *                                              Credentials' owning entity.
      */
-    public function identify(auth\Credentials $token) : oauth1\Identity;
+    public function identify(auth\Credentials $credentials) : Promise;
 }
