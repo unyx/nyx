@@ -1,5 +1,8 @@
 <?php namespace nyx\auth\id\protocols\oauth2\interfaces;
 
+// External dependencies
+use GuzzleHttp\Promise\PromiseInterface as Promise;
+
 // Internal dependencies
 use nyx\auth\id\protocols\oauth2;
 use nyx\auth\id;
@@ -19,8 +22,9 @@ interface Provider extends id\interfaces\Provider
      * Performs an identify Request to the Provider, returning information about the entity (the Identity) whose
      * OAuth 2.0 Access Token is used to perform the Request.
      *
-     * @param   oauth2\Token        $token          A valid OAuth 2.0 Access Token.
-     * @return  oauth2\Identity                     The Identity of the Credentials' owning entity.
+     * @param   oauth2\Token        $token  A valid OAuth 2.0 Access Token.
+     * @return  Promise                     A Promise for the Identity (an oauth2\Identity instance) of the
+     *                                      Credentials' owning entity.
      */
-    public function identify(oauth2\Token $token) : oauth2\Identity;
+    public function identify(oauth2\Token $token) : Promise;
 }
