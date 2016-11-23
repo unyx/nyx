@@ -20,6 +20,7 @@
     "psr/http-message": "dev-master",
     "nyx/core": "*",
     "nyx/diagnostics": "*",
+    "nyx/utils": "*",
     "guzzlehttp/guzzle": "*"
   },
 
