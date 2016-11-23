@@ -30,23 +30,9 @@ interface Provider
     const IDENTITY = null;
 
     /**
-     * Prepares the authorization parameters necessary to properly redirect the end-user of the application
-     * to the authorization endpoint of the Provider.
-     *
-     * The optional parameters passed to this method get merged with the data prepared by the implementation
-     * and then passed to the $redirect callable. The first argument will always be the generated URI the user
-     * should be redirected to to properly authorize the application's access, but additional parameters may
-     * be passed along in any number and order, left at the implementation's discretion.
-     *
-     * @param   callable    $redirect   The callback that will perform the actual redirection logic.
-     * @param   array       $parameters Additional parameters to account for when building the authorization URI.
-     * @return  mixed                   Whatever the redirect callback returns.
-     */
-    public function authorize(callable $redirect, array $parameters = []);
-
-    /**
      * Returns the base authorization URL of the Provider, optionally including the given query parameters.
      *
+     * @param   array   $parameters     Additional authorization parameters.
      * @return  string
      */
     public function getAuthorizeUrl(array $parameters = []) : string;
@@ -67,6 +53,21 @@ interface Provider
      * @return string
      */
     public function getIdentifyUrl() : string;
+
+    /**
+     * Prepares the authorization parameters necessary to properly redirect the end-user of the application
+     * to the authorization endpoint of the Provider.
+     *
+     * The optional parameters passed to this method get merged with the data prepared by the implementation
+     * and then passed to the $redirect callable. The first argument will always be the generated URI the user
+     * should be redirected to to properly authorize the application's access, but additional parameters may
+     * be passed along in any number and order, left at the implementation's discretion.
+     *
+     * @param   callable    $redirect   The callback that will perform the actual redirection logic.
+     * @param   array       $parameters Additional parameters to account for when building the authorization URI.
+     * @return  mixed                   Whatever the redirect callback returns.
+     */
+    public function authorize(callable $redirect, array $parameters = []);
 
     /**
      * Performs an *asynchronous* HTTP request to the specified URL.
