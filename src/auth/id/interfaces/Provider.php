@@ -25,7 +25,7 @@ interface Provider
     const URL_IDENTIFY  = null;
 
     /**
-     * The Identity class associated with this Provider.
+     * The fully qualified class name of the Identity class specific to the Provider implementing this interface.
      */
     const IDENTITY = null;
 
@@ -40,7 +40,7 @@ interface Provider
      *
      * @param   callable    $redirect   The callback that will perform the actual redirection logic.
      * @param   array       $parameters Additional parameters to account for when building the authorization URI.
-     * @return  mixed
+     * @return  mixed                   Whatever the redirect callback returns.
      */
     public function authorize(callable $redirect, array $parameters = []);
 
