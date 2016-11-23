@@ -146,9 +146,9 @@ abstract class Signer implements interfaces\Signer
      *
      * @param   credentials\Client          $client
      * @param   auth\interfaces\Credentials $token
-     * @return  string
+     * @return  mixed
      */
-    protected function createKey(credentials\Client $client, auth\interfaces\Credentials $token = null) : string
+    protected function createKey(credentials\Client $client, auth\interfaces\Credentials $token = null)
     {
         // The joining ampersand after the encoded Client's secret is correctly left in even if no Token is being
         // included in the key.
