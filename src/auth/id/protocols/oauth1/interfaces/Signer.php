@@ -1,5 +1,8 @@
 <?php namespace nyx\auth\id\protocols\oauth1\interfaces;
 
+// External dependencies
+use Psr\Http\Message\RequestInterface as Request;
+
 // Internal dependencies
 use nyx\auth;
 
@@ -32,11 +35,11 @@ interface Signer
      * Generates a signature of the given Request, with the given authorization parameters,
      * using the provided Client and Token Credentials.
      *
-     * @param   \Psr\Http\Message\RequestInterface  $request    The request for which to create the signature.
-     * @param   array                               $params     The authorization parameters (OAuth 1.0 protocol parameters).
-     * @param   auth\id\credentials\Client          $client     The Client's Credentials.
-     * @param   auth\interfaces\Credentials         $token      The token Credentials.
-     * @return  string                                          The signature of the Request/Credentials combination.
+     * @param   Request                         $request    The request for which to create the signature.
+     * @param   array                           $params     The authorization parameters (OAuth 1.0 protocol parameters).
+     * @param   auth\id\credentials\Client      $client     The Client's Credentials.
+     * @param   auth\interfaces\Credentials     $token      The token Credentials.
+     * @return  string                                      The signature of the Request/Credentials combination.
      */
-    public function sign(\Psr\Http\Message\RequestInterface $request, array $params, auth\id\credentials\Client $client, auth\interfaces\Credentials $token = null) : string;
+    public function sign(Request $request, array $params, auth\id\credentials\Client $client, auth\interfaces\Credentials $token = null) : string;
 }
