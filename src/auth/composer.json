@@ -16,6 +16,7 @@
 
   "require": {
     "php": ">=7.1.0-dev",
+    "psr/http-message": "dev-master",
     "nyx/core": "*",
     "nyx/diagnostics": "*",
     "guzzlehttp/guzzle": "*"
