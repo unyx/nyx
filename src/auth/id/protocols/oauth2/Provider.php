@@ -55,10 +55,7 @@ abstract class Provider extends auth\id\Provider implements interfaces\Provider
     }
 
     /**
-     * Exchanges the given authorization code grant for an Access Token.
-     *
-     * @param   string  $code       The authorization code to exchange.
-     * @return  Promise             A Promise for an Access Token.
+     * {@inheritDoc}
      */
     public function exchange(string $code) : Promise
     {

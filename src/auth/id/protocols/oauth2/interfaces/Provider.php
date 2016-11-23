@@ -19,6 +19,15 @@ use nyx\auth\id;
 interface Provider extends id\interfaces\Provider
 {
     /**
+     * Performs an exchange Request to the Provider, exchanging the given authorization code grant for
+     * a proper Access Token.
+     *
+     * @param   string  $code       The authorization code to exchange.
+     * @return  Promise             A Promise for an Access Token (a oauth2\Token instance).
+     */
+    public function exchange(string $code) : Promise;
+
+    /**
      * Performs an identify Request to the Provider, returning information about the entity (the Identity) whose
      * OAuth 2.0 Access Token is used to perform the Request.
      *
