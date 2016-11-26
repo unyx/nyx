@@ -33,17 +33,20 @@ class HmacSha1 extends oauth1\Signer
      */
     public function sign(Request $request, array $params, auth\id\credentials\Client $client, auth\interfaces\Credentials $token = null) : string
     {
-        return base64_encode($this->hash($this->buildBaseString($request, $params), $this->createKey($client, $token)));
+        // Base64 encode the generated base string signed using the HMAC-SHA1 method using our client secret and token
+        // forming the signing key.
+        return base64_encode($this->getGenerator()->sign($this->buildBaseString($request, $params), $this->createKey($client, $token)));
     }
 
     /**
-     * Hashes a string with the signature's key.
+     * Returns the base signature generator used by this Request Signer.
      *
-     * @param   string  $string
-     * @return  string
+     * @return  auth\interfaces\Signer
      */
-    protected function hash(string $string, string $key) : string
+    protected function getGenerator() : auth\interfaces\Signer
     {
-        return hash_hmac('sha1', $string, $key, true);
+        static $generator;
+
+        return $generator ?? $generator = new auth\signers\hmac\Sha1;
     }
 }
