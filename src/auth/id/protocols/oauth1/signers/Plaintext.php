@@ -23,7 +23,7 @@ class Plaintext extends oauth1\Signer
     /**
      * {@inheritDoc}
      */
-    public function getSignatureMethod() : string
+    public function getMethod() : string
     {
         return oauth1\interfaces\Signer::METHOD_PLAINTEXT;
     }

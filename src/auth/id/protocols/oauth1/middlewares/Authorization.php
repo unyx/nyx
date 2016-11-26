@@ -187,8 +187,8 @@ class Authorization
         // Unite our base parameters (which cannot be overridden) with the optional ones passed in.
         $options['params'] = [
             'oauth_version'          => '1.0',
-            'oauth_consumer_key'     => isset($options['client']) ? $options['client']->getId()              : $this->client->getId(),
-            'oauth_signature_method' => isset($options['signer']) ? $options['signer']->getSignatureMethod() : $this->signer->getSignatureMethod(),
+            'oauth_consumer_key'     => isset($options['client']) ? $options['client']->getId()     : $this->client->getId(),
+            'oauth_signature_method' => isset($options['signer']) ? $options['signer']->getMethod() : $this->signer->getMethod(),
             'oauth_nonce'            => utils\Random::string(6, utils\str\Character::CHARS_BASE64, utils\Random::STRENGTH_NONE),
             'oauth_timestamp'        => time(),
         ] + $options['params'];
@@ -197,7 +197,8 @@ class Authorization
     /**
      * Generates the Request's signature based on the defined parameters.
      *
-     * @param   Request $request
+     * @param   Request $request    The Request to sign.
+     * @param   array   $options    A reference to the options passed along with the Request.
      */
     protected function sign(Request $request, array& $options)
     {

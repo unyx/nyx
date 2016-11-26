@@ -26,7 +26,7 @@ class RsaSha1 extends oauth1\Signer
     /**
      * {@inheritDoc}
      */
-    public function getSignatureMethod() : string
+    public function getMethod() : string
     {
         return oauth1\interfaces\Signer::METHOD_RSA_SHA1;
     }

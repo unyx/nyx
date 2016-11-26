@@ -29,7 +29,7 @@ interface Signer
      *
      * @return  string
      */
-    public function getSignatureMethod() : string;
+    public function getMethod() : string;
 
     /**
      * Generates a signature of the given Request, with the given authorization parameters,
