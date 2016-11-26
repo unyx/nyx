@@ -6,11 +6,11 @@ use nyx\core;
 /**
  * Input Parameter Value Definition
  *
- * @package     Nyx\Console\Input
+ * @package     Nyx\Console
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/console/index.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  * @todo        The "valid" type which will pass through a validator callable, including custom error messages.
  */
 class Value
@@ -85,15 +85,15 @@ class Value
      * Sets the default value.
      *
      * @param   mixed               $default    The default value.
-     * @throws  \LogicException                 When an incorrect default value is given.
+     * @return  $this
+     * @throws  \LogicException                 When an invalid default value is given.
      */
-    public function setDefault($default = null)
+    public function setDefault($default = null) : Value
     {
-        if ($default !== null && !$this->type->is(Value::OPTIONAL)) {
+        if (isset($default) && !$this->type->is(Value::OPTIONAL)) {
             throw new \LogicException("Cannot set a default value for non-optional values.");
         }
 
-        // If it's null, let potential child classes set the default by simply setting a property's value.
-        $this->default = $default ?: $this->default;
+        $this->default = $default;
     }
 }
