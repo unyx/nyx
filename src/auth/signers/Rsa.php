@@ -6,6 +6,9 @@ use nyx\auth;
 /**
  * RSA Signer
  *
+ * Note: Relies on the OpenSSL extension being available but will *not throw* on its own until a function
+ * provided by the OpenSSL extension gets invoked.
+ *
  * @package     Nyx\Auth
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>

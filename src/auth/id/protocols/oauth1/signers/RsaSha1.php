@@ -10,9 +10,6 @@ use nyx\auth;
 /**
  * OAuth 1.0a RSA-SHA1 Request Signer
  *
- * Note: Relies on the OpenSSL extension being available but will *not throw* on its own until a function
- * provided by the OpenSSL extension gets invoked.
- *
  * @package     Nyx\Auth
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
@@ -38,38 +35,20 @@ class RsaSha1 extends oauth1\Signer
      */
     public function sign(Request $request, array $params, auth\id\credentials\Client $client, auth\interfaces\Credentials $token = null) : string
     {
-        if (false === $key = $this->createKey($client)) {
-            throw new \RuntimeException('Failed to open the private key (invalid passphrase?).');
-        }
-
-        // openssl_sign() populates this by reference so we need a holder value.
-        $signature = '';
-        $success = openssl_sign($this->buildBaseString($request, $params), $signature, $key, OPENSSL_ALGO_SHA1);
-
-        // Free the resource in any case, before the potential throw.
-        openssl_free_key($key);
-
-        if (false === $success) {
-            throw new \RuntimeException('Failed to sign the Request with the provided private key.');
-        }
-
-        return base64_encode($signature);
+        // Base64 encode the generated base string signed using the RSA-SHA1 method using our client secret,
+        // eg. its private key.
+        return base64_encode($this->getGenerator()->sign($this->buildBaseString($request, $params), $client));
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the base signature generator used by this Request Signer.
      *
-     * @return  resource|bool
+     * @return  auth\interfaces\Signer
      */
-    protected function createKey(auth\id\credentials\Client $client, auth\interfaces\Credentials $token = null)
+    protected function getGenerator() : auth\interfaces\Signer
     {
-        // If it's a nested Credentials instance, we assume the id is the key (either the full key or
-        // a path starting with "file://", as understood by openssl_pkey_get_private(), and the secret is the
-        // key's passphrase).
-        if (($key = $client->getSecret()) instanceof auth\interfaces\Credentials) {
-            return openssl_pkey_get_private($key->getId(), $key->getSecret());
-        }
+        static $generator;
 
-        return openssl_pkey_get_private($key);
+        return $generator ?? $generator = new auth\signers\rsa\Sha1;
     }
 }
