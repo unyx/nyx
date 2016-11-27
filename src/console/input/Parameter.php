@@ -1,7 +1,7 @@
 <?php namespace nyx\console\input;
 
 // Internal dependencies
-use nyx\console\traits;
+use nyx\console;
 
 /**
  * Input Parameter Definition
@@ -10,18 +10,18 @@ use nyx\console\traits;
  * which is used to access the parameter's value at runtime. Names are unique across parameter collections,
  * ie. are unique at runtime for a given invoked Command, but not necessarily across the whole Application.
  *
- * @package     Nyx\Console\Input
+ * @package     Nyx\Console
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/console/index.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 abstract class Parameter
 {
     /**
-     * The traits of an Input Parameter Definition.
+     * The traits of a Input Parameter Definition.
      */
-    use traits\Named;
+    use console\traits\Named;
 
     /**
      * @var string  The description of this Parameter.
@@ -34,7 +34,7 @@ abstract class Parameter
     private $value;
 
     /**
-     * Constructs a new Input Parameter Definition.
+     * Creates a new Input Parameter Definition instance.
      *
      * @param   string  $name           The name of this Parameter.
      * @param   string  $description    A description of this Parameter.

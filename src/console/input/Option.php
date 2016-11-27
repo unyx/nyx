@@ -3,11 +3,11 @@
 /**
  * Input Option Definition
  *
- * @package     Nyx\Console\Input
+ * @package     Nyx\Console
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/console/index.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 class Option extends Parameter
 {
@@ -48,7 +48,7 @@ class Option extends Parameter
         $this->callback = $callback;
 
         // Let the Parameter class handle the basics.
-        parent::__construct($name, $description, $value ?: new Value(Value::NONE));
+        parent::__construct($name, $description, $value ?? new Value(Value::NONE));
     }
 
     /**

@@ -6,11 +6,17 @@ use nyx\core\collections;
 /**
  * Input Tokens Interface
  *
- * @package     Nyx\Console\Input
+ * Represents a Collection of unparsed tokens of a known format/structure which have their raw formatting preserved.
+ * Implementations of this interface must be able to distinguish Input Options from Arguments in the collection,
+ * provided they are given a collection of tokens in a format recognized by them.
+ *
+ * This interface does not dictate
+ *
+ * @package     Nyx\Console
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/console/index.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 interface Tokens extends collections\interfaces\Collection
 {
@@ -20,7 +26,7 @@ interface Tokens extends collections\interfaces\Collection
      * @param   string  $value  The value to prepend.
      * @return  $this
      */
-    public function prepend(string $value) : static;
+    public function prepend(string $value) : Tokens;
 
     /**
      * Returns all tokens which do not start with a hyphen and therefore *appear to* be arguments.
