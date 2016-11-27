@@ -25,7 +25,7 @@ interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interf
      *                          cast to an array.
      * @return  $this
      */
-    public function replace($items) : self;
+    public function replace($items) : Collection;
 
     /**
      * Returns all items contained in the Collection, preserving their keys.

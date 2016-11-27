@@ -31,7 +31,7 @@ interface Sequence extends Collection
      * @return  $this
      * @throws  \InvalidArgumentException   When trying to push a null value.
      */
-    public function push($item) : self;
+    public function push($item) : Sequence;
 
     /**
      * Prepends the given item to the beginning of the Sequence.
@@ -40,7 +40,7 @@ interface Sequence extends Collection
      * @return  $this
      * @throws  \InvalidArgumentException   When trying to prepend a null value.
      */
-    public function prepend($item) : self;
+    public function prepend($item) : Sequence;
 
     /**
      * Updates the item at the given index.
@@ -54,7 +54,7 @@ interface Sequence extends Collection
      * @throws  \OutOfBoundsException       When there is no item to update at the given index.
      * @throws  \InvalidArgumentException   When trying to set a value of null.
      */
-    public function update(int $index, $item) : self;
+    public function update(int $index, $item) : Sequence;
 
     /**
      * Checks whether the given item identified by its key exists in the Sequence.
@@ -78,7 +78,7 @@ interface Sequence extends Collection
      * @param   int     $index      The index of the item to remove.
      * @return  $this
      */
-    public function remove(int $index) : self;
+    public function remove(int $index) : Sequence;
 
     /**
      * Returns and then removes the first item from the Sequence.

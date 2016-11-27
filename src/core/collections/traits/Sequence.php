@@ -52,7 +52,7 @@ trait Sequence
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
-        array_unshift($this->items, $value);
+        array_unshift($this->items, $item);
 
         return $this;
     }

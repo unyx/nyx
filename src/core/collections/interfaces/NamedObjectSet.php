@@ -38,7 +38,7 @@ interface NamedObjectSet extends Collection
      * @throws  \InvalidArgumentException       When expecting a specific type and the Object given is not an
      *                                          instance of it.
      */
-    public function add(core\interfaces\Named $object) : self;
+    public function add(core\interfaces\Named $object) : NamedObjectSet;
 
     /**
      * Checks whether the given item identified by its name exists in the Set.
@@ -62,7 +62,7 @@ interface NamedObjectSet extends Collection
      * @param   string  $name   The name of the object to remove.
      * @return  $this
      */
-    public function remove(string $name) : self;
+    public function remove(string $name) : NamedObjectSet;
 
     /**
      * Returns the names of the items in this Set indexed numerically. Acts similar to array_keys() except

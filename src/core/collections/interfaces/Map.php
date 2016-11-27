@@ -29,7 +29,7 @@ interface Map extends Collection
      * @return  $this
      * @throws  \InvalidArgumentException   When trying to set a value of null.
      */
-    public function set($key, $item) : self;
+    public function set($key, $item) : Map;
 
     /**
      * Checks whether the given item identified by its key exists in the Map.
@@ -53,7 +53,7 @@ interface Map extends Collection
      * @param   string|int  $key        The key of the item to remove.
      * @return  $this
      */
-    public function remove($key) : self;
+    public function remove($key) : Map;
 
     /**
      * Returns the key of the item identified by its value.
