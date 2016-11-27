@@ -10,7 +10,8 @@ use nyx\core\collections;
  * Implementations of this interface must be able to distinguish Input Options from Arguments in the collection,
  * provided they are given a collection of tokens in a format recognized by them.
  *
- * This interface does not dictate
+ * This interface does not dictate the type of Collection that needs to be implemented nor does it require
+ * the tokens to be in immutable sequence order.
  *
  * @package     Nyx\Console
  * @version     0.1.0
@@ -20,14 +21,6 @@ use nyx\core\collections;
  */
 interface Tokens extends collections\interfaces\Collection
 {
-    /**
-     * Prepends a token to the collection.
-     *
-     * @param   string  $value  The value to prepend.
-     * @return  $this
-     */
-    public function prepend(string $value) : Tokens;
-
     /**
      * Returns all tokens which do not start with a hyphen and therefore *appear to* be arguments.
      *
