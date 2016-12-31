@@ -22,7 +22,7 @@ abstract class Provider extends auth\id\Provider implements interfaces\Provider
     /**
      * The character separating different scopes in the request.
      */
-    const SCOPE_SEPARATOR = ',';
+    const SCOPE_SEPARATOR = ' ';
 
     /**
      * @var array   The default access scopes to be requested during the authorization step.
