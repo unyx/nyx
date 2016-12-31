@@ -18,11 +18,6 @@ class LinkedIn extends oauth2\Provider
     /**
      * {@inheritDoc}
      */
-    const SCOPE_SEPARATOR = ' ';
-
-    /**
-     * {@inheritDoc}
-     */
     const URL_AUTHORIZE = 'https://www.linkedin.com/oauth/v2/authorization';
     const URL_EXCHANGE  = 'https://www.linkedin.com/oauth/v2/accessToken';
     const URL_IDENTIFY  = 'https://api.linkedin.com/v1/people';

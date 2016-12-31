@@ -22,6 +22,11 @@ class Github extends oauth2\Provider
     /**
      * {@inheritDoc}
      */
+    const SCOPE_SEPARATOR = ',';
+
+    /**
+     * {@inheritDoc}
+     */
     const URL_AUTHORIZE = 'https://github.com/login/oauth/authorize';
     const URL_EXCHANGE  = 'https://github.com/login/oauth/access_token';
     const URL_IDENTIFY  = 'https://api.github.com/user';

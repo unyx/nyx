@@ -18,11 +18,6 @@ class Twitch extends oauth2\Provider
     /**
      * {@inheritDoc}
      */
-    const SCOPE_SEPARATOR = ' ';
-
-    /**
-     * {@inheritDoc}
-     */
     const URL_AUTHORIZE = 'https://api.twitch.tv/kraken/oauth2/authorize';
     const URL_EXCHANGE  = 'https://api.twitch.tv/kraken/oauth2/token';
     const URL_IDENTIFY  = 'https://api.twitch.tv/kraken/user';

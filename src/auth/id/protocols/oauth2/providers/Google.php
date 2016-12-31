@@ -16,11 +16,6 @@ use nyx\auth;
 class Google extends oauth2\Provider
 {
     /**
-     * {@inheritDoC}
-     */
-    const SCOPE_SEPARATOR = ' ';
-
-    /**
      * {@inheritDoc}
      */
     const URL_AUTHORIZE = 'https://accounts.google.com/o/oauth2/auth';

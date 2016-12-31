@@ -18,11 +18,6 @@ class Slack extends oauth2\Provider
     /**
      * {@inheritDoc}
      */
-    const SCOPE_SEPARATOR = ' ';
-
-    /**
-     * {@inheritDoc}
-     */
     const URL_AUTHORIZE = 'https://slack.com/oauth/authorize';
     const URL_EXCHANGE  = 'https://slack.com/api/oauth.access';
     const URL_IDENTIFY  = 'https://slack.com/api/users.identity';
