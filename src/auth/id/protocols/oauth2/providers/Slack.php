@@ -40,7 +40,7 @@ class Slack extends oauth2\Provider
      */
     protected function getDefaultRequestOptions(auth\interfaces\Token $token = null) : array
     {
-        if (null === $token) {
+        if (isset($token)) {
             return parent::getDefaultRequestOptions($token);
         }
 

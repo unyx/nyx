@@ -44,7 +44,7 @@ class Twitch extends oauth2\Provider
         ];
 
         // Twitch uses a non-default authorization header.
-        if (null !== $token) {
+        if (isset($token)) {
             $options['headers']['Authorization'] = 'OAuth '.$token->getId();
         }
 
