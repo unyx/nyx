@@ -100,7 +100,7 @@ class Bitbucket extends oauth2\Provider
      *
      * Overridden because we return different Identity objects depending on what kind of entity's data we got.
      */
-    protected function createIdentity(oauth2\Token $token, array $data) : oauth2\Identity
+    protected function createIdentity(auth\interfaces\Token $token, array $data) : auth\id\interfaces\Identity
     {
         $class = $data['type'] === 'team'
             ? auth\id\identities\bitbucket\Team::class
