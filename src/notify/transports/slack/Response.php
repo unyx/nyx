@@ -39,6 +39,28 @@ class Response extends Message
     protected $deleteOriginal;
 
     /**
+     * {@inheritDoc}
+     */
+    public function setAttributes(array $attributes) : Message
+    {
+        parent::setAttributes($attributes);
+
+        if (isset($attributes['response_type'])) {
+            $this->setType($attributes['response_type']);
+        }
+
+        if (isset($attributes['replace_original'])) {
+            $this->setReplaceOriginal($attributes['replace_original']);
+        }
+
+        if (isset($attributes['delete_original'])) {
+            $this->setDeleteOriginal($attributes['delete_original']);
+        }
+
+        return $this;
+    }
+
+    /**
      * Returns the type of the Response.
      *
      * @return  string
@@ -110,5 +132,17 @@ class Response extends Message
         $this->deleteOriginal = $delete;
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray() : array
+    {
+        return array_merge(parent::toArray(), [
+            'response_type'    => $this->getType(),
+            'replace_original' => $this->shouldReplaceOriginal(),
+            'delete_original'  => $this->shouldDeleteOriginal(),
+        ]);
     }
 }
