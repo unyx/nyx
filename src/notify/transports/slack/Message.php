@@ -104,8 +104,10 @@ class Message implements core\interfaces\Serializable
             $this->setIcon($attributes['icon']);
         }
 
-        foreach($attributes['attachments'] as $attachment) {
-            $this->attach($attachment);
+        if (isset($attributes['attachments'])) {
+            foreach($attributes['attachments'] as $attachment) {
+                $this->attach($attachment);
+            }
         }
 
         if (isset($attributes['parse'])) {
