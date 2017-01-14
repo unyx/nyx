@@ -39,7 +39,7 @@ class Service extends \Illuminate\Support\ServiceProvider
     {
         $this->app->singleton('mailer', function (Application $app) {
 
-            $mailer = new transports\mail\Mailer($app->make('mailer.transport'), $app->make('view'));
+            $mailer = new transports\mail\Mailer($app->make('mailer.transports')->driver(), $app->make('view'));
 
             // Set the 'always from' and 'always to' options on the Mailer if they have been configured.
             $config = $app->make('config')->get('mail');
@@ -60,8 +60,8 @@ class Service extends \Illuminate\Support\ServiceProvider
 
         // We are going to need to instantiate the Mailer with a proper Driver.
         // @todo Drop the DriverManager in favour of handling the logic in this very Service Provider itself?
-        $this->app->bind('mailer.transport', $this->app->share(function (Application $app) {
-            return (new transports\mail\DriverManager($app))->driver();
-        }));
+        $this->app->singleton('mailer.transports', function (Application $app) {
+            return (new transports\mail\DriverManager($app));
+        });
     }
 }
