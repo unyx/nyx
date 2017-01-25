@@ -4,14 +4,14 @@
  * Slack Response Message
  *
  * A Response is a special kind of Message that is sent after an Action of an Attachment has been invoked
- * inside Slack and Slack has called the designated callback URL.
+ * inside Slack and Slack has called the designated callback URL or as a response to an invocation of
+ * a registered Slack command.
  *
  * @package     Nyx\Notify
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2017 Nyx Dev Team
  * @link        https://github.com/unyx/nyx
- * @todo        PHP7.1 pass for nullable return types (missing ?string on most methods).
  */
 class Response extends Message
 {
@@ -25,6 +25,11 @@ class Response extends Message
      * @var string  The type of the Response. One of the TYPE_* class constants.
      */
     protected $type;
+
+    /**
+     * @var string  The URL this Response should be sent to.
+     */
+    protected $url;
 
     /**
      * @var bool Whether the original Message should be replaced by this Response. When false, this Response
@@ -49,6 +54,10 @@ class Response extends Message
             $this->setType($attributes['response_type']);
         }
 
+        if (isset($attributes['response_url'])) {
+            $this->setResponseUrl($attributes['response_url']);
+        }
+
         if (isset($attributes['replace_original'])) {
             $this->setReplaceOriginal($attributes['replace_original']);
         }
@@ -65,7 +74,7 @@ class Response extends Message
      *
      * @return  string
      */
-    public function getType()
+    public function getType() : ?string
     {
         return $this->type;
     }
@@ -84,6 +93,29 @@ class Response extends Message
         }
 
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Returns the URL this Response should be sent to.
+     *
+     * @return  string
+     */
+    public function getResponseUrl() : ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * Sets the URL this Response should be sent to.
+     *
+     * @param   string  $url
+     * @return  $this
+     */
+    public function setResponseUrl(string $url) : Response
+    {
+        $this->url = $url;
 
         return $this;
     }
@@ -141,6 +173,7 @@ class Response extends Message
     {
         return array_merge(parent::toArray(), [
             'response_type'    => $this->getType(),
+            'response_url'     => $this->getResponseUrl(),
             'replace_original' => $this->shouldReplaceOriginal(),
             'delete_original'  => $this->shouldDeleteOriginal(),
         ]);
