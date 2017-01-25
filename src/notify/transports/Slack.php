@@ -21,7 +21,7 @@ class Slack implements interfaces\Transport
     const ICON_TYPE_EMOJI = 'icon_emoji';
 
     /**
-     * @var \GuzzleHttp\Client  The underlying HTTP Client instance.
+     * @var \GuzzleHttp\ClientInterface     The underlying HTTP Client instance.
      */
     protected $client;
 
@@ -96,11 +96,11 @@ class Slack implements interfaces\Transport
     /**
      * Constructs a new Slack Transport instance.
      *
-     * @param   array               $config     The Transport's configuration.
-     * @param   \GuzzleHttp\Client  $client     A Guzzle HTTP Client instance.
-     * @todo                                    Proper parsing of config options and error-recovery.
+     * @param   array                       $config     The Transport's configuration.
+     * @param   \GuzzleHttp\ClientInterface $client     A Guzzle HTTP Client instance.
+     * @todo                                            Proper parsing of config options and error-recovery.
      */
-    public function __construct(array $config, \GuzzleHttp\Client $client)
+    public function __construct(array $config, \GuzzleHttp\ClientInterface $client)
     {
         $this->token                 = $config['token']                   ?? null;
         $this->endpoint              = $config['endpoint']                ?? null;
@@ -147,7 +147,7 @@ class Slack implements interfaces\Transport
         $message['endpoint']     = $message['endpoint'] ?? $this->endpoint;
         $message['username']     = $message['username'] ?? $this->username;
         $message['parse']        = $message['parse']    ?? $this->parse;
-        $message['link_names']   = $this->linkNames    ? 1 : 0;
+        $message['link_names']   = $this->linkNames     ? 1 : 0;
         $message['unfurl_links'] = $this->unfurlLinks;
         $message['unfurl_media'] = $this->unfurlMedia;
         $message['mrkdwn']       = $this->allowMarkdown;
@@ -160,7 +160,9 @@ class Slack implements interfaces\Transport
             $message[static::determineIconType($icon)] = $icon;
         }
 
-        if ($message['token']) {
+        if (isset($message['response_url'])) {
+            $this->sendResponse($message);
+        } elseif ($message['token']) {
             $this->sendApiMessage($message);
         } elseif ($message['endpoint']) {
             $this->sendWebhookMessage($message);
@@ -182,7 +184,7 @@ class Slack implements interfaces\Transport
     }
 
     /**
-     * Performs the actual sending of a Message to a Slack's Web API.
+     * Performs the actual sending of a Message to Slack's Web API.
      *
      * @param   array   $message    The Message's data (toArray()'ed).
      */
@@ -199,6 +201,18 @@ class Slack implements interfaces\Transport
 
         $this->client->request('POST', 'https://slack.com/api/chat.postMessage', [
             'form_params' => $message,
+        ]);
+    }
+
+    /**
+     * Performs the actual sending of a Response to its Response URL provided by Slack.
+     *
+     * @param   array   $message    The Message's data (toArray()'ed).
+     */
+    protected function sendResponse(array $message)
+    {
+        $this->client->request('POST', $message['response_url'], [
+            'json' => $message,
         ]);
     }
 
