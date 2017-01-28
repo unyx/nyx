@@ -1,11 +1,14 @@
 <?php namespace nyx\core\traits;
 
+// Internal dependencies
+use nyx\core\interfaces;
+
 /**
  * Named
  *
- * This trait allows for the implementation of the core\interfaces\Named interface.
+ * A Named object is one that has a name which can be get and set, and needs to conform to certain rules.
  *
- *  A Named object is one that has a name which needs to conform to certain rules.
+ * This trait allows for the implementation of the core\interfaces\Named interface.
  *
  * The default assumption is that a Named object is one whose name is required to be not empty. If that is not the
  * case and the name does not need to meet any rules that could be defined in an overridden validateName() method,
@@ -14,8 +17,8 @@
  * @package     Nyx\Core
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/index.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 trait Named
 {
@@ -25,7 +28,7 @@ trait Named
     private $name;
 
     /**
-     * @see core\interfaces\Named::getName()
+     * @see \nyx\core\interfaces\Named::getName()
      */
     public function getName() : string
     {
@@ -33,27 +36,28 @@ trait Named
     }
 
     /**
-     * @see core\interfaces\Named::setName()
+     * @see \nyx\core\interfaces\Named::setName()
      */
-    public function setName(string $name)
+    public function setName(string $name) : interfaces\Named
     {
-        $this->validateName($name);
-        $this->name = $name;
+        $this->name = $this->assertValidName($name);
 
         return $this;
     }
 
     /**
-     * Validates the given name to ensure that it is valid. Default implementation only checks whether
-     * the name is not empty. More specific rules are left to the implementer.
+     * Assets the given string is valid to be used as a name and returns it if it is.
      *
      * @param   string                      $name   The name to be validated.
+     * @return  string
      * @throws  \InvalidArgumentException           When the name does not conform to the validation rules.
      */
-    protected function validateName(string $name)
+    protected function assertValidName(string $name) : string
     {
         if (empty($name)) {
             throw new \InvalidArgumentException("A name must be a non-empty string.");
         }
+
+        return $name;
     }
 }
