@@ -6,73 +6,71 @@ use nyx\core;
 /**
  * Input Parameter Value Definition
  *
+ * Defines what kind of values a parameter accepts: whether a parameter's value is optional or required to be set
+ * and if it is optional, what the default value for the parameter is, if it was not given along with the input.
+ *
+ * Should a parameter not accept a value at all, a Value Definition must *not* be set for it. This is the case
+ * for Options which act as behavioural flags for the application.
+ *
  * @package     Nyx\Console
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2017 Nyx Dev Team
  * @link        https://github.com/unyx/nyx
- * @todo        The "valid" type which will pass through a validator callable, including custom error messages.
+ * @todo        The "valid" type which will pass through a validator callable, including support for
+ *              custom error messages.
  */
 class Value
 {
     /**
-     * The available types.
+     * The modes a Value can be of.
      */
-    const NONE      = 1;
-    const REQUIRED  = 2;
-    const OPTIONAL  = 4;
+    const REQUIRED  = 1;
+    const OPTIONAL  = 2;
 
     /**
-     * @var mixed   The default value for this definition.
+     * @var core\Mask   The mode mask of the Value.
+     */
+    private $mode;
+
+    /**
+     * @var mixed       The default value of the underlying Parameter. Only applies when the Value is optional.
      */
     private $default;
 
     /**
-     * @var core\Mask   The type mask of the value.
-     */
-    private $type;
-
-    /**
      * Constructs a new Input Parameter Value Definition instance.
      *
-     * @param   int                         $type       The type of the Value (one of the class constants).
+     * @param   int                         $mode       The mode of the Value (one of the class constants).
      * @param   mixed                       $default    The default value.
      * @throws  \InvalidArgumentException               When the given type of the Value is invalid (unrecognized).
      */
-    public function __construct(int $type = self::NONE, $default = null)
+    public function __construct(int $mode, $default = null)
     {
-        if ($type > 7 || $type < 1) {
-            throw new \InvalidArgumentException("The given type of the value [$type] is invalid.");
+        if ($mode > 2 || $mode < 1) {
+            throw new \InvalidArgumentException("The given type of the value [$mode] is invalid.");
         }
 
-        $this->type = new core\Mask($type);
-        $this->setDefault($default);
+        $this->mode = new core\Mask($mode);
+
+        if (isset($default)) {
+            $this->setDefault($default);
+        }
     }
 
     /**
-     * Compares this Value's type to the given type and returns true if it has the given mode.
+     * Compares this Value's mode to the given mode and returns true if the Value is in the given mode.
      *
-     * @param   int     $type   The type to check against.
+     * @param   int $mode   The mode to check against.
      * @return  bool
      */
-    public function is(int $type) : bool
+    public function is(int $mode) : bool
     {
-        return $this->type->is($type);
+        return $this->mode->is($mode);
     }
 
     /**
-     * Checks whether this Value is not expected to be null (for instance
-     * when an option is a behavioral flag).
-     *
-     * @return  bool    True when the Value can be non-null, false otherwise.
-     */
-    public function accepts() : bool
-    {
-        return !$this->type->is(Value::NONE);
-    }
-
-    /**
-     * Returns the default value.
+     * Returns the default value of the underlying Parameter.
      *
      * @return  mixed
      */
@@ -82,18 +80,20 @@ class Value
     }
 
     /**
-     * Sets the default value.
+     * Sets the default value for the underlying Parameter.
      *
      * @param   mixed               $default    The default value.
      * @return  $this
-     * @throws  \LogicException                 When an invalid default value is given.
+     * @throws  \InvalidArgumentException       When an invalid default value is given.
      */
-    public function setDefault($default = null) : Value
+    public function setDefault($default) : Value
     {
-        if (isset($default) && !$this->type->is(Value::OPTIONAL)) {
-            throw new \LogicException("Cannot set a default value for non-optional values.");
+        if (isset($default) && !$this->mode->is(Value::OPTIONAL)) {
+            throw new \InvalidArgumentException('Cannot set a default value for non-optional values.');
         }
 
         $this->default = $default;
+
+        return $this;
     }
 }
