@@ -1,5 +1,8 @@
 <?php namespace nyx\console\input;
 
+// External dependencies
+use nyx\core;
+
 /**
  * Input Option Definition
  *
@@ -34,21 +37,16 @@ class Option extends Parameter
      */
     public function __construct(string $name, string $shortcut = null, string $description = null, Value $value = null, callable $callback = null)
     {
-        if (!empty($shortcut)) {
-            // Standardize the shortcut's name. Remove any dashes at the beginning.
-            $shortcut = ltrim($name, '-');
-
-            // We might have ended with an empty string if it only contained dashes.
-            if (empty($shortcut)) {
-                throw new \InvalidArgumentException("An option's shortcut cannot be empty when set.");
-            }
+        // If a shortcut is given, standardize its name - remove any dashes at the beginning.
+        // We might have ended with an empty string if it only contained dashes.
+        if (!empty($shortcut) && empty($shortcut = ltrim($shortcut, '-')[0])) {
+            throw new \InvalidArgumentException("An option's shortcut cannot be empty when set.");
         }
 
         $this->shortcut = $shortcut;
         $this->callback = $callback;
 
-        // Let the Parameter class handle the basics.
-        parent::__construct($name, $description, $value ?? new Value(Value::NONE));
+        parent::__construct($name, $description, $value);
     }
 
     /**
@@ -57,11 +55,9 @@ class Option extends Parameter
      * Overriding the Named trait to remove unnecessary dashes from the beginning of the string. Gets called
      * automatically in the parent's constructor.
      */
-    public function setName($name)
+    public function setName(string $name) : core\interfaces\Named
     {
-        // Standardize the name by removing any dashes at the beginning. Double dashes will be added later on
-        // automatically when the option actually gets displayed.
-        parent::setName(ltrim($name, '-'));
+        return parent::setName(ltrim($name, '-'));
     }
 
     /**
@@ -69,7 +65,7 @@ class Option extends Parameter
      *
      * @return  string
      */
-    public function getShortcut() : string
+    public function getShortcut() : ?string
     {
         return $this->shortcut;
     }
@@ -79,7 +75,7 @@ class Option extends Parameter
      *
      * @return  callable
      */
-    public function getCallback() : callable
+    public function getCallback() : ?callable
     {
         return $this->callback;
     }
@@ -89,8 +85,10 @@ class Option extends Parameter
      *
      * @param   callable    $callback
      */
-    public function setCallback(callable $callback)
+    public function setCallback(callable $callback) : Option
     {
         $this->callback = $callback;
+
+        return $this;
     }
 }
