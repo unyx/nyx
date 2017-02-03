@@ -27,12 +27,14 @@ trait Named
     /**
      * {@inheritDoc}
      */
-    protected function validateName(string $name)
+    protected function assertValidName(string $name) : string
     {
         $delimiter = '\:';
 
         if (!preg_match('/^[^'.$delimiter.'\s]++$/', $name)) {
             throw new \InvalidArgumentException("A name [$name] must not be empty nor contain colons or whitespaces.");
         }
+
+        return $name;
     }
 }
