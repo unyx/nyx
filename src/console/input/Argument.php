@@ -20,18 +20,4 @@ class Argument extends Parameter
     {
         parent::__construct($name, $description, $value ?? new Value(Value::REQUIRED));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function setValue(Value $value)
-    {
-        // An argument must accept a value. If you don't want to accept a value, don't define it.
-        // Use an Option instead. Simple as that.
-        if ($value->is(Value::NONE)) {
-            throw new \InvalidArgumentException("A defined argument [{$this->getName()}] must accept a value.");
-        }
-
-        parent::setValue($value);
-    }
 }
