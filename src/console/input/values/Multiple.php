@@ -17,13 +17,13 @@ class Multiple extends input\Value
     /**
      * {@inheritDoc}
      *
-     * @throws \LogicException  When the given $default value is not an array.
+     * @throws \InvalidArgumentException    When the given $default value is not an array.
      */
     public function setDefault($default = null) : input\Value
     {
         // Allow null, but otherwise require an array (with preferably actual default values).
         if (isset($default) && !is_array($default)) {
-            throw new \LogicException("The default value for an argument accepting multiple values must be an array.");
+            throw new \InvalidArgumentException('The default value for an argument accepting multiple values must be an array.');
         }
 
         return parent::setDefault($default);
