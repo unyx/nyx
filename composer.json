@@ -16,17 +16,14 @@
   },
 
   "require": {
-    "php": ">=7.1.0-dev",
+    "php": ">=7.1.0",
 	"ext-mbstring": "*",
 	"ext-openssl": "*",
 	"psr/log": "dev-master",
 	"psr/http-message": "dev-master",
     "guzzlehttp/guzzle": "*",
     "swiftmailer/swiftmailer": "*",
-    "illuminate/contracts": "*",
-    "illuminate/bus": "*",
-    "illuminate/queue": "*",
-    "illuminate/support": "*"
+    "illuminate/contracts": "*"
   },
 
   "require-dev": {
@@ -34,7 +31,9 @@
   },
 
   "replace": {
+    "nyx/auth":         "self.version",
 	"nyx/connect":      "self.version",
+    "nyx/console":      "self.version",
 	"nyx/core":         "self.version",
 	"nyx/diagnostics":  "self.version",
 	"nyx/events":       "self.version",

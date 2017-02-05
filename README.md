@@ -1,29 +1,31 @@
-# Nyx
-[![Latest Stable Version](https://poser.pugx.org/nyx/nyx/v/stable.png)](https://packagist.org/packages/nyx/nyx)
-[![Total Downloads](https://poser.pugx.org/nyx/nyx/downloads.png)](https://packagist.org/packages/nyx/nyx)
-[![Build Status](https://travis-ci.org/unyx/nyx.png)](https://travis-ci.org/unyx/nyx)
-[![Dependency Status](https://www.versioneye.com/user/projects/55c5430065376200200034cd/badge.png)](https://www.versioneye.com/user/projects/55c5430065376200200034cd)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/unyx/nyx/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/unyx/nyx)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://alcore.mit-license.org)
+<div align="center">
+<img src="https://s29.postimg.org/wg17yp5lj/rsz_logo_l_300.png">
 
 -----
 
-![Dev warning](http://s7.postimg.org/6cruwesi3/Nyx.png)
+<a title="Latest stable version" href="https://packagist.org/packages/nyx/nyx"><img src="https://poser.pugx.org/nyx/nyx/v/stable.png" /></a>
+<a title="Total downloads" href="https://packagist.org/packages/nyx/nyx"><img src="https://poser.pugx.org/nyx/nyx/downloads.png" /></a>
+<a title="Build status" href="https://travis-ci.org/unyx/nyx"><img src="https://travis-ci.org/unyx/nyx.png" /></a>
+<a title="Scrutinizer quality score" href="https://scrutinizer-ci.com/g/unyx/nyx"><img src="https://scrutinizer-ci.com/g/unyx/nyx/badges/quality-score.png" /></a>
+<a title="License" href="http://alcore.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg" /></a>
 
-Description coming soon (tm).
+Currently in its infant **design phase** and therefore considered **unusable**. The API will fluctuate, solar flares will appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
+
+</div>
 
 -----
 
 ### Requirements
 
-- PHP 7.1.0+
+- PHP **7.1.0**+
+  
+Specific subcomponent features **may depend on non-standard PHP extensions** being available.
 
 ### Installation
 
-The only supported way of installing this package is using [Composer](http://getcomposer.org).
+The only supported way of installing this package is via [Composer](http://getcomposer.org):
 
-- Add `nyx/nyx` as a dependency to your project's `composer.json` file.
-- Run `composer update` and you're ready to go.
+``composer require nyx/nyx``
 
 ### Documentation
 
