@@ -16,11 +16,10 @@ use nyx\diagnostics\debug\interfaces;
  * Requires:
  * - Package: raulfraile/ladybug (available as suggestion for nyx/diagnostics within Composer)
  *
- * @package     Nyx\Diagnostics\Debug
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 class Ladybug implements interfaces\Dumper
 {
@@ -42,7 +41,7 @@ class Ladybug implements interfaces\Dumper
     /**
      * {@inheritDoc}
      */
-    public function dump(...$vars)
+    public function __invoke(...$vars)
     {
         // @todo Actual output handling.
         echo call_user_func([$this->dumper, "dump"], ...$vars);

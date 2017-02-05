@@ -12,18 +12,17 @@ use nyx\diagnostics\debug\interfaces;
  * Requires:
  * - Package: tracy/tracy (available as suggestion for nyx/diagnostics within Composer)
  *
- * @package     Nyx\Diagnostics\Debug
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 class Tracy implements interfaces\Dumper
 {
     /**
      * {@inheritDoc}
      */
-    public function dump(...$vars)
+    public function __invoke(...$vars)
     {
         // Tracy isn't variadic so we need to adapt.
         foreach ($vars as $var) {

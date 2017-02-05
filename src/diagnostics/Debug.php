@@ -43,7 +43,7 @@ class Debug
     private static $exceptionHandler;
 
     /**
-     * @var interfaces\Dumper               The Dumper in use.
+     * @var interfaces\Dumper|callable      The Dumper in use.
      */
     private static $dumper;
 
@@ -76,19 +76,19 @@ class Debug
     }
 
     /**
-     * Dumps the given variable(s), providing information about their type, contents and others. Variadic, ie. accepts
-     * multiple variables as parameters.
+     * Dumps the given variable(s), providing information about their type, contents and others.
+     * Accepts multiple values as parameters.
      *
-     * @param   mixed[]     ...$vars    The variable(s) to dump info about.
+     * @param   mixed   ...$vars    The variable(s) to dump info about.
      */
     public static function dump(...$vars)
     {
-        // If we've got no Dumper specified, create the default one.
-        if (null === static::$dumper) {
-            static::setDumper(static::createDefaultDumper());
+        // If we've got no Dumper specified we will fall back to a sane default.
+        if (!isset(static::$dumper)) {
+            static::setDumper(static::getDefaultDumper());
         }
 
-        static::$dumper->dump(...$vars);
+        call_user_func(static::$dumper, ...$vars);
     }
 
     /**
@@ -126,7 +126,7 @@ class Debug
     /**
      * Returns the Dumper in use.
      *
-     * @return  interfaces\Dumper   The Dumper in use.
+     * @return  interfaces\Dumper|callable
      */
     public static function getDumper() : interfaces\Dumper
     {
@@ -136,10 +136,14 @@ class Debug
     /**
      * Sets the Dumper to be used.
      *
-     * @param   interfaces\Dumper   $dumper     The Dumper to be used.
+     * @param   interfaces\Dumper|callable   $dumper
      */
-    public static function setDumper(interfaces\Dumper $dumper)
+    public static function setDumper($dumper)
     {
+        if (!$dumper instanceof interfaces\Dumper && !is_callable($dumper)) {
+            throw new \InvalidArgumentException('Expected an instance of ['.interfaces\Dumper::class.'] or a callable, got ['.static::getTypeName($dumper).'] instead.');
+        }
+
         static::$dumper = $dumper;
     }
 
@@ -173,13 +177,12 @@ class Debug
     }
 
     /**
-     * Creates a default variable dumper to be used by self::dump() if no other has been set before the method
-     * call to self::dump().
+     * Returns a default variable dumper to be used by self::dump() if no other has been set.
      *
-     * @return  interfaces\Dumper|callable  $dumper     The created dumper.
+     * @return  interfaces\Dumper|callable  $dumper
      */
-    protected static function createDefaultDumper()
+    protected static function getDefaultDumper()
     {
-        return new debug\dumpers\Native;
+        return 'var_dump';
     }
 }

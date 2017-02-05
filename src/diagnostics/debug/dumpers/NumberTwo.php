@@ -15,11 +15,10 @@ use nyx\diagnostics\debug\interfaces;
  * Requires:
  * - Package: mnapoli/number-two (available as suggestion for nyx/diagnostics within Composer)
  *
- * @package     Nyx\Diagnostics\Debug
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/diagnostics/debug.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  * @todo        Readable breaks between each variable dump.
  * @todo        Adjust the settings locally and apply them on each call to the base dump().
  */
@@ -28,7 +27,7 @@ class NumberTwo implements interfaces\Dumper
     /**
      * {@inheritDoc}
      */
-    public function dump(...$vars)
+    public function __invoke(...$vars)
     {
         // NumberTwo isn't variadic so we need to adapt.
         foreach ($vars as $var) {
