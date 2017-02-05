@@ -13,8 +13,7 @@
 <p align="center">
 Currently in its infant <strong>design phase</strong> and therefore considered <strong>unusable</strong>. The API will fluctuate, solar flares will appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
 </p>
-
------
+<br />
 
 ## Requirements
 
@@ -26,7 +25,9 @@ Specific subcomponent features **may depend on non-standard PHP extensions** bei
 
 The only supported way of installing this package is via [Composer](http://getcomposer.org):
 
-``composer require nyx/nyx``
+```php
+composer require nyx/nyx
+```
 
 ## Documentation
 
