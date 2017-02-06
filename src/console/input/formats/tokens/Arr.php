@@ -1,4 +1,4 @@
-<?php namespace nyx\console\input\sources\tokens;
+<?php namespace nyx\console\input\formats\tokens;
 
 // External dependencies
 use nyx\core\collections;
