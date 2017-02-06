@@ -97,7 +97,7 @@ trait Collection
      */
     public function slice(int $offset, int $length = null, bool $preserveKeys = false) : interfaces\Collection
     {
-        return new static(array_slice($this->items, $offset, $length, $preserveKeys));
+        return $this->derive(array_slice($this->items, $offset, $length, $preserveKeys));
     }
 
     /**
@@ -113,7 +113,7 @@ trait Collection
      */
     public function select(callable $callback) : interfaces\Collection
     {
-        return new static(array_filter($this->items, $callback));
+        return $this->derive(array_filter($this->items, $callback));
     }
 
     /**
@@ -132,7 +132,7 @@ trait Collection
             }
         }
 
-        return new static($result);
+        return $this->derive($result);
     }
 
     /**
@@ -140,7 +140,7 @@ trait Collection
      */
     public function map(callable $callback) : interfaces\Collection
     {
-        return new static(array_map($callback, $this->items, array_keys($this->items)));
+        return $this->derive(array_map($callback, $this->items, array_keys($this->items)));
     }
 
     /**
@@ -174,7 +174,7 @@ trait Collection
      */
     public function reverse() : interfaces\Collection
     {
-        return new static(array_reverse($this->items));
+        return $this->derive(array_reverse($this->items));
     }
 
     /**
@@ -182,7 +182,7 @@ trait Collection
      */
     public function collapse() : interfaces\Collection
     {
-        return new static(utils\Arr::collapse($this->items));
+        return $this->derive(utils\Arr::collapse($this->items));
     }
 
     /**
@@ -190,7 +190,7 @@ trait Collection
      */
     public function flatten() : interfaces\Collection
     {
-        return new static(utils\Arr::flatten($this->items));
+        return $this->derive(utils\Arr::flatten($this->items));
     }
 
     /**
@@ -198,7 +198,7 @@ trait Collection
      */
     public function fetch($key) : interfaces\Collection
     {
-        return new static(utils\Arr::fetch($this->items, $key));
+        return $this->derive(utils\Arr::fetch($this->items, $key));
     }
 
     /**
@@ -212,7 +212,7 @@ trait Collection
             $arrays[] = $this->extractItems($items);
         }
 
-        return new static(array_merge(...$arrays));
+        return $this->derive(array_merge(...$arrays));
     }
 
     /**
@@ -226,7 +226,7 @@ trait Collection
             $arrays[] = $this->extractItems($items);
         }
 
-        return new static(array_diff(...$arrays));
+        return $this->derive(array_diff(...$arrays));
     }
 
     /**
@@ -285,6 +285,21 @@ trait Collection
                 $this->items[$key] = clone $value;
             }
         }
+    }
+
+    /**
+     * Creates a new instance based on this one, but populated by the given items.
+     *
+     * This can be useful as an override in child classes which take required parameters other than the items
+     * in their constructor, allowing you to pass them in by overriding this method and thus more easily
+     * retain the functionality of methods like map() or reduce() which return new instances of the Collection.
+     *
+     * @param   mixed   $items          The items to populate the new Collection with.
+     * @return  interfaces\Collection
+     */
+    protected function derive($items) : interfaces\Collection
+    {
+        return new static($items);
     }
 
     /**

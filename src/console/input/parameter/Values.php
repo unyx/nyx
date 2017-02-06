@@ -28,13 +28,15 @@ abstract class Values extends core\collections\Map
     protected $definitions;
 
     /**
-     * Constructs an Input Values instance.
+     * {@inheritdoc}
      *
      * @param   Definitions $definition     The Definitions of the Parameters that can be present in this collection.
      */
-    public function __construct(Definitions $definition)
+    public function __construct(Definitions $definition, $items = null)
     {
         $this->definitions = $definition;
+
+        parent::__construct($items);
     }
 
     /**
@@ -98,5 +100,13 @@ abstract class Values extends core\collections\Map
         }
 
         return $parameter;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function derive($items) : core\collections\interfaces\Collection
+    {
+        return new static($this->definitions, $items);
     }
 }
