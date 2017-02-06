@@ -55,6 +55,19 @@ class Arguments extends parameter\Values
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * Overridden to include validation in the finalize step, while ensuring the Collection is valid
+     * already before being populated with default values for not explicitly set Arguments.
+     */
+    public function finalize() : parameter\Values
+    {
+        $this->validate();
+
+        return parent::finalize();
+    }
+
+    /**
      * Validates this collection.
      *
      * Checks if the Collection contains all necessary arguments. We are not validating whether there are
@@ -63,7 +76,7 @@ class Arguments extends parameter\Values
      *
      * @throws  exceptions\ArgumentsNotEnough   When not enough arguments are present in this Collection.
      */
-    public function validate()
+    protected function validate()
     {
         if ($this->count() < $this->definitions->required()) {
             throw new exceptions\ArgumentsNotEnough($this);

@@ -49,41 +49,6 @@ abstract class Values extends core\collections\Map
 
     /**
      * {@inheritdoc}
-     *
-     * Overridden to populate the resulting array with default values for Parameters that are
-     * not actually set.
-     */
-    public function all() : array
-    {
-        $return = $this->items;
-
-        // Not doing a simple array merge to preserve the key mapping of the parameters.
-        foreach ($this->definitions->getDefaultValues() as $name => $value) {
-            if (!isset($return[$name])) {
-                $return[$name] = $value;
-            }
-        }
-
-        return $return;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * Overridden to fall back to the default value defined for the given parameter if no value has been
-     * set for it and no $default has been given either.
-     */
-    public function get($name, $default = null)
-    {
-        $parameter = $this->assertIsDefined($name);
-
-        // If a value for the given Parameter has been set, return it. Otherwise the default value
-        // passed to this method takes precedence over default values set in the Value's Definition, if any.
-        return $this->items[$name] ?? ($default ?? (($value = $parameter->getValue()) ? $value->getDefault() : $default));
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function set($name, $value) : core\collections\interfaces\Map
     {
@@ -95,6 +60,24 @@ abstract class Values extends core\collections\Map
             $this->items[$name][] = $value;
         } else {
             $this->items[$name] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Finalizes the Collection, populating it with Parameters that have not been explicitly set, but
+     * have defined default values.
+     *
+     * @return  $this
+     */
+    public function finalize() : Values
+    {
+        // Not doing a simple array merge to preserve the key mapping of the parameters.
+        foreach ($this->definitions->getDefaultValues() as $name => $value) {
+            if (!isset($this->items[$name])) {
+                $this->items[$name] = $value;
+            }
         }
 
         return $this;
