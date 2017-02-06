@@ -6,11 +6,10 @@
  * Items in a Sequence are ordered numerically and the order gets updated whenever an item
  * is moved out or added to the Sequence. The same values may occur more than once in a Sequence.
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 interface Sequence extends Collection
 {
@@ -83,14 +82,14 @@ interface Sequence extends Collection
     /**
      * Returns and then removes the first item from the Sequence.
      *
-     * @return  mixed|null
+     * @return  mixed
      */
     public function shift();
 
     /**
      * Returns and then removes the last item from the Sequence.
      *
-     * @return  mixed|null
+     * @return  mixed
      */
     public function pop();
 

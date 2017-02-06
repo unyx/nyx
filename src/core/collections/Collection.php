@@ -3,11 +3,10 @@
 /**
  * Collection
  *
- * @package     Nyx\Core\Collections
- * @version     0.0.5
+ * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 abstract class Collection implements \IteratorAggregate, interfaces\Collection
 {
@@ -20,9 +19,8 @@ abstract class Collection implements \IteratorAggregate, interfaces\Collection
      */
     public function __construct($items = null)
     {
-        // The "items" property inherited from the Collection trait is an array by default, so we only need
-        // to set its value if it's actually given and if it is, the replace method will handle casting it to
-        // a useful type or extracting data out of an already existing Collection.
-        null !== $items && $this->replace($items);
+        if (isset($items)) {
+            $this->replace($items);
+        }
     }
 }

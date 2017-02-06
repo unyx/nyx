@@ -12,11 +12,15 @@ use nyx\core;
  *
  * Allows for the implementation of the collections\interfaces\NamedObjectSet interface.
  *
- * @package     Nyx\Core\Collections
+ * Important note: For performance reasons the Collection maintains a name -> object map internally,
+ * where the name is the object's name at the time it gets added to the Collection. This means that if
+ * the object's name changes afterwards, the object will only be accessible via its originally set name,
+ * unless explicitly removed and re-added (@potential).
+ *
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 trait NamedObjectSet
 {
@@ -41,7 +45,7 @@ trait NamedObjectSet
     /**
      * @see \nyx\core\collections\interfaces\NamedObjectSet::get()
      */
-    public function get(string $name, $default = null) : core\interfaces\Named
+    public function get(string $name, core\interfaces\Named $default = null) : ?core\interfaces\Named
     {
         return $this->items[$name] ?? $default;
     }
@@ -59,12 +63,12 @@ trait NamedObjectSet
         }
 
         // Should we use the class of this object as base type?
-        if (null === $this->collectedType && $this->determineCollectedType) {
+        if (!isset($this->collectedType) && $this->determineCollectedType) {
             $this->collectedType = get_class($object);
         }
 
         // If we are to check for a specific type, ensure the object is an instance of that.
-        if (null !== $this->collectedType && !($object instanceof $this->collectedType)) {
+        if (isset($this->collectedType) && !$object instanceof $this->collectedType) {
             throw new \InvalidArgumentException('Expected an instance of ['.$this->collectedType.'], got ['.diagnostics\Debug::getTypeName($object).'] instead.');
         }
 
@@ -146,7 +150,7 @@ trait NamedObjectSet
      * @throws  \LogicException                         When trying to set the type for an already populated Set.
      * @throws  \InvalidArgumentException               When trying to set an unsupported type.
      */
-    public function setCollectedType($type) : self
+    public function setCollectedType($type) : interfaces\NamedObjectSet
     {
         if (!empty($this->items)) {
             throw new \LogicException('The type being collected cannot be changed when the Set is populated.');
@@ -157,14 +161,14 @@ trait NamedObjectSet
         } else if ($type instanceof core\interfaces\Named) {
             $this->collectedType = get_class($type);
         } else {
-            throw new \InvalidArgumentException('Unsupported type given - expected class name or instance of \nyx\core\interfaces\Named, got ['.diagnostics\Debug::getTypeName($type).'] instead.');
+            throw new \InvalidArgumentException('Unsupported type given - expected class name or instance of '.interfaces\NamedObjectSet::class.', got ['.diagnostics\Debug::getTypeName($type).'] instead.');
         }
 
         return $this;
     }
 
     /**
-     * Magic alias for {@see self::get()}.
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::get()
      */
     public function __get($name)
     {
@@ -172,7 +176,7 @@ trait NamedObjectSet
     }
 
     /**
-     * Magic alias for {@see self::set()}.
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::add()
      */
     public function __set($name, $object)
     {
@@ -180,7 +184,7 @@ trait NamedObjectSet
     }
 
     /**
-     * Magic alias for {@see self::has()}.
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::has()
      */
     public function __isset($name) : bool
     {
@@ -188,7 +192,7 @@ trait NamedObjectSet
     }
 
     /**
-     * Magic alias for {@see self::remove()}.
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::remove()
      */
     public function __unset($name)
     {
@@ -196,7 +200,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see self::get()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::get()
      */
     public function offsetGet($name)
     {
@@ -204,11 +208,11 @@ trait NamedObjectSet
     }
 
     /**
-     * @see self::add()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::add()
      */
     public function offsetSet($name, $object)
     {
-        if (null !== $name) {
+        if (isset($name)) {
             throw new \InvalidArgumentException('Objects in a NamedObjectSet cannot have keys defined by the user.');
         }
 
@@ -216,7 +220,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see self::has()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::has()
      */
     public function offsetExists($name)
     {
@@ -224,7 +228,7 @@ trait NamedObjectSet
     }
 
     /**
-     * @see self::remove()
+     * @see \nyx\core\collections\interfaces\NamedObjectSet::remove()
      */
     public function offsetUnset($name)
     {

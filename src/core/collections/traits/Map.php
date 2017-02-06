@@ -8,11 +8,10 @@ use nyx\core\collections\interfaces;
  *
  * Allows for the implementation of the collections\interfaces\Map interface.
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 trait Map
 {
@@ -32,13 +31,13 @@ trait Map
     /**
      * @see \nyx\core\collections\interfaces\Map::set()
      */
-    public function set($key, $item) : interfaces\Map
+    public function set($key, $value) : interfaces\Map
     {
-        if (null === $item) {
+        if (!isset($value)) {
             throw new \InvalidArgumentException('Items in a Map cannot have a value of null.');
         }
 
-        $this->items[$key] = $item;
+        $this->items[$key] = $value;
 
         return $this;
     }
@@ -114,7 +113,7 @@ trait Map
     }
 
     /**
-     * Magic alias for {@see self::get()}.
+     * @see \nyx\core\collections\interfaces\Map::get()
      */
     public function __get($key)
     {
@@ -122,7 +121,7 @@ trait Map
     }
 
     /**
-     * Magic alias for {@see self::set()}.
+     * @see \nyx\core\collections\interfaces\Map::set()
      */
     public function __set($key, $item)
     {
@@ -130,7 +129,7 @@ trait Map
     }
 
     /**
-     * Magic alias for {@see self::has()}.
+     * @see \nyx\core\collections\interfaces\Map::has()
      */
     public function __isset($key) : bool
     {
@@ -138,7 +137,7 @@ trait Map
     }
 
     /**
-     * Magic alias for {@see self::has()}.
+     * @see \nyx\core\collections\interfaces\Map::remove()
      */
     public function __unset($key)
     {
@@ -146,7 +145,7 @@ trait Map
     }
 
     /**
-     * @see self::get()
+     * @see \nyx\core\collections\interfaces\Map::get()
      */
     public function offsetGet($key)
     {
@@ -154,7 +153,7 @@ trait Map
     }
 
     /**
-     * @see self::set()
+     * @see \nyx\core\collections\interfaces\Map::set()
      */
     public function offsetSet($key, $item)
     {
@@ -162,7 +161,7 @@ trait Map
     }
 
     /**
-     * @see self::has()
+     * @see \nyx\core\collections\interfaces\Map::has()
      */
     public function offsetExists($key)
     {
@@ -170,7 +169,7 @@ trait Map
     }
 
     /**
-     * @see self::remove()
+     * @see \nyx\core\collections\interfaces\Map::remove()
      */
     public function offsetUnset($key)
     {

@@ -24,11 +24,10 @@ use nyx\core;
  *    of the exhibitor of this trait, assuming that it accepts a Collection, Arrayable object or array as
  *    its first argument;
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  * @todo        Lo-dash-style find() / findWhere() (pluck and where).
  */
 trait Collection
@@ -127,7 +126,7 @@ trait Collection
         $result = [];
 
         foreach ($this->items as $key => $item) {
-            if (!call_user_func($callback, $item)) {
+            if (!$callback($item)) {
                 $result[$key] = $item;
             }
         }

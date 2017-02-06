@@ -8,11 +8,10 @@ use nyx\core\collections\interfaces;
  *
  * Allows for the implementation of the collections\interfaces\Sequence interface.
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 trait Sequence
 {
@@ -34,7 +33,7 @@ trait Sequence
      */
     public function push($item) : interfaces\Sequence
     {
-        if (null === $item) {
+        if (!isset($item)) {
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
@@ -48,7 +47,7 @@ trait Sequence
      */
     public function prepend($item) : interfaces\Sequence
     {
-        if (null === $item) {
+        if (!isset($item)) {
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
@@ -62,7 +61,7 @@ trait Sequence
      */
     public function update(int $index, $item) : interfaces\Sequence
     {
-        if (null === $item) {
+        if (!isset($item)) {
             throw new \InvalidArgumentException('Items in a Sequence cannot have a value of null.');
         }
 
@@ -184,7 +183,7 @@ trait Sequence
     }
 
     /**
-     * Magic alias for {@see self::get()}.
+     * @see \nyx\core\collections\interfaces\Sequence::get()
      */
     public function __get($index)
     {
@@ -192,7 +191,7 @@ trait Sequence
     }
 
     /**
-     * Magic alias for {@see self::update()}.
+     * @see \nyx\core\collections\interfaces\Sequence::update()
      */
     public function __set($index, $item)
     {
@@ -200,7 +199,7 @@ trait Sequence
     }
 
     /**
-     * Magic alias for {@see self::has()}.
+     * @see \nyx\core\collections\interfaces\Sequence::has()
      */
     public function __isset($index) : bool
     {
@@ -208,7 +207,7 @@ trait Sequence
     }
 
     /**
-     * Magic alias for {@see self::has()}.
+     * @see \nyx\core\collections\interfaces\Sequence::remove()
      */
     public function __unset($index)
     {
@@ -216,7 +215,7 @@ trait Sequence
     }
 
     /**
-     * @see self::get()
+     * @see \nyx\core\collections\interfaces\Sequence::get()
      */
     public function offsetGet($key)
     {
@@ -224,12 +223,12 @@ trait Sequence
     }
 
     /**
-     * @see self::push()
-     * @see self::update()
+     * @see \nyx\core\collections\interfaces\Sequence::push()
+     * @see \nyx\core\collections\interfaces\Sequence::update()
      */
     public function offsetSet($index, $item)
     {
-        if (null === $index) {
+        if (!isset($index)) {
             return $this->push($item);
         }
 
@@ -237,7 +236,7 @@ trait Sequence
     }
 
     /**
-     * @see self::has()
+     * @see \nyx\core\collections\interfaces\Sequence::has()
      */
     public function offsetExists($index)
     {
@@ -245,7 +244,7 @@ trait Sequence
     }
 
     /**
-     * @see self::remove()
+     * @see \nyx\core\collections\interfaces\Sequence::remove()
      */
     public function offsetUnset($index)
     {

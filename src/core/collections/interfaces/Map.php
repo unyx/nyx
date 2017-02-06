@@ -3,11 +3,10 @@
 /**
  * Map Interface
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 interface Map extends Collection
 {
@@ -24,12 +23,12 @@ interface Map extends Collection
     /**
      * Sets the given item in the Collection.
      *
-     * @param   string|int  $key            The key the item should be set as.
-     * @param   mixed       $item           The item to set.
+     * @param   string|int $key   The key the item should be set as.
+     * @param   mixed      $value The item to set.
      * @return  $this
      * @throws  \InvalidArgumentException   When trying to set a value of null.
      */
-    public function set($key, $item) : Map;
+    public function set($key, $value) : Map;
 
     /**
      * Checks whether the given item identified by its key exists in the Map.

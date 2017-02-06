@@ -11,23 +11,22 @@ use nyx\core;
  *
  * The default implementation in Nyx (\nyx\core\collections\NamedObjectSet) guarantees both by default, however.
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 interface NamedObjectSet extends Collection
 {
     /**
      * Returns an item identified by its name.
      *
-     * @param   string  $name           The name of the Object to return.
-     * @param   mixed   $default        The default value to return when the given item does not exist in
-     *                                  the Set.
-     * @return  core\interfaces\Named   The object or the default value given if the item couldn't be found.
+     * @param   string                  $name       The name of the Object to return.
+     * @param   core\interfaces\Named   $default    The default object to return when the given item does not exist in
+     *                                              the Set.
+     * @return  core\interfaces\Named               The object or the default value given if the item couldn't be found.
      */
-    public function get(string $name, $default = null) : core\interfaces\Named;
+    public function get(string $name, core\interfaces\Named $default = null) : ?core\interfaces\Named;
 
     /**
      * Adds the given Named Object to the Set.

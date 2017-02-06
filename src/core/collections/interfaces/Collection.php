@@ -10,11 +10,10 @@ use nyx\core;
  * is the base interface which does not propose any means of setting data in the Collection other than the
  * self::replace() method. You should implement one of the more concrete interfaces, like Map or Sequence.
  *
- * @package     Nyx\Core\Collections
  * @version     0.1.0
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
- * @copyright   2012-2016 Nyx Dev Team
- * @link        http://docs.muyo.io/nyx/core/collections.html
+ * @copyright   2012-2017 Nyx Dev Team
+ * @link        https://github.com/unyx/nyx
  */
 interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interfaces\Serializable
 {
