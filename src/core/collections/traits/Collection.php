@@ -206,13 +206,13 @@ trait Collection
      */
     public function merge(...$with) : interfaces\Collection
     {
-        $result = $this->items;
+        $arrays = [$this->items];
 
         foreach ($with as $items) {
-            $result = array_merge($result, $this->extractItems($items));
+            $arrays[] = $this->extractItems($items);
         }
 
-        return new static($result);
+        return new static(array_merge(...$arrays));
     }
 
     /**
@@ -220,13 +220,13 @@ trait Collection
      */
     public function diff(...$against) : interfaces\Collection
     {
-        $result = $this->items;
+        $arrays = [$this->items];
 
         foreach ($against as $items) {
-            $result = array_merge($result, $this->extractItems($items));
+            $arrays[] = $this->extractItems($items);
         }
 
-        return new static($result);
+        return new static(array_diff(...$arrays));
     }
 
     /**
