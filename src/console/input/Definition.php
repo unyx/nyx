@@ -95,13 +95,13 @@ class Definition
             // Arguments are merged by default but don't necessarily have to be (for instance, help descriptions
             // only display the argument for the command itself, not for the whole command chain).
             if ($mergeArguments) {
-                foreach ($definition->arguments->all() as $argument) {
+                foreach ($definition->arguments as $argument) {
                     $arguments->add($argument);
                 }
             }
 
             // Options are always merged.
-            foreach ($definition->options->all() as $option) {
+            foreach ($definition->options as $option) {
                 $options->add($option);
             }
         }
