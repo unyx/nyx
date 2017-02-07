@@ -94,7 +94,7 @@ trait Collection
     /**
      * @see \nyx\core\collections\interfaces\Collection::slice()
      */
-    public function slice(int $offset, int $length = null, bool $preserveKeys = false) : interfaces\Collection
+    public function slice(int $offset, int $length = null, bool $preserveKeys = true) : interfaces\Collection
     {
         return $this->derive(array_slice($this->items, $offset, $length, $preserveKeys));
     }

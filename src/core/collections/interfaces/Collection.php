@@ -105,16 +105,17 @@ interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interf
     /**
      * Returns a slice of the Collection as a new Collection instance.
      *
-     * @param   int     $offset         If the offset is non-negative, the slice will start at that offset in the
-     *                                  Collection. If it is negative, the sequence will start as far as $offset
-     *                                  from the end of the Collection..
-     * @param   int     $length         If length is given and positive, then the slice will have up to that
-     *                                  many items in it. If the Collection is shorter than the given length,
-     *                                  then only the available items will be present. If length is given
-     *                                  and is negative, then the slice will stop that many items from the end
-     *                                  of the Collection. If it is omitted, then the slice will have everything
-     *                                  from the $offset up until the end of the Collection.
-     * @param   bool    $preserveKeys   Whether to preserve the original keys. Defaults to true.
+     * @param   int     $offset         If the offset is positive, the slice will start at that offset in the Collection.
+     *                                  If it is negative, the sequence will start as far as $offset from the end
+     *                                  of the Collection.
+     * @param   int     $length         If length is given and positive, the slice will have up to that many items in it.
+     *                                  If the Collection is shorter than the given length, then only the available
+     *                                  items will be present in the resulting slice.
+     *                                  If length is given and is negative, the slice will stop that many items
+     *                                  from the end of the Collection.
+     *                                  If it is omitted, the slice will contain every item from the offset
+     *                                  up until the end of the Collection.
+     * @param   bool    $preserveKeys   Whether to preserve the items' keys.
      * @return  Collection              A new Collection instance.
      */
     public function slice(int $offset, int $length = null, bool $preserveKeys = true) : Collection;
