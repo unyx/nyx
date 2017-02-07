@@ -15,7 +15,7 @@
   },
 
   "require": {
-    "php": ">=7.1.0-dev",
+    "php": "~7.1",
     "nyx/diagnostics": "*",
     "nyx/utils": "*"
   },

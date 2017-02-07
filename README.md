@@ -1,18 +1,18 @@
-<p align="center">
-<img src="https://s29.postimg.org/wg17yp5lj/rsz_logo_l_300.png" />
-</p>
+# Nyx
 
-<p align="center">
-<a title="Latest stable version" href="https://packagist.org/packages/nyx/nyx"><img src="https://poser.pugx.org/nyx/nyx/v/stable.png" /></a>
-<a title="Total downloads" href="https://packagist.org/packages/nyx/nyx"><img src="https://poser.pugx.org/nyx/nyx/downloads.png" /></a>
-<a title="Build status" href="https://travis-ci.org/unyx/nyx"><img src="https://travis-ci.org/unyx/nyx.png" /></a>
-<a title="Scrutinizer quality score" href="https://scrutinizer-ci.com/g/unyx/nyx"><img src="https://scrutinizer-ci.com/g/unyx/nyx/badges/quality-score.png" /></a>
-<a title="License" href="http://alcore.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg" /></a>
-</p>
+> Put the background in the foreground.
 
-<p align="center">
-Currently in its infant <strong>design phase</strong> and therefore considered <strong>unusable</strong>. The API will fluctuate, solar flares will appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
-</p>
+<img align="right" src="https://s29.postimg.org/wg17yp5lj/rsz_logo_l_300.png" alt="Nyx's logo" />
+
+[![Latest stable release](https://poser.pugx.org/nyx/nyx/v/stable.png)](https://packagist.org/packages/nyx/nyx)
+[![Total downloads](https://poser.pugx.org/nyx/nyx/downloads.png)](https://packagist.org/packages/nyx/nyx)
+[![Build status](https://travis-ci.org/unyx/nyx.png)](https://travis-ci.org/unyx/nyx)
+[![Code quality](https://scrutinizer-ci.com/g/unyx/nyx/badges/quality-score.png)](https://scrutinizer-ci.com/g/unyx/nyx)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://alcore.mit-license.org)
+
+Currently in its infant **design phase** and therefore considered **unusable**. The API will fluctuate, 
+solar flares will appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
+
 <br />
 
 ## Requirements
@@ -25,7 +25,7 @@ Specific subcomponent features **may depend on non-standard PHP extensions** bei
 
 The only supported way of installing this package is via [Composer](http://getcomposer.org):
 
-```php
+```
 composer require nyx/nyx
 ```
 

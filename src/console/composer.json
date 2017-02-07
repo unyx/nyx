@@ -15,8 +15,10 @@
   },
 
   "require": {
-    "php": ">=7.1.0",
-    "nyx/core": "*"
+    "php": "~7.1",
+    "nyx/core": "*",
+    "nyx/diagnostics": "*",
+    "nyx/utils": "*"
   },
 
   "require-dev": {

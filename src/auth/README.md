@@ -1,33 +1,36 @@
 # nyx/auth
-[![Latest Stable Version](https://poser.pugx.org/nyx/auth/v/stable.png)](https://packagist.org/packages/nyx/auth)
-[![Total Downloads](https://poser.pugx.org/nyx/auth/downloads.png)](https://packagist.org/packages/nyx/auth)
-[![Build Status](https://travis-ci.org/unyx/auth.png)](https://travis-ci.org/unyx/auth)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/unyx/auth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/unyx/auth)
+
+> Seamless authentication and authorization over various protocols and services.
+
+<img align="right" src="https://s29.postimg.org/wg17yp5lj/rsz_logo_l_300.png" alt="Nyx's logo" />
+
+[![Latest stable version](https://poser.pugx.org/nyx/auth/v/stable.png)](https://packagist.org/packages/nyx/auth)
+[![Total downloads](https://poser.pugx.org/nyx/auth/downloads.png)](https://packagist.org/packages/nyx/auth)
+[![Build status](https://travis-ci.org/unyx/auth.png)](https://travis-ci.org/unyx/auth)
+[![Code quality](https://scrutinizer-ci.com/g/unyx/auth/badges/quality-score.png)](https://scrutinizer-ci.com/g/unyx/auth)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://alcore.mit-license.org)
 
------
+Currently in its infant **design phase** and therefore considered **unusable**. The API will fluctuate, 
+solar flares will appear, wormholes will consume your data, gremlins will chase your cat. You've been warned.
 
-![Dev warning](http://s7.postimg.org/6cruwesi3/Nyx.png)
+<br />
 
-Description coming soon (tm).
+## Requirements
 
------
+- PHP **7.1.0**+
 
-### Requirements
+## Installation
 
-- PHP 7.1.0+
+The only supported way of installing this package is via [Composer](http://getcomposer.org):
 
-### Installation
+```
+composer require nyx/auth
+```
 
-The only supported way of installing this package is using [Composer](http://getcomposer.org).
-
-- Add `nyx/auth` as a dependency to your project's `composer.json` file.
-- Run `composer update` and you're ready to go.
-
-### Documentation
+## Documentation
 
 The code is fully inline documented for the time being. Online documentation will be made available in due time.
 
-### License
+## License
 
 Nyx is open source software licensed under the [MIT license](http://alcore.mit-license.org).
