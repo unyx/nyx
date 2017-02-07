@@ -35,9 +35,9 @@ interface Input
     /**
      * Returns the Input Tokens instance containing the raw input.
      *
-     * @return  input\Tokens
+     * @return  console\input\formats\interfaces\Tokens
      */
-    public function raw() : input\Tokens;
+    public function raw() : console\input\formats\interfaces\Tokens;
 
     /**
      * Returns the Input Arguments collection.

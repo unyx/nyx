@@ -4,7 +4,7 @@
 use nyx\core\collections;
 
 // Internal dependencies
-use nyx\console\interfaces;
+use nyx\console\input;
 
 /**
  * Array Input Tokens
@@ -16,7 +16,7 @@ use nyx\console\interfaces;
  * @copyright   2012-2017 Nyx Dev Team
  * @link        https://github.com/unyx/nyx
  */
-class Arr extends collections\Map implements interfaces\input\Tokens
+class Arr extends collections\Map implements input\formats\interfaces\Tokens
 {
     /**
      * {@inheritDoc}

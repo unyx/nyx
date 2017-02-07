@@ -1,4 +1,4 @@
-<?php namespace nyx\console\interfaces\input;
+<?php namespace nyx\console\input\formats\interfaces;
 
 // External dependencies
 use nyx\core\collections;

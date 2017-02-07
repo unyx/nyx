@@ -13,7 +13,7 @@
 abstract class Input implements interfaces\Input
 {
     /**
-     * @var interfaces\input\Tokens             The raw, unmapped and not validated input Tokens.
+     * @var input\formats\interfaces\Tokens     The raw, unmapped and not validated input Tokens.
      */
     protected $raw;
 
@@ -53,7 +53,7 @@ abstract class Input implements interfaces\Input
     /**
      * {@inheritdoc}
      */
-    public function raw() : interfaces\input\Tokens
+    public function raw() : input\formats\interfaces\Tokens
     {
         return $this->raw;
     }

@@ -4,7 +4,7 @@
 use nyx\core;
 
 // Internal dependencies
-use nyx\console\interfaces;
+use nyx\console\input;
 
 /**
  * Argv Input Tokens
@@ -18,7 +18,7 @@ use nyx\console\interfaces;
  * @copyright   2012-2017 Nyx Dev Team
  * @link        https://github.com/unyx/nyx
  */
-class Argv extends core\collections\Map implements interfaces\input\Tokens
+class Argv extends core\collections\Map implements input\formats\interfaces\Tokens
 {
     /**
      * {@inheritdoc}
