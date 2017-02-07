@@ -44,33 +44,31 @@ interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interf
 
     /**
      * Returns the first item of the Collection,
-     *   OR the first $callback items of the Collection when $callback is a number,
-     *   OR the first item which passes the given truth test when $callback is a callable.
+     *   OR the first $elements items of the Collection when $elements is a positive integer,
+     *   OR the first item which passes the given truth test when $elements is a callable.
      *
-     * @param   callable|int|bool   $callback   The truth test the item should pass or an integer denoting how many
-     *                                          of the initial item of the Collection should be returned.
-     *                                          When a falsy value is given, the method will return the first
-     *                                          item of the Collection.
-     * @param   mixed               $default    The default value to be returned if none of the items passes
-     *                                          the test or the Collection is empty.
+     * @param   callable|int    $elements   The truth test the item should pass or an integer denoting how many
+     *                                      of the initial items of the Collection should be returned.
+     *                                      When not given, the method will return the last element in the Collection.
+     * @param   mixed           $default    The default value to be returned if none of the items passes
+     *                                      the test or the Collection is empty.
      * @return  mixed
      */
-    public function first($callback = false, $default = null);
+    public function first($elements = null, $default = null);
 
     /**
      * Returns the last item of the Collection,
-     *   OR the final $callback items of the Collection when $callback is a number,
-     *   OR the last item which passes the given truth test when $callback is a callable.
+     *   OR the last $elements items of the Collection when $elements is a positive integer,
+     *   OR the last item which passes the given truth test when $elements is a callable.
      *
-     * @param   callable|int|bool   $callback   The truth test the item should pass or an integer denoting how many
-     *                                          of the final elements of the Collection should be returned.
-     *                                          When a falsy value is given, the method will return the last
-     *                                          item of the Collection.
-     * @param   mixed               $default    The default value to be returned if none of the items passes
-     *                                          the test or the Collection is empty.
+     * @param   callable|int    $elements   The truth test the item should pass or an integer denoting how many
+     *                                      of the final elements of the Collection should be returned.
+     *                                      When not given, the method will return the last element of the Collection.
+     * @param   mixed           $default    The default value to be returned if none of the items passes
+     *                                      the test or the Collection is empty.
      * @return  mixed
      */
-    public function last($callback = false, $default = null);
+    public function last($elements = null, $default = null);
 
     /**
      * Returns all but the last item of the Collection,

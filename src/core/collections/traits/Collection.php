@@ -62,17 +62,17 @@ trait Collection
     /**
      * @see \nyx\core\collections\interfaces\Collection::first()
      */
-    public function first($callback = false, $default = null)
+    public function first($elements = null, $default = null)
     {
-        return utils\Arr::first($this->items, $callback, $default);
+        return utils\Arr::first($this->items, $elements, $default);
     }
 
     /**
      * @see \nyx\core\collections\interfaces\Collection::last()
      */
-    public function last($callback = false, $default = null)
+    public function last($elements = null, $default = null)
     {
-        return utils\Arr::last($this->items, $callback, $default);
+        return utils\Arr::last($this->items, $elements, $default);
     }
 
     /**
