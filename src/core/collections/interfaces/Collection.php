@@ -135,21 +135,21 @@ interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interf
 
     /**
      * Runs a filter over each of the items in the Collection and returns a new Collection with the filtered
-     * results. Excludes all items from the new Collection for which the callback returns false.
+     * results. Excludes all items from the new Collection for which the $filter returns false.
      *
-     * @param   callable    $callback   The filter to use.
+     * @param   callable    $filter     The filter to use.
      * @return  Collection              A new Collection instance.
      */
-    public function select(callable $callback) : Collection;
+    public function select(callable $filter) : Collection;
 
     /**
      * Runs a filter over each of the items in the Collection and returns a new Collection with the filtered
-     * results. Excludes all items from the new Collection for which the callback returns true.
+     * results. Excludes all items from the new Collection for which the $filter returns true.
      *
-     * @param   callable    $callback   The filter to use.
+     * @param   callable    $filter     The filter to use.
      * @return  Collection              A new Collection instance.
      */
-    public function reject(callable $callback) : Collection;
+    public function reject(callable $filter) : Collection;
 
     /**
      * Executes a callback over each of the items in the Collection and returns a new Collection based on the

@@ -110,23 +110,20 @@ trait Collection
     /**
      * @see \nyx\core\collections\interfaces\Collection::select()
      */
-    public function select(callable $callback) : interfaces\Collection
+    public function select(callable $filter) : interfaces\Collection
     {
-        return $this->derive(array_filter($this->items, $callback));
+        return $this->derive(array_filter($this->items, $filter, ARRAY_FILTER_USE_BOTH));
     }
 
     /**
      * @see \nyx\core\collections\interfaces\Collection::reject()
-     *
-     * Note: Usage of self::select() with the comparison in your callback inverted is preferred as this method is
-     * much slower than simply running array_filter.
      */
-    public function reject(callable $callback) : interfaces\Collection
+    public function reject(callable $filter) : interfaces\Collection
     {
         $result = [];
 
         foreach ($this->items as $key => $item) {
-            if (!$callback($item)) {
+            if (!$filter($item, $key)) {
                 $result[$key] = $item;
             }
         }
