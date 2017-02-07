@@ -302,26 +302,34 @@ trait Collection
     }
 
     /**
-     * Inspects the given $items and attempts to figure out whether and how to extract its elements or whether
-     * to simply cast the variable to an array to make use of it.
+     * Inspects the given $items and attempts to resolve them to an iterable collection of items.
      *
      * @param   mixed   $items
-     * @return  array
+     * @return  \iterable|array
      */
-    protected function extractItems($items) : array
+    protected function extractItems($items) : \iterable
     {
-        // If we were given an object implementing the Collection interface, grab all its items, preserving
-        // the keys.
-        if ($items instanceof interfaces\Collection) {
-            return $items->all();
+        // Catch arrays and Traversable objects.
+        // By extension, this also includes other Collections (via their Iterator) *and* generators.
+        // Keep especially the latter in mind when overriding concrete Collections.
+        if (is_iterable($items)) {
+            return $items;
         }
 
-        // If we were given an object that is Arrayable, convert it to an array using the exposed method.
+        // Arbitrary interfaces in order of preference.
         if ($items instanceof core\interfaces\Arrayable) {
             return $items->toArray();
         }
 
-        // Worst case scenario - use PHP's internals to cast it to an array.
+        if ($items instanceof \JsonSerializable) {
+            return $items->jsonSerialize();
+        }
+
+        if ($items instanceof core\interfaces\Jsonable) {
+            return json_decode($items->toJson(), true);
+        }
+
+        // Worst case scenario - use PHP's internals to attempt to cast it to an array.
         return (array) $items;
     }
 }
