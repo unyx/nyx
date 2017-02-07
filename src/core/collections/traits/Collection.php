@@ -302,9 +302,9 @@ trait Collection
      * Inspects the given $items and attempts to resolve them to an iterable collection of items.
      *
      * @param   mixed   $items
-     * @return  \iterable|array
+     * @return  iterable|array
      */
-    protected function extractItems($items) : \iterable
+    protected function extractItems($items) : iterable
     {
         // Catch arrays and Traversable objects.
         // By extension, this also includes other Collections (via their Iterator) *and* generators.
