@@ -18,13 +18,12 @@ interface Input
 {
     /**
      * Binds the Input to the given Definition, effectively converting raw input into named parameters,
-     * validating them and executing their binding callbacks if applicable.
+     * and validating them.
      *
-     * @param   console\input\Definition    $definition     An input Definition instance.
-     * @param   console\Context             $context        The Execution Context the binding shall be performed in.
+     * @param   console\input\Definition    $definition     The input Definition to bind the Input to.
      * @return  $this
      */
-    public function bind(console\input\Definition $definition, console\Context $context) : Input;
+    public function bind(console\input\Definition $definition) : Input;
 
     /**
      * Returns the Input Tokens instance containing the raw input.
