@@ -12,8 +12,7 @@ use nyx\core;
  *
  * A Collection is an object that contains other items which can be set, get and removed from the Collection.
  *
- * Usage of this trait allows you to implement \IteratorAggregate and the interfaces\Collection interface, including
- * all of its in
+ * Usage of this trait allows you to implement \IteratorAggregate and the interfaces\Collection interface.
  *
  * Important notes:
  * 1) null is *not* an acceptable value for an item within a Collection. Null is used internally by many methods
@@ -28,7 +27,6 @@ use nyx\core;
  * @author      Michal Chojnacki <m.chojnacki@muyo.io>
  * @copyright   2012-2017 Nyx Dev Team
  * @link        https://github.com/unyx/nyx
- * @todo        Lo-dash-style find() / findWhere() (pluck and where).
  */
 trait Collection
 {

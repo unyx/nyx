@@ -119,15 +119,15 @@ interface Collection extends \ArrayAccess, \Countable, \Traversable, core\interf
     public function slice(int $offset, int $length = null, bool $preserveKeys = true) : Collection;
 
     /**
-     * Looks for the value with the given key/property of $key inside the Collection and returns a new array
-     * containing all values of said key from the initial array. Essentially like fetching a column from a
-     * classic database table.
+     * Within the items in the Collection, looks for the value with the given key/property of $key
+     * and returns a new array containing all values of said key that were accessible.
+     * Essentially like fetching a single column from a classic database table.
      *
-     * When the optional $index parameter is given, the resulting array will be indexed by the values corresponding
-     * to the given $key.
+     * When the optional $index parameter is given, the resulting array will be indexed by the values
+     * corresponding to the given $index.
      *
-     * @param   string|int  $key    The key of the value to look for.
-     * @param   string|int  $index  The key of the value to index the resulting array by.
+     * @param   string|array    $key    The key of the value to look for.
+     * @param   string|array    $index  The key of the value to index the resulting array by.
      * @return  array
      */
     public function pluck($key, $index = null) : array;
