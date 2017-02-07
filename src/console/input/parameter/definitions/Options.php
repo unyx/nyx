@@ -33,6 +33,8 @@ class Options extends input\parameter\Definitions
 
     /**
      * {@inheritdoc}
+     *
+     * Overridden to allow defining Option instances without explicitly instantiating them.
      */
     public function replace($items) : core\collections\interfaces\Collection
     {
@@ -40,14 +42,7 @@ class Options extends input\parameter\Definitions
         $this->shortcuts = [];
 
         foreach ($this->extractItems($items) as $item) {
-
-            // Allow for defining Option instances without explicitly instantiating them
-            // when creating Input Definitions.
-            if (is_array($item)) {
-                $item = new input\Option(...$item);
-            }
-
-            $this->add($item);
+            $this->add(is_array($item) ? $this->unpack($item) : $item);
         }
 
         return $this;
@@ -93,5 +88,24 @@ class Options extends input\parameter\Definitions
         }
 
         return $this->get($this->shortcuts[$shortcut]);
+    }
+
+    /**
+     * Unpacks a sequence of Option constructor arguments into an Option instance.
+     *
+     * @see     \nyx\console\input\Option::__construct()
+     *
+     * @param   array           $definition     The arguments to unpack. The order must match the constructor's signature.
+     * @return  input\Option
+     */
+    protected function unpack(array $definition) : input\Option
+    {
+        // If the 4th argument is an integer, we are going to assume it's one of the input\Value
+        // class constants defining the mode and attempt to instantiate a input\Value with such.
+        if (isset($definition[3]) && is_int($definition[3])) {
+            $definition[3] = new input\Value($definition[3]);
+        }
+
+        return new input\Option(...$definition);
     }
 }
