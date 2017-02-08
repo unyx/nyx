@@ -79,11 +79,15 @@ abstract class Values extends core\collections\Map
      */
     public function finalize() : Values
     {
-        // Not doing a simple array merge to preserve the key mapping of the parameters.
-        foreach ($this->definitions->getDefaultValues() as $name => $value) {
-            if (!isset($this->items[$name])) {
-                $this->items[$name] = $value;
+        /* @var input\Parameter $parameter */
+        foreach ($this->definitions as $name => $parameter) {
+            if (isset($this->items[$name])) {
+                continue;
             }
+
+            // In the case of Parameters which do not accept values (ie. optional flags), we explicitly default them
+            // to a boolean false, opposed to a boolean true when they are actually set in input.
+            $this->items[$name] = ($value = $parameter->getValue()) ? $value->getDefault() : false;
         }
 
         return $this;
