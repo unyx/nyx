@@ -54,6 +54,10 @@ abstract class Values extends core\collections\Map
      */
     public function set($name, $value) : core\collections\interfaces\Map
     {
+        if (!isset($name, $value)) {
+            throw new \InvalidArgumentException('Input Values must be named and have a value that is not null.');
+        }
+
         $parameter = $this->assertIsDefined($name);
 
         // When dealing with a multi-value parameter, push the value into an array instead of just setting it,

@@ -33,8 +33,8 @@ trait Map
      */
     public function set($key, $value) : interfaces\Map
     {
-        if (!isset($value)) {
-            throw new \InvalidArgumentException('Items in a Map cannot have a value of null.');
+        if (!isset($key, $value)) {
+            throw new \InvalidArgumentException('Items in a Map must have a key and a value that are not null.');
         }
 
         $this->items[$key] = $value;
