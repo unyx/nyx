@@ -42,7 +42,7 @@ class Arr extends collections\Map implements input\formats\interfaces\Tokens
         $options = [];
 
         foreach ($this->items as $name => $value) {
-            if ($name[0] === '-' && $name !== '--') {
+            if ($name !== '--' && $name[0] === '-') {
                 $options[$name] = $value;
             }
         }

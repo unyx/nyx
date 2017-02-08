@@ -4,7 +4,7 @@
 use nyx\core\collections;
 
 /**
- * Input Tokens Interface
+ * Tokens Interface
  *
  * Represents a Collection of unparsed tokens of a known format/structure which have their raw formatting preserved.
  * Implementations of this interface must be able to distinguish Input Options from Arguments in the collection,

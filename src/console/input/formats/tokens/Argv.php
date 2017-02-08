@@ -26,7 +26,6 @@ class Argv extends core\collections\Map implements input\formats\interfaces\Toke
     public function get($parameter, $default = null)
     {
         foreach ($this->items as $token) {
-
             if ($token === $parameter || 0 === strpos($token, $parameter . '=')) {
                 if (false !== $pos = strpos($parameter, '=')) {
                     return substr($token, $pos + 1);
@@ -67,7 +66,6 @@ class Argv extends core\collections\Map implements input\formats\interfaces\Toke
         return $this;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -92,7 +90,7 @@ class Argv extends core\collections\Map implements input\formats\interfaces\Toke
         $options = [];
 
         foreach ($this->items as $token) {
-            if ($token[0] === '-' && $token !== '--') {
+            if ($token !== '--' && $token[0] === '-') {
                 $options[] = $token;
             }
         }
