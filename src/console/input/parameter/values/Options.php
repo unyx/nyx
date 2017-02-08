@@ -34,16 +34,19 @@ class Options extends parameter\Values
     {
         $option = $this->assertIsDefined($name);
 
-        // Handle value requirements appropriately.
-        if (!isset($value) && $value = $option->getValue()) {
-
-            if ($value->is(input\Value::REQUIRED)) {
+        // Handle value expectations appropriately.
+        if (!$expected = $option->getValue()) {
+            if (isset($value)) {
+                throw new \RuntimeException("The option [--$name] does not take any values.");
+            }
+        } elseif (isset($value)) {
+            if ($expected->is(input\Value::REQUIRED)) {
                 throw new \RuntimeException("The option [--$name] requires a value.");
             }
 
             // Grab the default value in this case, since we're dealing with an optional value that was
             // not explicitly set.
-            $value = $value->getDefault();
+            $value = $expected->getDefault();
         }
 
         // Slight overhead, because the parent will grab the definition again, but at the same time
