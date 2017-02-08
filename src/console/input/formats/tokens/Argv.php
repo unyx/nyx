@@ -44,17 +44,24 @@ class Argv extends core\collections\Map implements input\formats\interfaces\Toke
      */
     public function has($parameter) : bool
     {
-        return in_array($parameter, $this->items);
-    }
+        foreach ($this->items as $token) {
+            if ($token === $parameter || 0 === strpos($token, $parameter . '=')) {
+                return true;
+            }
+        }
 
+        return false;
+    }
 
     /**
      * {@inheritdoc}
      */
     public function remove($parameter) : core\collections\interfaces\Map
     {
-        if (false !== $key = array_search($parameter, $this->items)) {
-            unset($this->items[$key]);
+        foreach ($this->items as $key => $token) {
+            if ($token === $parameter || 0 === strpos($token, $parameter . '=')) {
+                unset($this->items[$key]);
+            }
         }
 
         return $this;
