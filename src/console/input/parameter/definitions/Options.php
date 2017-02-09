@@ -17,9 +17,14 @@ use nyx\console\input;
 class Options extends input\parameter\Definitions
 {
     /**
-     * @var array   A map of Option shortcuts to their actual names.
+     * @var input\Option[]  A map of Option names to their Definitions.
      */
-    private $shortcuts = [];
+    protected $items = [];
+
+    /**
+     * @var input\Option[]  A map of Option shortcuts to their Definitions.
+     */
+    protected $shortcuts = [];
 
     /**
      * {@inheritdoc}
@@ -33,8 +38,6 @@ class Options extends input\parameter\Definitions
 
     /**
      * {@inheritdoc}
-     *
-     * Overridden to allow defining Option instances without explicitly instantiating them.
      */
     public function replace($items) : core\collections\interfaces\Collection
     {
@@ -58,16 +61,36 @@ class Options extends input\parameter\Definitions
         // If the Option has a shortcut...
         /* @var input\Option $option */
         if ($shortcut = $option->getShortcut()) {
-            $this->shortcuts[$shortcut] = $option->getName();
+            if (isset($this->shortcuts[$shortcut])) {
+                throw new core\collections\exceptions\KeyAlreadyExists($this, $shortcut, $option, "An option with this shortcut [$shortcut] has already been defined.");
+            }
+
+            $this->shortcuts[$shortcut] = $option;
         }
 
         return $this;
     }
 
     /**
-     * Returns the map of Option shortcuts to their actual names.
+     * {@inheritdoc}
+     */
+    public function remove(string $name): core\collections\interfaces\NamedObjectSet
+    {
+        if (!isset($this->items[$name])) {
+            return $this;
+        }
+
+        if ($shortcut = $this->items[$name]->getShortcut()) {
+            unset($this->shortcuts[$shortcut]);
+        }
+
+        return parent::remove($name);
+    }
+
+    /**
+     * Returns the map of Option shortcuts to their Definitions.
      *
-     * @return  array
+     * @return  input\Option[]
      */
     public function getShortcuts() : array
     {
@@ -77,17 +100,17 @@ class Options extends input\parameter\Definitions
     /**
      * Returns the Option matching a given shortcut name.
      *
-     * @param   string          $shortcut   The name of the shortcut.
-     * @return  input\Option
-     * @throws  \OutOfBoundsException       When the given shortcut is not defined.
+     * @param   string          $shortcut                   The name of the shortcut.
+     * @return  input\Option                                The Option matching the shortcut name.
+     * @throws  core\collections\exceptions\KeyNotExists    When the given shortcut is not defined.
      */
     public function getByShortcut(string $shortcut) : input\Option
     {
         if (!isset($this->shortcuts[$shortcut])) {
-            throw new \OutOfBoundsException("The short option [$shortcut] is not defined.");
+            throw new core\collections\exceptions\KeyNotExists($this, $shortcut, "The short option [$shortcut] is not defined.");
         }
 
-        return $this->get($this->shortcuts[$shortcut]);
+        return $this->shortcuts[$shortcut];
     }
 
     /**
