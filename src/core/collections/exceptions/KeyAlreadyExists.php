@@ -34,7 +34,7 @@ class KeyAlreadyExists extends collections\Exception
         $this->key   = $key;
         $this->value = $value;
 
-        parent::__construct($collection, $message ?? "An item with the key [$key] is already set in the Collection.", $code, $previous);
+        parent::__construct($collection, $message ?? "An item with this key [$key] has already been set.", $code, $previous);
     }
 
     /**

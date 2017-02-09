@@ -1,6 +1,7 @@
 <?php namespace nyx\core\collections\interfaces;
 
 // Internal dependencies
+use nyx\core\collections\exceptions;
 use nyx\core;
 
 /**
@@ -31,11 +32,11 @@ interface NamedObjectSet extends Collection
     /**
      * Adds the given Named Object to the Set.
      *
-     * @param   core\interfaces\Named   $object The Named Object to add.
+     * @param   core\interfaces\Named   $object     The Named Object to add.
      * @return  $this
-     * @throws  \OverflowException              When an Object with the same name is already set.
-     * @throws  \InvalidArgumentException       When expecting a specific type and the Object given is not an
-     *                                          instance of it.
+     * @throws  exceptions\KeyAlreadyExists         When an Object with the same name is already set.
+     * @throws  core\exceptions\InvalidArgumentType When expecting a specific type and the Object given is not an
+     *                                              instance of it.
      */
     public function add(core\interfaces\Named $object) : NamedObjectSet;
 
@@ -64,8 +65,7 @@ interface NamedObjectSet extends Collection
     public function remove(string $name) : NamedObjectSet;
 
     /**
-     * Returns the names of the items in this Set indexed numerically. Acts similar to array_keys() except
-     * for strict comparisons being enforced.
+     * Returns the names of the items in this Set indexed numerically.
      *
      * Note: Compared to, for example, Map::keys() the results of this method cannot be limited to
      * the keys of given objects - in the case of a NamedObjectSet if you have the items beforehand, you

@@ -27,7 +27,7 @@ class KeyNotExists extends collections\Exception
     {
         $this->key = $key;
 
-        parent::__construct($collection, $message ?? "No item with the key [$key] exists in the Collection.", $code, $previous);
+        parent::__construct($collection, $message ?? "No item with this key [$key] exists in the Collection.", $code, $previous);
     }
 
     /**

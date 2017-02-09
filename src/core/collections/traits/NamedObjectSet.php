@@ -1,9 +1,7 @@
 <?php namespace nyx\core\collections\traits;
 
-// External dependencies
-use nyx\diagnostics;
-
 // Internal dependencies
+use nyx\core\collections\exceptions;
 use nyx\core\collections\interfaces;
 use nyx\core;
 
@@ -59,7 +57,7 @@ trait NamedObjectSet
 
         // Ensure the name is unique in the Set.
         if (isset($this->items[$name])) {
-            throw new \OverflowException("An object with the name [$name] is already set in the Collection.");
+            throw new exceptions\KeyAlreadyExists($this, $name, $object, "An object with this name [$name] has already been set.");
         }
 
         // Should we use the class of this object as base type?
@@ -69,7 +67,7 @@ trait NamedObjectSet
 
         // If we are to check for a specific type, ensure the object is an instance of that.
         if (isset($this->collectedType) && !$object instanceof $this->collectedType) {
-            throw new \InvalidArgumentException('Expected an instance of ['.$this->collectedType.'], got ['.diagnostics\Debug::getTypeName($object).'] instead.');
+            throw new core\exceptions\InvalidArgumentType($object, [$this->collectedType]);
         }
 
         $this->items[$name] = $object;
@@ -148,7 +146,7 @@ trait NamedObjectSet
      * @param   string|core\interfaces\Named    $type   The type to set.
      * @return  $this
      * @throws  \LogicException                         When trying to set the type for an already populated Set.
-     * @throws  \InvalidArgumentException               When trying to set an unsupported type.
+     * @throws  core\exceptions\InvalidArgumentType     When trying to set an unsupported type.
      */
     public function setCollectedType($type) : interfaces\NamedObjectSet
     {
@@ -161,7 +159,7 @@ trait NamedObjectSet
         } else if ($type instanceof core\interfaces\Named) {
             $this->collectedType = get_class($type);
         } else {
-            throw new \InvalidArgumentException('Unsupported type given - expected class name or instance of '.interfaces\NamedObjectSet::class.', got ['.diagnostics\Debug::getTypeName($type).'] instead.');
+            throw new core\exceptions\InvalidArgumentType($type, ['string', core\interfaces\Named::class]);
         }
 
         return $this;

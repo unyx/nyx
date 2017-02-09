@@ -36,8 +36,7 @@ trait Collection
     use core\traits\Serializable;
 
     /**
-     * @var array   An array of the items contained within the object exhibiting this trait, ie. the concrete
-     *              Collection.
+     * @var array   The items contained in the Collection.
      */
     protected $items = [];
 
