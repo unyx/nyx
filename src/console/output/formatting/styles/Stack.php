@@ -31,7 +31,7 @@ class Stack
      */
     public function __construct(interfaces\Style $default = null)
     {
-        $this->default = $default ?? new formatting\Style;
+        $this->default = $default ?? new formatting\Style(null);
     }
 
     /**
