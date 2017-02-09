@@ -16,11 +16,11 @@ class Arr extends console\Input
     /**
      * Constructs a new Array Input instance.
      *
-     * @param   array   $parameters     An array of input parameters.
+     * @param   iterable    $parameters     A map of input parameters (name => value).
      */
-    public function __construct(array $parameters)
+    public function __construct(iterable $parameters)
     {
-        $this->raw = new tokens\Arr($parameters);
+        $this->raw = $parameters instanceof interfaces\Tokens ? $parameters : new tokens\Arr($parameters);
     }
 
     /**

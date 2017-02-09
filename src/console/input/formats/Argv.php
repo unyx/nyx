@@ -17,17 +17,17 @@ use nyx\console;
 class Argv extends console\Input
 {
     /**
-     * @var lexers\ArgvToCollections    The token parser to be used.
+     * @var interfaces\Parser   The token parser to be used.
      */
-    private $lexer;
+    private $parser;
 
     /**
      * Constructs a new Argv Input instance.
      *
-     * @param   array                       $parameters An array of parameters (in the argv format).
-     * @param   lexers\ArgvToCollections    $lexer      A Argv to Collections Lexer instance.
+     * @param   iterable            $parameters A sequence of parameters (in the argv format).
+     * @param   interfaces\Parser   $parser     A Argv to Collections Lexer instance.
      */
-    public function __construct(array $parameters = null, lexers\ArgvToCollections $lexer = null)
+    public function __construct(iterable $parameters = null, interfaces\Parser $parser = null)
     {
         // If no arguments were passed, let's use the globals returned by the CLI SAPI.
         if (!isset($parameters)) {
@@ -37,8 +37,8 @@ class Argv extends console\Input
             array_shift($parameters);
         }
 
-        $this->lexer = $lexer;
-        $this->raw   = new tokens\Argv($parameters);
+        $this->parser = $parser;
+        $this->raw    = $parameters instanceof interfaces\Tokens ? $parameters : new tokens\Argv($parameters);
     }
 
     /**
@@ -47,12 +47,12 @@ class Argv extends console\Input
     protected function parse() : console\Input
     {
         // Instantiate a Lexer if none has been defined yet.
-        if (!isset($this->lexer)) {
-            $this->lexer = new lexers\ArgvToCollections;
+        if (!isset($this->parser)) {
+            $this->parser = new parsers\Argv;
         }
 
         // Fill our parameter value collections with the parsed input.
-        $this->lexer->fill($this->arguments(), $this->options(), $this->raw);
+        $this->parser->parse($this->raw, $this->arguments(), $this->options());
 
         return $this;
     }

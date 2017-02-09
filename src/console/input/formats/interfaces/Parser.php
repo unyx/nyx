@@ -20,5 +20,5 @@ interface Parser
      * @param   values\Arguments    $arguments  The Input Arguments to fill.
      * @param   values\Options      $options    The Input Options to fill.
      */
-    public function parse(Tokens $input, values\Arguments $arguments, values\Options $options);
+    public function parse(Tokens $input, values\Arguments $arguments, values\Options $options) : void;
 }

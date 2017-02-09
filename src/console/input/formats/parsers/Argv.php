@@ -1,9 +1,10 @@
-<?php namespace nyx\console\input\formats\lexers;
+<?php namespace nyx\console\input\formats\parsers;
 
 // Internal dependencies
+use nyx\console\input\formats\tokens;
+use nyx\console\input\formats\interfaces;
 use nyx\console\input\parameter\values;
 use nyx\console\input\parameter\definitions;
-use nyx\console\input\formats\tokens;
 use nyx\console\input;
 
 /**
@@ -17,7 +18,7 @@ use nyx\console\input;
  * @copyright   2012-2017 Nyx Dev Team
  * @link        https://github.com/unyx/nyx
  */
-class ArgvToCollections
+class Argv implements interfaces\Parser
 {
     /**
      * Fill the given Input Arguments and Options based on their definitions and the Argv input given.
@@ -26,7 +27,7 @@ class ArgvToCollections
      * @param   values\Options      $options    The Input Options to fill.
      * @param   tokens\Argv         $input      The Argv tokens to be parsed.
      */
-    public function fill(values\Arguments $arguments, values\Options $options, tokens\Argv $input)
+    public function parse(interfaces\Tokens $input, values\Arguments $arguments, values\Options $options) : void
     {
         $isParsingOptions = true;
 
@@ -47,13 +48,13 @@ class ArgvToCollections
 
                 // Full options (token beginning with two hyphens).
                 if (0 === strpos($token, '--')) {
-                    $this->handleLongOption($token, $options, $input);
+                    $this->parseLongOption($token, $options, $input);
                     continue;
                 }
 
                 // Shortcuts (token beginning with exactly one hyphen).
                 if ('-' === $token[0]) {
-                    $this->handleShortOption($token, $options, $input);
+                    $this->parseShortOption($token, $options, $input);
                     continue;
                 }
             }
@@ -70,7 +71,7 @@ class ArgvToCollections
      * @param   values\Options  $options    The collection of Options being filled.
      * @param   array&          $input      A reference to the argv input array.
      */
-    protected function handleLongOption(string $token, values\Options $options, array& $input)
+    protected function parseLongOption(string $token, values\Options $options, array& $input) : void
     {
         // Remove the two starting hyphens.
         $name  = substr($token, 2);
@@ -91,7 +92,7 @@ class ArgvToCollections
             // $input[0][0] is the first character of the first token in the $input array.
             // Ensure the token does not begin with a hyphen, which would indicate it's another Option,
             // and not a value for the Option we are processing.
-            if ('-' !== $input[0][0]) {
+            if (isset($input[0]) && '-' !== $input[0][0]) {
                 $value = array_shift($input);
             }
         }
@@ -106,7 +107,7 @@ class ArgvToCollections
      * @param   values\Options  $options    The collection of Options being filled.
      * @param   array&          $input      A reference to the argv input array.
      */
-    protected function handleShortOption($token, values\Options $options, array& $input)
+    protected function parseShortOption($token, values\Options $options, array& $input) : void
     {
         // Remove the starting hyphen.
         // If it's just a hyphen and nothing else, ignore it since it's most likely a mistype.
@@ -114,7 +115,7 @@ class ArgvToCollections
             return;
         }
 
-        foreach ($this->resolve($shortcut, $options) as $name => $value) {
+        foreach ($this->resolveShortOption($shortcut, $options) as $name => $value) {
             $options->set($name, $value);
         }
     }
@@ -127,7 +128,7 @@ class ArgvToCollections
      * @param   values\Options  $options        The Input Options being filled.
      * @return  array                           A map of full option $names => $values.
      */
-    protected function resolve(string $shortcut, values\Options $options) : array
+    private function resolveShortOption(string $shortcut, values\Options $options) : array
     {
         /* @var $definitions definitions\Options */
         $definitions = $options->definitions();
@@ -143,13 +144,11 @@ class ArgvToCollections
             // First, remove the shortcut from the string to leave us only with the value. Also, if the actual value
             // starts with "=", we're going to remove that character (ie. the two first characters instead of just the
             // shortcut) to cover bad syntax.
-            $value = substr($shortcut, strpos($shortcut, '=') === 1 ? 2 : 1);
-
-            return [$definition->getName() => $value];
+            return [$definition->getName() => substr($shortcut, strpos($shortcut, '=') === 1 ? 2 : 1)];
         }
 
         // At this point consider the whole string as a set of different options.
-        return $this->resolveOptionsSet($shortcut, $definitions);
+        return $this->resolveShortOptionSet($shortcut, $definitions);
     }
 
     /**
@@ -160,7 +159,7 @@ class ArgvToCollections
      * @param   definitions\Options     $definitions    The Options Definition.
      * @return  array                                   An array of full option $names => $values.
      */
-    protected function resolveOptionsSet(string $shortcut, definitions\Options $definitions) : array
+    private function resolveShortOptionSet(string $shortcut, definitions\Options $definitions) : array
     {
         $length = strlen($shortcut);
         $result = [];
