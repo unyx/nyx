@@ -76,6 +76,42 @@ class Style implements interfaces\Style
     private $emphasis = [];
 
     /**
+     * Factory which attempts to create a new Style based on an inline styling syntax.
+     *
+     * @param   string  $string         The string to parse.
+     * @param   array   $properties     An array containing at most 2 keys: 'foreground' and 'background',
+     *                                  denoting the names those properties will be sought for to in the string.
+     *                                  Defaults to: ['foreground' => 'color', 'background' => 'bg'].
+     * @return  Style                   The Style that was created based on it.
+     */
+    public static function fromString(string $string, array $properties = null) : ?Style
+    {
+        if (!preg_match_all('/([^:]+):([^;]+)(;|$)/', strtolower($string), $matches, PREG_SET_ORDER)) {
+            return null;
+        }
+
+        // H-okay, seems we got a match.
+        $style = new Style(null);
+
+        foreach ($matches as $match) {
+
+            // Be forgiving regarding whitespaces (or lack thereof) in the string.
+            $property = trim($match[1]);
+            $value    = trim($match[2]);
+
+            if ($property === ($properties['foreground'] ?? 'color')) {
+                $style->setForeground($value);
+            } elseif ($property === ($properties['background'] ?? 'bg')) {
+                $style->setBackground($value);
+            } else {
+                $style->setEmphasis([$value]);
+            }
+        }
+
+        return $style;
+    }
+
+    /**
      * Constructs a new Output Formatting Style.
      *
      * @param   string  $foreground     The foreground color to be set.
