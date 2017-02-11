@@ -36,7 +36,7 @@ class Options extends parameter\Values
 
         // Handle value expectations appropriately.
         if (!$expected = $option->getValue()) {
-            if (isset($value)) {
+            if (isset($value) && !is_bool($value)) {
                 throw new \RuntimeException("The option [--$name] does not take any values.");
             }
         } elseif (!isset($value)) {

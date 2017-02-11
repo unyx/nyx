@@ -174,7 +174,7 @@ class Argv implements interfaces\Parser
                 break;
             }
 
-            $result[$definition->getName()] = true;
+            $result[$definition->getName()] = null;
         }
 
         return $result;
