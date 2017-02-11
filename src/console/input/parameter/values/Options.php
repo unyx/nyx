@@ -39,7 +39,7 @@ class Options extends parameter\Values
             if (isset($value)) {
                 throw new \RuntimeException("The option [--$name] does not take any values.");
             }
-        } elseif (isset($value)) {
+        } elseif (!isset($value)) {
             if ($expected->is(input\Value::REQUIRED)) {
                 throw new \RuntimeException("The option [--$name] requires a value.");
             }
