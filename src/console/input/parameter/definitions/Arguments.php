@@ -85,14 +85,7 @@ class Arguments extends input\parameter\Definitions
         $this->required      = 0;
 
         foreach ($this->extractItems($items) as $item) {
-
-            // Allow for defining Argument instances without explicitly instantiating them
-            // when creating Input Definitions.
-            if (is_array($item)) {
-                $item = new input\Argument(...$item);
-            }
-
-            $this->add($item);
+            $this->add(is_array($item) ? $this->unpack($item) : $item);
         }
 
         return $this;
@@ -202,5 +195,24 @@ class Arguments extends input\parameter\Definitions
     public function required() : int
     {
         return $this->required;
+    }
+
+    /**
+     * Unpacks a sequence of Argument constructor arguments into an Argument instance.
+     *
+     * @see     \nyx\console\input\Argument::__construct()
+     *
+     * @param   array           $definition     The arguments to unpack. The order must match the constructor's signature.
+     * @return  input\Argument
+     */
+    protected function unpack(array $definition) : input\Argument
+    {
+        // If the 4th argument is an integer, we are going to assume it's one of the input\Value
+        // class constants defining the mode and attempt to instantiate a input\Value with such.
+        if (isset($definition[2]) && is_int($definition[2])) {
+            $definition[2] = new input\Value($definition[2]);
+        }
+
+        return new input\Argument(...$definition);
     }
 }
